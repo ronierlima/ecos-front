@@ -1,0 +1,415 @@
+#nav {
+  position: absolute;
+  overflow: hidden;
+  height: 35px;
+  width: 99.99%;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: opx;
+  background-color: #5a5a5a;
+}
+
+#nav-content {
+  position: absolute;
+  overflow: hidden;
+  left: 300px;
+  cursor: pointer;
+}
+
+#menu {
+  position: absolute;
+  overflow: hidden;
+  height: 50px;
+  width: 99.99%;
+  top: 35px;
+  left: 0px;
+  right: 0px;
+  bottom: opx;
+  background-color: #333;
+}
+
+#container {
+  position: absolute;
+  overflow: hidden;
+  height: 84%;
+  width: 82%;
+  top: 102px;
+  /* left: 17%; */
+  left: auto;
+  right:15px;
+  bottom: 40px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  overflow-wrap: scroll;
+  overflow-anchor: scroll;
+  grid-column: 2;
+  background: url("../assets/grid.gif");
+}
+
+#sidebar {
+  position: absolute;
+  overflow: hidden;
+  padding: 20px;
+  left: 2%;
+  top: 102px;
+  width: 220px;
+  height: 80%;
+  bottom: 45px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+#rodape {
+  position: absolute;
+  overflow: hidden;
+  height: 32px;
+  width: 99.99%;
+  margin-top: auto;
+  top: auto;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #333;
+}
+
+.caption {
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+  color: #f0f0f0;
+  margin-top: 7px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+li {
+  float: left;
+}
+
+li a,
+.dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover,
+.dropdown:hover .dropbtn {
+  background-color: #5a5a5a;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+#logo {
+  position: absolute;
+  height: 45px;
+  width: 200px;
+  left: 45px;
+  top: -10px;
+}
+
+#salvar {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top: 10px;
+  left: 320px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#exportar {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top: 10px;
+  left: 360px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#zoom_in {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top: 10px;
+  left: 400px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#zoom_out {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top: 10px;
+  left: 440px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#zoom_actual {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top: 10px;
+  left: 480px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#deletar {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top: 10px;
+  left: 520px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#recortar {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 560px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#copiar {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 600px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#colar {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 640px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#desfazer {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 680px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#refazer {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 720px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#selecionar {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 760px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#none {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 800px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#imprimir {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 840px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#show {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 880px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#propriedades {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 920px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#agrupar {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 960px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#desagrupar {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 1000px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#pratras {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 1040px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#prafrente {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 1080px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#negrito {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 1120px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#sublinhado {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 1160px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#italico {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 10px;
+  left: 1200px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#select {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#select select{
+  background-color: #5a5a5a;
+  color: white;
+  width: 180px;
+  height: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: none;
+  font-size: 12pt;
+ 
+}
+
+
+
+.ssnObjeto svg, #ssntexto{
+  transition: 0.2s ease-in;
+  -webkit-transition: 0.2s ease-in;
+  -moz-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+}
+.ssnObjeto:hover svg, #ssntexto {
+  transform: scale(1.025, 1.025);
+}
+
+
+
