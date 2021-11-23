@@ -26,7 +26,7 @@ module.exports.pt = {
   desfazer_selecao:"Desfazer Seleção",
   print:"Imprimir",
   visualizar:"Visualizar",
-  propriedades:"Propriedades",
+  propriedades:"Propriedades XML",
   agrupar:"Agrupar",
   desagrupar:"Desagrupar",
   tras:"Para Trás",
@@ -38,7 +38,18 @@ module.exports.pt = {
   export_svg:"Exportar em SVG",
   export_xml:"Exportar em XML",
   export_json:"Exportar em JSON",
-  import:"Importar XML"
+  import:"Importar XML",
+  import2:"Importar Arquivo XML",
+  cancel:"Cancelar",
+  importar:"Importar",
+  baixar:"Baixar Arquivo",
+  imagem_PNG:"Baixar Imagem em PNG",
+  imagem_SVG:"Baixar Imagem em SVG",
+  xml:"Baixar em XML",
+  json:"Baixar em JSON",
+  sair:"Sair"
+
+
 
   
 };
@@ -70,7 +81,7 @@ module.exports.en = {
   desfazer_selecao:"Undo Selection",
   print:"Print Out",
   visualizar:"To View",
-  propriedades:"Properties",
+  propriedades:"Properties XML",
   agrupar:"Agroup",
   desagrupar:"Ungroup",
   tras:"To Back",
@@ -85,7 +96,16 @@ module.exports.en = {
   export_xml:"Export in XML",
   export_json:"Export in JSON",
   import:"Importar XML",
-  import:"Import XML"
+  import:"Import XML",
+  import2:"Import XML File",
+  cancel:"Cancel",
+  importar:"Import",
+  baixar:"Download file",
+  imagem_PNG:"Download PNG Image",
+  imagem_SVG:"Download SVG Image",
+  xml:"Download in XML",
+  json:"Download in JSON",
+  sair:"Get out"
 };
 
 module.exports.es = {
@@ -116,7 +136,7 @@ module.exports.es = {
   desfazer_selecao:"Deshacer Selección",
   print:"Imprimir",
   visualizar:"Para ver",
-  propriedades:"Propiedades",
+  propriedades:"Propiedades XML",
   agrupar:"Un Grupo",
   desagrupar:"Desagrupar",
   tras:"Volver",
@@ -131,5 +151,17 @@ module.exports.es = {
   export_svg:"Exportar en SVG",
   export_xml:"Exportar en XML",
   export_json:"Exportar en JSON",
-  import:"Importar XML"
+  import:"Importar XML",
+
+  import2:"Importar archivo XML",
+  cancel:"Cancelar",
+  importar:"Importar",
+  baixar:"Descargar archivo",
+  imagem_PNG:"Descargar imagen PNG",
+  imagem_SVG:"Descargar imagen SVG",
+  xml:"Descarga en XML",
+  json:"Descarga en JSON",
+  sair:"Sal"
+  
+  
 };

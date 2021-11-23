@@ -3,8 +3,139 @@
   <div>
     <div id="container"></div>
     <div id="sidebar"></div>
-    <div id="nav">
-      <div id="nav-content">
+    <div id="sidebar2">
+      <div id="italico_teste">
+        <img
+          width="30px"
+          @click="italico()"
+          src="../assets/italico.svg"
+          :alt="usingLang.italico"
+          :title="usingLang.italico"
+        />
+      </div>
+
+      <div id="sublinhado_teste">
+        <img
+          width="30px"
+          @click="sublinhado()"
+          src="../assets/sublinhado.svg"
+          :alt="usingLang.sublinhado"
+          :title="usingLang.sublinhado"
+        />
+      </div>
+
+      <div id="negrito_teste">
+        <img
+          width="30px"
+          @click="negrito()"
+          src="../assets/negrito.svg"
+          :alt="usingLang.negrito"
+          :title="usingLang.negrito"
+        />
+      </div>
+
+      <div id="prafrente_teste">
+        <img
+          width="30px"
+          @click="praFrente()"
+          src="../assets/tofront.svg"
+          :alt="usingLang.frente"
+          :title="usingLang.frente"
+        />
+      </div>
+
+      <div id="pratras_teste">
+        <img
+          width="30px"
+          @click="praTras()"
+          src="../assets/toback.svg"
+          :alt="usingLang.tras"
+          :title="usingLang.tras"
+        />
+      </div>
+
+      <div id="desagrupar_teste">
+        <img
+          width="30px"
+          @click="desagrupar()"
+          src="../assets/desagrupar.svg"
+          :alt="usingLang.desagrupar"
+          :title="usingLang.desagrupar"
+        />
+      </div>
+
+      <div id="agrupar_teste">
+        <img
+          width="30px"
+          @click="agrupar()"
+          src="../assets/agrupar.svg"
+          :alt="usingLang.agrupar"
+          :title="usingLang.agrupar"
+        />
+      </div>
+
+      <div id="propriedades_teste">
+        <img
+          width="30px"
+          @click="(showModalPropriedades = true), propriedades()"
+          src="../assets/propriedades.svg"
+          :alt="usingLang.propriedades"
+          :title="usingLang.propriedades"
+        />
+      </div>
+
+      <div id="show_teste">
+        <img
+          width="30px"
+          @click="show()"
+          src="../assets/show.svg"
+          :alt="usingLang.visualizar"
+          :title="usingLang.visualizar"
+        />
+      </div>
+
+      <div id="imprimir_teste">
+        <img
+          width="30px"
+          @click="imprimir()"
+          src="../assets/imprimir.svg"
+          :alt="usingLang.print"
+          :title="usingLang.print"
+        />
+      </div>
+
+      <div id="desfazer_selecao">
+        <img
+          width="30px"
+          @click="none()"
+          src="../assets/none.svg"
+          :alt="usingLang.desfazer_selecao"
+          :title="usingLang.desfazer_selecao"
+        />
+      </div>
+
+      <div id="selecionar_teste">
+        <img
+          width="30px"
+          @click="selecionarTudo()"
+          src="../assets/selecionar.svg"
+          :alt="usingLang.all"
+          :title="usingLang.all"
+        />
+      </div>
+    </div>
+    <div id="nav"></div>
+
+    <div id="menu">
+      <div id="logo">
+        <img
+          width="220px"
+          src="../assets/logo.png"
+          :title="usingLang.company_of_interest"
+        />
+      </div>
+
+      <!--<div id="nav-content">
         <ul>
           <li>
             <a @click="pngSalvar()">{{ usingLang.export_png }}</a>
@@ -19,255 +150,131 @@
             <a @click="exportarJson()">{{ usingLang.export_json }}</a>
           </li>
           <li>
-            <a @click="importar()">{{ usingLang.import }}</a>
+            <a @click="showModal = true">{{ usingLang.import }}</a>
           </li>
         </ul>
-      </div>
-    </div>
-    <div id="rodape">
-      <span class="caption"
-        >Universidade Federal do Ceará - Campus Quixadá &copy;
-        {{ new Date().getFullYear() }}</span
-      >
-    </div>
+      </div>-->
 
-    <div id="menu">
-      <div id="logo">
-        <img
-          width="220px"
-          src="../assets/logo.png"
-          :title="usingLang.company_of_interest"
-        />
-      </div>
+      <div id="acoes_teste">
+        <div id="exportar">
+          <img
+            width="30px"
+            @click="showModalSalvar = true"
+            src="../assets/exportar.svg"
+            :alt="usingLang.export"
+            :title="usingLang.export"
+          />
+        </div>
 
-      <div id="salvar">
-        <img
-          width="30px"
-          @click="pngSalvar()"
-          src="../assets/salvar.svg"
-          :alt="usingLang.save"
-          :title="usingLang.save"
-        />
-      </div>
+        <div id="importar">
+          <img
+            width="30px"
+            @click="showModal = true"
+            src="../assets/import.svg"
+            :alt="usingLang.import"
+            :title="usingLang.import"
+          />
+        </div>
 
-      <div id="exportar">
-        <img
-          width="30px"
-          @click="exportarXml()"
-          src="../assets/exportar.svg"
-          :alt="usingLang.export"
-          :title="usingLang.export"
-        />
-      </div>
+        <div id="zoom_in">
+          <img
+            width="30px"
+            @click="zoomMais()"
+            src="../assets/zoom_in.svg"
+            :alt="usingLang.zoomin"
+            :title="usingLang.zoomin"
+          />
+        </div>
 
-      <div id="zoom_in">
-        <img
-          width="30px"
-          @click="zoomMais()"
-          src="../assets/zoom_in.svg"
-          :alt="usingLang.zoomin"
-          :title="usingLang.zoomin"
-        />
-      </div>
+        <div id="zoom_out">
+          <img
+            width="30px"
+            @click="zoomMenos()"
+            src="../assets/zoom_out.svg"
+            :alt="usingLang.zoomout"
+            :title="usingLang.zoomout"
+          />
+        </div>
 
-      <div id="zoom_out">
-        <img
-          width="30px"
-          @click="zoomMenos()"
-          src="../assets/zoom_out.svg"
-          :alt="usingLang.zoomout"
-          :title="usingLang.zoomout"
-        />
-      </div>
+        <div id="zoom_actual">
+          <img
+            width="30px"
+            @click="zommAtual()"
+            src="../assets/zoom_actual.svg"
+            :alt="usingLang.zoomDefault"
+            :title="usingLang.zoomDefault"
+          />
+        </div>
 
-      <div id="zoom_actual">
-        <img
-          width="30px"
-          @click="zommAtual()"
-          src="../assets/zoom_actual.svg"
-          :alt="usingLang.zoomDefault"
-          :title="usingLang.zoomDefault"
-        />
-      </div>
+        <div id="deletar">
+          <img
+            width="30px"
+            @click="apagar()"
+            src="../assets/delete.svg"
+            :alt="usingLang.delete"
+            :title="usingLang.delete"
+          />
+        </div>
 
-      <div id="deletar">
-        <img
-          width="30px"
-          @click="apagar()"
-          src="../assets/delete.svg"
-          :alt="usingLang.delete"
-          :title="usingLang.delete"
-        />
-      </div>
+        <div id="recortar">
+          <img
+            width="30px"
+            @click="recortar()"
+            src="../assets/recortar.svg"
+            :alt="usingLang.recort"
+            :title="usingLang.recort"
+          />
+        </div>
 
-      <div id="recortar">
-        <img
-          width="30px"
-          @click="recortar()"
-          src="../assets/recortar.svg"
-          :alt="usingLang.recort"
-          :title="usingLang.recort"
-        />
-      </div>
+        <div id="copiar">
+          <img
+            width="30px"
+            @click="copiar()"
+            src="../assets/copiar.svg"
+            :alt="usingLang.copy"
+            :title="usingLang.copy"
+          />
+        </div>
 
-      <div id="copiar">
-        <img
-          width="30px"
-          @click="copiar()"
-          src="../assets/copiar.svg"
-          :alt="usingLang.copy"
-          :title="usingLang.copy"
-        />
-      </div>
+        <div id="colar">
+          <img
+            width="30px"
+            @click="colar()"
+            src="../assets/colar.svg"
+            :alt="usingLang.colar"
+            :title="usingLang.colar"
+          />
+        </div>
 
-      <div id="colar">
-        <img
-          width="30px"
-          @click="colar()"
-          src="../assets/colar.svg"
-          :alt="usingLang.colar"
-          :title="usingLang.colar"
-        />
-      </div>
+        <div id="desfazer">
+          <img
+            width="30px"
+            @click="desfazer()"
+            src="../assets/desfazer.svg"
+            :alt="usingLang.desfazer"
+            :title="usingLang.desfazer"
+          />
+        </div>
 
-      <div id="desfazer">
-        <img
-          width="30px"
-          @click="desfazer()"
-          src="../assets/desfazer.svg"
-          :alt="usingLang.desfazer"
-          :title="usingLang.desfazer"
-        />
-      </div>
+        <div id="refazer">
+          <img
+            width="30px"
+            @click="refazer()"
+            src="../assets/refazer.svg"
+            :alt="usingLang.refazer"
+            :title="usingLang.refazer"
+          />
+        </div>
 
-      <div id="refazer">
-        <img
-          width="30px"
-          @click="refazer()"
-          src="../assets/refazer.svg"
-          :alt="usingLang.refazer"
-          :title="usingLang.refazer"
-        />
-      </div>
-
-      <div id="selecionar">
-        <img
-          width="30px"
-          @click="selecionarTudo()"
-          src="../assets/selecionar.svg"
-          :alt="usingLang.all"
-          :title="usingLang.all"
-        />
-      </div>
-
-      <div id="none">
-        <img
-          width="28px"
-          @click="none()"
-          src="../assets/none.svg"
-          :alt="usingLang.desfazer_selecao"
-          :title="usingLang.desfazer_selecao"
-        />
-      </div>
-
-      <div id="imprimir">
-        <img
-          width="30px"
-          @click="imprimir()"
-          src="../assets/imprimir.svg"
-          :alt="usingLang.print"
-          :title="usingLang.print"
-        />
-      </div>
-
-      <div id="show">
-        <img
-          width="30px"
-          @click="show()"
-          src="../assets/show.svg"
-          :alt="usingLang.visualizar"
-          :title="usingLang.visualizar"
-        />
-      </div>
-
-      <div id="propriedades">
-        <img
-          width="30px"
-          @click="propriedades()"
-          src="../assets/propriedades.svg"
-          :alt="usingLang.propriedades"
-          :title="usingLang.propriedades"
-        />
-      </div>
-
-      <div id="agrupar">
-        <img
-          width="30px"
-          @click="agrupar()"
-          src="../assets/agrupar.svg"
-          :alt="usingLang.agrupar"
-          :title="usingLang.agrupar"
-        />
-      </div>
-
-      <div id="desagrupar">
-        <img
-          width="30px"
-          @click="desagrupar()"
-          src="../assets/desagrupar.svg"
-          :alt="usingLang.desagrupar"
-          :title="usingLang.desagrupar"
-        />
-      </div>
-
-      <div id="pratras">
-        <img
-          width="30px"
-          @click="praTras()"
-          src="../assets/toback.svg"
-          :alt="usingLang.tras"
-          :title="usingLang.tras"
-        />
-      </div>
-
-      <div id="prafrente">
-        <img
-          width="30px"
-          @click="praFrente()"
-          src="../assets/tofront.svg"
-          :alt="usingLang.frente"
-          :title="usingLang.frente"
-        />
-      </div>
-
-      <div id="negrito">
-        <img
-          width="30px"
-          @click="negrito()"
-          src="../assets/negrito.svg"
-          :alt="usingLang.negrito"
-          :title="usingLang.negrito"
-        />
-      </div>
-
-      <div id="sublinhado">
-        <img
-          width="30px"
-          @click="sublinhado()"
-          src="../assets/sublinhado.svg"
-          :alt="usingLang.sublinhado"
-          :title="usingLang.sublinhado"
-        />
-      </div>
-
-      <div id="italico">
-        <img
-          width="30px"
-          @click="italico()"
-          src="../assets/italico.svg"
-          :alt="usingLang.italico"
-          :title="usingLang.italico"
-        />
+        <div id="selecionar">
+          <img
+            width="32px"
+            @click="selecionarRelacoes()"
+            src="../assets/select_vertices.svg"
+            :alt="usingLang.italico"
+            :title="usingLang.italico"
+          />
+        </div>
       </div>
 
       <div id="select">
@@ -277,9 +284,116 @@
           <option value="es">Espanhol</option>
         </select>
       </div>
-
-      <div></div>
     </div>
+    <transition name="modal" v-if="showModal">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h3 name="header">{{ usingLang.import2 }}</h3>
+            </div>
+
+            <div class="modal-body">
+              <input type="file" id="myFile" name="filename" accept=".xml" />
+            </div>
+
+            <div class="modal-footer">
+              <slot name="footer">
+                <button
+                  class="modal-default-button cancel"
+                  @click="showModal = false"
+                >
+                  {{ usingLang.cancel }}
+                </button>
+                <button class="modal-default-button" @click="importar()">
+                  {{ usingLang.importar }}
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="modal2" v-if="showModalSalvar">
+      <div class="modal2-mask">
+        <div class="modal2-wrapper">
+          <div class="modal2-container">
+            <div class="modal2-header">
+              <h3 name="header">{{ usingLang.baixar }}</h3>
+            </div>
+
+            <div class="modal2-body">
+              <button
+                class="modal2-button-png"
+                @click="pngSalvar(), (showModalSalvar = false)"
+              >
+                {{ usingLang.imagem_PNG }}
+              </button>
+
+              <button
+                class="modal2-button-svg"
+                @click="svgExportar(), (showModalSalvar = false)"
+              >
+                {{ usingLang.imagem_SVG }}
+              </button>
+
+              <button
+                class="modal2-button-xml"
+                @click="exportarXml(), (showModalSalvar = false)"
+              >
+                {{ usingLang.xml }}
+              </button>
+
+              <button
+                class="modal2-button-json"
+                @click="exportarJson(), (showModalSalvar = false)"
+              >
+                {{ usingLang.json }}
+              </button>
+            </div>
+
+            <div class="modal2-footer">
+              <slot name="footer">
+                <button
+                  class="modal2-default-button cancel"
+                  @click="showModalSalvar = false"
+                >
+                  {{ usingLang.cancel }}
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="modal3" v-if="showModalPropriedades">
+      <div class="modal3-mask">
+        <div class="modal3-wrapper">
+          <div class="modal3-container">
+            <div class="modal3-header">
+              <h3 name="header">{{ usingLang.propriedades }}</h3>
+            </div>
+
+            <div class="modal3-body">
+              {{ this.mostarPropriedades }}
+            </div>
+
+            <div class="modal3-footer">
+              <slot name="footer">
+                <button
+                  class="modal3-default-button cancel"
+                  @click="showModalPropriedades = false"
+                >
+                  {{ usingLang.sair }}
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -302,6 +416,10 @@ export default {
   components: {},
   data() {
     return {
+      mostarPropriedades: "",
+      showModalPropriedades: false,
+      showModalSalvar: false,
+      showModal: false,
       usingLang: {},
       dialog: false,
       currentCell: null,
@@ -581,6 +699,7 @@ export default {
           model.endUpdate();
         }
       };
+
       //Cria a imagem que serve de ícone da barra lateral (fonte de arrastar) - Cliente do cliente
       let clienteDoCliente = document.createElement("div");
       clienteDoCliente.classList.add("ssnObjeto");
@@ -1491,8 +1610,39 @@ export default {
         //new mxRubberband(editor.graph);
         //editor.graph.mxRubberband = true;
 
-        //================================================================================ novo
+        //this.mxRubberband(editor.graph);
 
+        var rubberband = new mxRubberband(editor.graph);
+
+        this.getRubberband = function () {
+          return rubberband;
+        };
+
+        mxRubberband.prototype.fadeOut = true;
+
+        // Adds rotation handle and live preview
+        mxVertexHandler.prototype.rotationEnabled = true;
+        mxVertexHandler.prototype.manageSizers = true;
+        mxVertexHandler.prototype.livePreview = true;
+        mxGraphHandler.prototype.maxLivePreview = 16;
+
+        // Increases default rubberband opacity (default is 20)
+        mxRubberband.prototype.defaultOpacity = 30;
+
+        // Enables connections along the outline, virtual waypoints, parent highlight etc
+        mxConnectionHandler.prototype.outlineConnect = true;
+        mxCellHighlight.prototype.keepOnTop = true;
+        mxVertexHandler.prototype.parentHighlightEnabled = true;
+
+        mxEdgeHandler.prototype.parentHighlightEnabled = true;
+        mxEdgeHandler.prototype.dblClickRemoveEnabled = true;
+        mxEdgeHandler.prototype.straightRemoveEnabled = true;
+        mxEdgeHandler.prototype.virtualBendsEnabled = true;
+        mxEdgeHandler.prototype.mergeRemoveEnabled = true;
+        mxEdgeHandler.prototype.manageLabelHandle = true;
+        mxEdgeHandler.prototype.outlineConnect = true;
+
+        //================================================================================ novo
 
         //================================================================================
 
@@ -1512,16 +1662,16 @@ export default {
         };
 
         // zoom com o mouse
-        mxEvent.addMouseWheelListener(function (evt, up) {
-          if (!mxEvent.isConsumed(evt)) {
-            if (up) {
-              editor.graph.zoomIn();
-            } else {
-              editor.graph.zoomOut();
-            }
-            mxEvent.consume(evt);
-          }
-        });
+        //mxEvent.addMouseWheelListener(function (evt, up) {
+          //if (!mxEvent.isConsumed(evt)) {
+            //if (up) {
+              //editor.graph.zoomIn();
+            //} else {
+              //editor.graph.zoomOut();
+            //}
+            //mxEvent.consume(evt);
+          //}
+        //});
 
         //=================================
         editor.graph.cellRenderer.installCellOverlayListeners = function (
@@ -1609,6 +1759,70 @@ export default {
           "#00FF00";
       }
     },
+
+    // =================================================================================================================================
+
+    mxRubberband(graph) {
+      if (graph != null) {
+        editor.graph = graph;
+        editor.graph.addMouseListener(this);
+
+        // Handles force rubberband event
+        this.forceRubberbandHandler = mxUtils.bind(
+          this,
+          function (sender, evt) {
+            var evtName = evt.getProperty("eventName");
+            var me = evt.getProperty("event");
+
+            if (
+              evtName == mxEvent.MOUSE_DOWN &&
+              this.isForceRubberbandEvent(me)
+            ) {
+              var offset = mxUtils.getOffset(editor.graph.container);
+              var origin = mxUtils.getScrollOrigin(editor.graph.container);
+              origin.x -= offset.x;
+              origin.y -= offset.y;
+              this.start(me.getX() + origin.x, me.getY() + origin.y);
+              me.consume(false);
+            }
+          }
+        );
+
+        editor.graph.addListener(
+          mxEvent.FIRE_MOUSE_EVENT,
+          this.forceRubberbandHandler
+        );
+
+        // Repaints the marquee after autoscroll
+        this.panHandler = mxUtils.bind(this, function () {
+          this.repaint();
+        });
+
+        editor.graph.addListener(mxEvent.PAN, this.panHandler);
+
+        // Does not show menu if any touch gestures take place after the trigger
+        this.gestureHandler = mxUtils.bind(this, function (sender, eo) {
+          if (this.first != null) {
+            this.reset();
+          }
+        });
+
+        editor.graph.addListener(mxEvent.GESTURE, this.gestureHandler);
+
+        // Automatic deallocation of memory
+        if (mxClient.IS_IE) {
+          mxEvent.addListener(
+            window,
+            "unload",
+            mxUtils.bind(this, function () {
+              this.destroy();
+            })
+          );
+        }
+      }
+    },
+
+    // =================================================================================================================================
 
     imprimir() {
       var preview = new mxPrintPreview(editor.graph);
@@ -1706,25 +1920,45 @@ export default {
       }
     },
 
-    // teste do importar
-    importar() {
-      var xml =
-        '<?xml version="1.0"?> <mxGraphModel> <root> <mxCell id="0"/> <mxCell id="1" parent="0"/> -<mxCell id="2" parent="1" vertex="1" style="shape=singleArrow;fillColor=orange;strokeColor=black;fontColor=black;"> <Nome as="value">{"name":"Fornecedor"}</Nome> <mxGeometry as="geometry" height="50" width="200" y="140" x="310"> <mxRectangle as="alternateBounds" height="50" width="200"/> </mxGeometry> </mxCell> </root> </mxGraphModel>';
+    propriedades() {
       var enc = new mxCodec(mxUtils.createXmlDocument());
-      var teste = enc.encode(xml);
-      var node3 = mxUtils.getXml(xml);
+      var node = enc.encode(editor.graph.getModel());
+      var node2 = mxUtils.getXml(node);
+      this.mostarPropriedades = node2;
 
-      var client = new XMLHttpRequest();
-      //client.onload = xml;
-      //client.open("GET", "xml.xml");
-      //client.send();
+      //mxUtils.getPrettyXml(node);
+      // console.log(mxUtils.getPrettyXml(node));
+    },
 
-      var xmlDoc = (client.onload = mxUtils.getXml(xml));
-      client.open("GET", "teste.xml");
-      client.send();
-      var node = xmlDoc.documentElement;
-      var dec = new mxCodec(node.ownerDocument);
-      dec.decode(node, editor.graph.getModel());
+    selecionarRelacoes() {
+      if (editor.graph.isEnabled()) {
+        let contador = editor.graph.selectEdges();
+        console.log(contador);
+      }
+    },
+
+    // metodo do importar
+    importar() {
+      const input = document.querySelector('input[type="file"]');
+      const file = input.files[0];
+      var textType = /text.*/;
+
+      if (file.type.match(textType)) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          var xmlDoc = mxUtils.parseXml(reader.result);
+
+          var node = xmlDoc.documentElement;
+          var dec = new mxCodec(node.ownerDocument);
+          dec.decode(node, editor.graph.getModel());
+        };
+
+        reader.readAsText(file);
+      } else {
+        xmlFileInfo.innerText = "File not supported!";
+      }
+      this.showModal = false;
     },
 
     exportarXml() {
@@ -2039,13 +2273,6 @@ export default {
       saveSvgAsPng(root, "Diagrama.png");
     },
 
-    propriedades() {
-      var enc = new mxCodec(mxUtils.createXmlDocument());
-      var node = enc.encode(editor.graph.getModel());
-      alert(mxUtils.getPrettyXml(node));
-      console.log(mxUtils.getPrettyXml(node));
-    },
-
     negrito() {
       if (editor.graph.isEnabled()) {
         editor.graph.toggleCellStyleFlags(
@@ -2170,6 +2397,7 @@ export default {
       mxOutline,
       mxRubberband,
       mxPopupMenu,
+      mxCellHighlight,
     } = mxgraph(graphConfig);
 
     window.mxClient = mxClient;
@@ -2222,6 +2450,7 @@ export default {
     window.mxOutline = mxOutline;
     window.mxRubberband = mxRubberband;
     window.mxPopupMenu = mxPopupMenu;
+    window.mxCellHighlight = mxCellHighlight;
 
     window.CustomUserObject = function (name) {
       this.name = name;
