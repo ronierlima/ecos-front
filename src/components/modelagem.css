@@ -1,3 +1,8 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 #nav {
   position: absolute;
   overflow: hidden;
@@ -7,30 +12,20 @@
   left: 0px;
   right: 0px;
   bottom: opx;
-  background-color: #F2F0E6;
-}
-
-#nav-content {
-  position: absolute;
-  overflow: hidden;
-  top: -10px;
-  left: 300px;
-  cursor: pointer;
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
 }
 
 #menu {
   position: absolute;
   overflow: hidden;
   height: 50px;
-  width: 99.99%;
   top: 35px;
   left: 0px;
   right: 0px;
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
 }
 
-#acoes_teste{
+#acoes_teste {
   position: relative;
   overflow: hidden;
   top: -9.5px;
@@ -44,11 +39,11 @@
   position: absolute;
   overflow: hidden;
   height: 90.8%;
-  width:84%;
+  width: 84%;
   top: 90px;
   /* left: 17%; */
   left: auto;
-  right:62px;
+  right: 62px;
   bottom: 40px;
   overflow-x: scroll;
   overflow-y: scroll;
@@ -71,11 +66,8 @@
   flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
 }
-
-
-
 
 #rodape {
   position: absolute;
@@ -107,9 +99,9 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
   font-family: Arial, Helvetica, sans-serif;
-  color: #5E5E5E;
+  color: #5e5e5e;
 }
 
 li {
@@ -119,7 +111,7 @@ li {
 li a,
 .dropbtn {
   display: inline-block;
-  color: #5E5E5E;;
+  color: #5e5e5e;
   text-align: center;
   padding: 14px 16px;
   font-weight: bold;
@@ -186,8 +178,6 @@ li.dropdown {
   cursor: pointer;
   background-color: transparent;
 }
-
-
 
 #zoom_in {
   position: absolute;
@@ -295,26 +285,26 @@ li.dropdown {
   top: -9px;
 }
 
-#select select{
-  background-color: #F2F0E6;
-  color: #5E5E5E;
+#select select {
+  background-color: #f2f0e6;
+  color: #5e5e5e;
   width: 180px;
   font-weight: bold;
   height: 50px;
   font-family: Arial, Helvetica, sans-serif;
   border: none;
   font-size: 12pt;
- 
 }
 
-
-.ssnObjeto svg, #ssntexto{
+.ssnObjeto svg,
+#ssntexto {
   transition: 0.2s ease-in;
   -webkit-transition: 0.2s ease-in;
   -moz-transition: 0.2s ease-in;
   -o-transition: 0.2s ease-in;
 }
-.ssnObjeto:hover svg, #ssntexto {
+.ssnObjeto:hover svg,
+#ssntexto {
   transform: scale(1.025, 1.025);
 }
 /*  ==========================novo modal 2*/
@@ -353,11 +343,11 @@ li.dropdown {
 }
 
 .modal2-header {
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
   padding: 0 10px;
 }
 .modal2-header h3 {
-  color: #5E5E5E;
+  color: #5e5e5e;
 }
 
 .modal2-body {
@@ -368,29 +358,27 @@ li.dropdown {
   justify-content: space-between;
   align-items: center;
   justify-content: center;
- 
 }
 
 .modal2-button-png {
   position: relative;
   font-size: large;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
   cursor: pointer;
 }
 
-
 .modal2-button-svg {
   position: relative;
   font-size: large;
   top: 15px;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
@@ -402,8 +390,8 @@ li.dropdown {
   font-size: large;
   top: 30px;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
@@ -415,20 +403,19 @@ li.dropdown {
   font-size: large;
   top: 45px;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
   cursor: pointer;
 }
 
-
 .modal2-default-button {
   position: relative;
   font-size: large;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
 
@@ -505,11 +492,11 @@ li.dropdown {
 }
 
 .modal3-header {
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
   padding: 0 10px;
 }
 .modal3-header h3 {
-  color: #5E5E5E;
+  color: #5e5e5e;
 }
 
 .modal3-body {
@@ -520,34 +507,32 @@ li.dropdown {
   justify-content: space-between;
   align-items: center;
   justify-content: center;
-  
+
   overflow-y: scroll;
   overflow-wrap: scroll;
   overflow-anchor: scroll;
   grid-column: 2;
- 
 }
 
 .modal3-button-png {
   position: relative;
   font-size: large;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
   cursor: pointer;
 }
 
-
 .modal3-button-svg {
   position: relative;
   font-size: large;
   top: 15px;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
@@ -559,8 +544,8 @@ li.dropdown {
   font-size: large;
   top: 30px;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
@@ -572,20 +557,19 @@ li.dropdown {
   font-size: large;
   top: 45px;
   width: 750px;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
   padding: 10px;
   cursor: pointer;
 }
 
-
 .modal3-default-button {
   position: relative;
   font-size: large;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
 
@@ -626,9 +610,6 @@ li.dropdown {
 }
 /*  ==========================novo modal*/
 
-
-
-
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -665,11 +646,11 @@ li.dropdown {
 }
 
 .modal-header {
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
   padding: 0 10px;
 }
 .modal-header h3 {
-  color: #5E5E5E;
+  color: #5e5e5e;
 }
 
 .modal-body {
@@ -682,24 +663,25 @@ input[type="file"] {
   font-size: large;
 }
 
-input[type=file]::file-selector-button {
-  border: 2px solid #5E5E5E;
-  padding: .2em .4em;
-  border-radius: .2em;
-  background-color: #5E5E5E;
+input[type="file"]::file-selector-button {
+  border: 2px solid #5e5e5e;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: #5e5e5e;
   transition: 1s;
   color: #fff;
   cursor: pointer;
 }
 
-input[type=file]::file-selector-button:hover, .modal-default-button:hover {
+input[type="file"]::file-selector-button:hover,
+.modal-default-button:hover {
   background-color: #5a5a5a;
 }
 
 .modal-default-button {
   font-size: large;
-  border: 2px solid #5E5E5E;
-  background-color: #5E5E5E;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
   color: #fff;
   border-radius: 2px;
 
@@ -741,13 +723,13 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
 
 /* novo*/
 
-#sidebar2{
+#sidebar2 {
   position: absolute;
   overflow: hidden;
   width: 62.5px;
   height: 91.3%;
   padding: auto;
-  background-color: #F2F0E6;
+  background-color: #f2f0e6;
   left: 96.7%;
   top: 85px;
   bottom: 30px;
@@ -757,7 +739,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   justify-content: center;
 }
 
-#salvar_teste{
+#salvar_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -765,7 +747,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#selecionar_teste{
+#selecionar_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -773,7 +755,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#desfazer_selecao{
+#desfazer_selecao {
   position: relative;
   height: 50px;
   width: 50px;
@@ -781,7 +763,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#imprimir_teste{
+#imprimir_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -789,7 +771,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#show_teste{
+#show_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -797,7 +779,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#propriedades_teste{
+#propriedades_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -805,7 +787,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#agrupar_teste{
+#agrupar_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -813,7 +795,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#desagrupar_teste{
+#desagrupar_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -821,7 +803,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#pratras_teste{
+#pratras_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -829,7 +811,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#prafrente_teste{
+#prafrente_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -837,7 +819,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#negrito_teste{
+#negrito_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -845,7 +827,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#sublinhado_teste{
+#sublinhado_teste {
   position: relative;
   height: 50px;
   width: 50px;
@@ -853,7 +835,7 @@ input[type=file]::file-selector-button:hover, .modal-default-button:hover {
   background-color: transparent;
 }
 
-#italico_teste{
+#italico_teste {
   position: relative;
   height: 50px;
   width: 50px;
