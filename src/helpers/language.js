@@ -16,7 +16,6 @@ module.exports.pt = {
   zoomout: "Zoom menos",
   zoomDefault: "Zoom padrão",
 
-  
   recort:"Recortar",
   copy:"Copiar",
   colar:"Colar",
@@ -27,6 +26,8 @@ module.exports.pt = {
   print:"Imprimir",
   visualizar:"Visualizar",
   propriedades:"Propriedades XML",
+  estatisticas:"Estatísticas do modelo",
+  relacionamentos:"Relacionamentos",
   agrupar:"Agrupar",
   desagrupar:"Desagrupar",
   tras:"Para Trás",
@@ -47,10 +48,7 @@ module.exports.pt = {
   imagem_SVG:"Baixar Imagem em SVG",
   xml:"Baixar em XML",
   json:"Baixar em JSON",
-  sair:"Sair"
-
-
-
+  sair:"Sair",
   
 };
 
@@ -82,6 +80,8 @@ module.exports.en = {
   print:"Print Out",
   visualizar:"To View",
   propriedades:"Properties XML",
+  estatisticas:"Model statistics",
+  relacionamentos:"Relationships",
   agrupar:"Agroup",
   desagrupar:"Ungroup",
   tras:"To Back",
@@ -95,7 +95,6 @@ module.exports.en = {
   export_svg:"Export in SVG",
   export_xml:"Export in XML",
   export_json:"Export in JSON",
-  import:"Importar XML",
   import:"Import XML",
   import2:"Import XML File",
   cancel:"Cancel",
@@ -137,6 +136,8 @@ module.exports.es = {
   print:"Imprimir",
   visualizar:"Para ver",
   propriedades:"Propiedades XML",
+  estatisticas:"Estadísticas del modelo",
+  relacionamentos:"Relaciones",
   agrupar:"Un Grupo",
   desagrupar:"Desagrupar",
   tras:"Volver",

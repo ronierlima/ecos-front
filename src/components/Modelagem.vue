@@ -138,7 +138,6 @@
           <option value="en">Inglês</option>
           <option value="es">Espanhol</option>
         </select>
-        <div>{{ usuario.nome }}</div>
       </div>
     </div>
     <div id="sidebar"></div>
@@ -250,6 +249,16 @@
           src="../assets/none.svg"
           :alt="usingLang.desfazer_selecao"
           :title="usingLang.desfazer_selecao"
+        />
+      </div>
+
+      <div id="selecionar_teste">
+        <img
+          width="30px"
+          @click="(showModalRelatorio = true), gerarRelario()"
+          src="../assets/propriedades.svg"
+          :alt="usingLang.propriedades"
+          :title="usingLang.propriedades"
         />
       </div>
 
@@ -376,6 +385,44 @@
         </div>
       </div>
     </transition>
+
+    <transition name="modal3" v-if="showModalRelatorio">
+      <div class="modal3-mask">
+        <div class="modal3-wrapper">
+          <div class="modal3-container">
+            <div class="modal3-header">
+              <h3 name="header">{{ this.usingLang.estatisticas }}</h3>
+            </div>
+
+            <div class="modal3-body">
+              <ul
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  gap: 10px;
+                  padding: 20px;
+                "
+              >
+                <li :key="index" v-for="(value, index) in relatorio">
+                  {{ value.nome }}: {{ value.total }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="modal3-footer">
+              <slot name="footer">
+                <button
+                  class="modal3-default-button cancel"
+                  @click="showModalRelatorio = false"
+                >
+                  {{ usingLang.sair }}
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -390,24 +437,44 @@ import convert from "xml-js";
 
 import language from "../helpers/language";
 import ssn from "../helpers/ssn";
+
 let editor;
 import "./modelagem.css";
+import { get } from "http";
+
+function occurrences(string, subString, allowOverlapping) {
+  string += "";
+  subString += "";
+  if (subString.length <= 0) return string.length + 1;
+
+  var n = 0,
+    pos = 0,
+    step = allowOverlapping ? 1 : subString.length;
+
+  while (true) {
+    pos = string.indexOf(subString, pos);
+    if (pos >= 0) {
+      ++n;
+      pos += step;
+    } else break;
+  }
+  return n;
+}
 
 export default {
   name: "Modelagem",
-  props: {
-    usuario: Object,
-  },
   data() {
     return {
       mostarPropriedades: "",
       showModalPropriedades: false,
+      showModalRelatorio: false,
       showModalSalvar: false,
       showModal: false,
       usingLang: {},
       dialog: false,
       currentCell: null,
       selected: navigator.language || navigator.userLanguage,
+      relatorio: null,
     };
   },
 
@@ -1156,7 +1223,7 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-      
+
         // clientedocliente shape
         function StepShape() {
           mxActor.call(this);
@@ -1262,7 +1329,7 @@ export default {
         }
 
         let object = new mxCell(
-         this.usingLang.intermediary,
+          this.usingLang.intermediary,
           new mxGeometry(0, 0, 200, 50),
           "shape=doubleArrow;fillColor=LimeGreen;strokeColor=black;fontColor=black;tipo=intermediario"
         );
@@ -1414,7 +1481,7 @@ export default {
         let object = new mxCell(
           this.usingLang.customer,
           new mxGeometry(0, 0, 200, 50),
-          "shape=singleArrow;fillColor=yellow;strokeColor=black;fontColor=black;flipH=1;tipo=cliente"
+          "shape=singleArrow;fillColor=yellow;strokeColor=black;fontColor=black;flipH=1;tipo=cliente1"
         );
 
         object.setVertex(true);
@@ -1433,9 +1500,9 @@ export default {
         mxClient.IS_QUIRKS && (document.body.style.overflow = "hidden");
 
         const object = new mxCell(
-          "",
+          this.usingLang.company_of_interest,
           new mxGeometry(0, 0, 200, 50),
-          "fillColor=blue;strokeColor=black;fontColor=white;type=empresa"
+          "fillColor=blue;strokeColor=black;fontColor=white;tipo=empresa"
         );
 
         object.setVertex(true);
@@ -1456,7 +1523,7 @@ export default {
         }
 
         let object = new mxCell(
-          "..."+this.usingLang.text,
+          "..." + this.usingLang.text,
           new mxGeometry(0, 0, 200, 50),
           "fillColor=transparent;strokeColor=transparent;fontColor=black;tipo=texto"
         );
@@ -1776,6 +1843,52 @@ export default {
       }
     },
 
+    gerarRelario() {
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var xmlString = mxUtils.getXml(node);
+
+      const tipos = [
+        {
+          nome: this.usingLang.company_of_interest,
+          total: occurrences(xmlString, "tipo=empresa"),
+        },
+        {
+          nome: this.usingLang.supplier,
+          total: occurrences(xmlString, "tipo=fornecedor"),
+        },
+        {
+          nome: this.usingLang.customer,
+          total: occurrences(xmlString, "tipo=cliente1"),
+        },
+        {
+          nome: this.usingLang.customer_customer,
+          total: occurrences(xmlString, "tipo=cliente2"),
+        },
+        {
+          nome: this.usingLang.intermediary,
+          total: occurrences(xmlString, "tipo=intermediario"),
+        },
+        {
+          nome: this.usingLang.aggregator,
+          total: occurrences(xmlString, "tipo=agregador"),
+        },
+      ];
+
+      this.relatorio = [
+        ...tipos,
+        {
+          nome: this.usingLang.relacionamentos,
+          total: occurrences(xmlString, `edge="1"`),
+        },
+        {
+          nome: this.usingLang.total || "Total",
+
+          total: tipos.reduce((total, obj) => total + obj.total, 0),
+        },
+      ];
+    },
+
     propriedades() {
       var enc = new mxCodec(mxUtils.createXmlDocument());
       var node = enc.encode(editor.graph.getModel());
@@ -1791,27 +1904,38 @@ export default {
     },
 
     // metodo do importar
-    importar() {
-      const input = document.querySelector('input[type="file"]');
-      const file = input.files[0];
-      var textType = /text.*/;
+    importar(xml = null) {
+      if (xml) {
 
-      if (file.type.match(textType)) {
-        var reader = new FileReader();
+      
+        var xmlDoc = mxUtils.parseXml(xml);
 
-        reader.onload = function (e) {
-          var xmlDoc = mxUtils.parseXml(reader.result);
+        var node = xmlDoc.documentElement;
+        var dec = new mxCodec(node.ownerDocument);
+        dec.decode(node, editor.graph.getModel());
 
-          var node = xmlDoc.documentElement;
-          var dec = new mxCodec(node.ownerDocument);
-          dec.decode(node, editor.graph.getModel());
-        };
-
-        reader.readAsText(file);
       } else {
-        xmlFileInfo.innerText = "File not supported!";
+        const input = document.querySelector('input[type="file"]');
+        const file = input.files[0];
+        var textType = /text.*/;
+
+        if (file.type.match(textType)) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var xmlDoc = mxUtils.parseXml(reader.result);
+
+            var node = xmlDoc.documentElement;
+            var dec = new mxCodec(node.ownerDocument);
+            dec.decode(node, editor.graph.getModel());
+          };
+
+          reader.readAsText(file);
+        } else {
+          xmlFileInfo.innerText = "File not supported!";
+        }
+        this.showModal = false;
       }
-      this.showModal = false;
     },
 
     exportarXml() {
@@ -2168,10 +2292,22 @@ export default {
       this.createGraphFornecedor();
       this.createGraphEmpresa();
     },
+
+    autoSave() {
+      console.log("Iniciando salvamento automatico");
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var xml = mxUtils.getXml(node);
+
+      localStorage.setItem("modeloAutoSave", xml);
+    },
   },
 
   mounted() {
     this.init();
+
+    let modelo = localStorage.getItem("modeloAutoSave");
+    if (modelo) this.importar(modelo)
   },
 
   created() {
@@ -2294,7 +2430,7 @@ export default {
     });
 
     document.onkeydown = (e) => {
-       var evtobj = window.event ? event : e;
+      var evtobj = window.event ? event : e;
       if (evtobj.keyCode == 90 && evtobj.ctrlKey) {
         if (editor.graph.isEnabled()) {
           editor.undo();
@@ -2316,11 +2452,16 @@ export default {
       this.usingLang = language.pt;
       this.selected = "pt-BR";
     }
+
   },
-  watch: {
+
+ watch: {
     selected: function (newValue) {
-      if (newValue === "pt-BR") this.$router.push("/pt-BR");
-      else if (newValue === "en") this.$router.push("/en");
+      this.autoSave();
+      
+      if (newValue === "pt-BR") {
+        this.$router.push("/");
+      } else if (newValue === "en") this.$router.push("/en");
       else if (newValue === "es") this.$router.push("/es");
     },
   },

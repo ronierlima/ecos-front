@@ -1,131 +1,6 @@
 
 <template>
   <div>
-    <div id="container"></div>
-    <div id="sidebar"></div>
-    <div id="sidebar2">
-      <div id="italico_teste">
-        <img
-          width="30px"
-          @click="italico()"
-          src="../assets/italico.svg"
-          :alt="usingLang.italico"
-          :title="usingLang.italico"
-        />
-      </div>
-
-      <div id="sublinhado_teste">
-        <img
-          width="30px"
-          @click="sublinhado()"
-          src="../assets/sublinhado.svg"
-          :alt="usingLang.sublinhado"
-          :title="usingLang.sublinhado"
-        />
-      </div>
-
-      <div id="negrito_teste">
-        <img
-          width="30px"
-          @click="negrito()"
-          src="../assets/negrito.svg"
-          :alt="usingLang.negrito"
-          :title="usingLang.negrito"
-        />
-      </div>
-
-      <div id="prafrente_teste">
-        <img
-          width="30px"
-          @click="praFrente()"
-          src="../assets/tofront.svg"
-          :alt="usingLang.frente"
-          :title="usingLang.frente"
-        />
-      </div>
-
-      <div id="pratras_teste">
-        <img
-          width="30px"
-          @click="praTras()"
-          src="../assets/toback.svg"
-          :alt="usingLang.tras"
-          :title="usingLang.tras"
-        />
-      </div>
-
-      <div id="desagrupar_teste">
-        <img
-          width="30px"
-          @click="desagrupar()"
-          src="../assets/desagrupar.svg"
-          :alt="usingLang.desagrupar"
-          :title="usingLang.desagrupar"
-        />
-      </div>
-
-      <div id="agrupar_teste">
-        <img
-          width="30px"
-          @click="agrupar()"
-          src="../assets/agrupar.svg"
-          :alt="usingLang.agrupar"
-          :title="usingLang.agrupar"
-        />
-      </div>
-
-      <div id="propriedades_teste">
-        <img
-          width="30px"
-          @click="(showModalPropriedades = true), propriedades()"
-          src="../assets/propriedades.svg"
-          :alt="usingLang.propriedades"
-          :title="usingLang.propriedades"
-        />
-      </div>
-
-      <div id="show_teste">
-        <img
-          width="30px"
-          @click="show()"
-          src="../assets/show.svg"
-          :alt="usingLang.visualizar"
-          :title="usingLang.visualizar"
-        />
-      </div>
-
-      <div id="imprimir_teste">
-        <img
-          width="30px"
-          @click="imprimir()"
-          src="../assets/imprimir.svg"
-          :alt="usingLang.print"
-          :title="usingLang.print"
-        />
-      </div>
-
-      <div id="desfazer_selecao">
-        <img
-          width="28px"
-          @click="none()"
-          src="../assets/none.svg"
-          :alt="usingLang.desfazer_selecao"
-          :title="usingLang.desfazer_selecao"
-        />
-      </div>
-
-      <div id="selecionar_teste">
-        <img
-          width="30px"
-          @click="selecionarTudo()"
-          src="../assets/selecionar.svg"
-          :alt="usingLang.all"
-          :title="usingLang.all"
-        />
-      </div>
-    </div>
-    <div id="nav"></div>
-
     <div id="menu">
       <div id="logo">
         <img
@@ -248,7 +123,7 @@
 
         <div id="selecionar">
           <img
-            width="30px"
+            width="32px"
             @click="selecionarRelacoes()"
             src="../assets/select_vertices.svg"
             :alt="usingLang.italico"
@@ -265,6 +140,142 @@
         </select>
       </div>
     </div>
+    <div id="sidebar"></div>
+    <div id="sidebar2">
+      <div id="italico_teste">
+        <img
+          width="30px"
+          @click="italico()"
+          src="../assets/italico.svg"
+          :alt="usingLang.italico"
+          :title="usingLang.italico"
+        />
+      </div>
+
+      <div id="sublinhado_teste">
+        <img
+          width="30px"
+          @click="sublinhado()"
+          src="../assets/sublinhado.svg"
+          :alt="usingLang.sublinhado"
+          :title="usingLang.sublinhado"
+        />
+      </div>
+
+      <div id="negrito_teste">
+        <img
+          width="30px"
+          @click="negrito()"
+          src="../assets/negrito.svg"
+          :alt="usingLang.negrito"
+          :title="usingLang.negrito"
+        />
+      </div>
+
+      <div id="prafrente_teste">
+        <img
+          width="30px"
+          @click="praFrente()"
+          src="../assets/tofront.svg"
+          :alt="usingLang.frente"
+          :title="usingLang.frente"
+        />
+      </div>
+
+      <div id="pratras_teste">
+        <img
+          width="30px"
+          @click="praTras()"
+          src="../assets/toback.svg"
+          :alt="usingLang.tras"
+          :title="usingLang.tras"
+        />
+      </div>
+
+      <div id="desagrupar_teste">
+        <img
+          width="30px"
+          @click="desagrupar()"
+          src="../assets/desagrupar.svg"
+          :alt="usingLang.desagrupar"
+          :title="usingLang.desagrupar"
+        />
+      </div>
+
+      <div id="agrupar_teste">
+        <img
+          width="30px"
+          @click="agrupar()"
+          src="../assets/agrupar.svg"
+          :alt="usingLang.agrupar"
+          :title="usingLang.agrupar"
+        />
+      </div>
+
+      <div id="propriedades_teste">
+        <img
+          width="30px"
+          @click="(showModalPropriedades = true), propriedades()"
+          src="../assets/propriedades.svg"
+          :alt="usingLang.propriedades"
+          :title="usingLang.propriedades"
+        />
+      </div>
+
+      <div id="selecionar_teste">
+        <img
+          width="30px"
+          @click="(showModalRelatorio = true), gerarRelario()"
+          src="../assets/estatisticas.svg"
+          :alt="usingLang.estatisticas"
+          :title="usingLang.estatisticas"
+        />
+      </div>
+
+      <div id="show_teste">
+        <img
+          width="30px"
+          @click="show()"
+          src="../assets/show.svg"
+          :alt="usingLang.visualizar"
+          :title="usingLang.visualizar"
+        />
+      </div>
+
+      <div id="imprimir_teste">
+        <img
+          width="30px"
+          @click="imprimir()"
+          src="../assets/imprimir.svg"
+          :alt="usingLang.print"
+          :title="usingLang.print"
+        />
+      </div>
+
+      <div id="desfazer_selecao">
+        <img
+          width="30px"
+          @click="none()"
+          src="../assets/none.svg"
+          :alt="usingLang.desfazer_selecao"
+          :title="usingLang.desfazer_selecao"
+        />
+      </div>
+
+      <div id="selecionar_teste">
+        <img
+          width="30px"
+          @click="selecionarTudo()"
+          src="../assets/selecionar.svg"
+          :alt="usingLang.all"
+          :title="usingLang.all"
+        />
+      </div>
+    </div>
+    <div id="nav"></div>
+
+    <div id="container"></div>
+
     <transition name="modal" v-if="showModal">
       <div class="modal-mask">
         <div class="modal-wrapper">
@@ -374,8 +385,47 @@
         </div>
       </div>
     </transition>
+
+    <transition name="modal3" v-if="showModalRelatorio">
+      <div class="modal3-mask">
+        <div class="modal3-wrapper">
+          <div class="modal3-container">
+            <div class="modal3-header">
+              <h3 name="header">{{ this.usingLang.estatisticas }}</h3>
+            </div>
+
+            <div class="modal3-body">
+              <ul
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  gap: 10px;
+                  padding: 20px;
+                "
+              >
+                <li :key="index" v-for="(value, index) in relatorio">
+                  {{ value.nome }}: {{ value.total }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="modal3-footer">
+              <slot name="footer">
+                <button
+                  class="modal3-default-button cancel"
+                  @click="showModalRelatorio = false"
+                >
+                  {{ usingLang.sair }}
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
+
 
 <script>
 import mxgraph from "mxgraph";
@@ -387,22 +437,44 @@ import convert from "xml-js";
 
 import language from "../helpers/language";
 import ssn from "../helpers/ssn";
+
 let editor;
 import "./modelagem.css";
+import { get } from "http";
+
+function occurrences(string, subString, allowOverlapping) {
+  string += "";
+  subString += "";
+  if (subString.length <= 0) return string.length + 1;
+
+  var n = 0,
+    pos = 0,
+    step = allowOverlapping ? 1 : subString.length;
+
+  while (true) {
+    pos = string.indexOf(subString, pos);
+    if (pos >= 0) {
+      ++n;
+      pos += step;
+    } else break;
+  }
+  return n;
+}
 
 export default {
   name: "Modelagem",
-  components: {},
   data() {
     return {
       mostarPropriedades: "",
       showModalPropriedades: false,
+      showModalRelatorio: false,
       showModalSalvar: false,
       showModal: false,
-      usingLang: language.en,
+      usingLang: {},
       dialog: false,
       currentCell: null,
       selected: "en",
+      relatorio: null,
     };
   },
 
@@ -678,6 +750,7 @@ export default {
           model.endUpdate();
         }
       };
+
       //Cria a imagem que serve de ícone da barra lateral (fonte de arrastar) - Cliente do cliente
       let clienteDoCliente = document.createElement("div");
       clienteDoCliente.classList.add("ssnObjeto");
@@ -1004,12 +1077,11 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.Xou(this.usingLang.xor);
 
         let object = new mxCell(
-          customObject,
+          this.usingLang.xor,
           new mxGeometry(0, 0, 40, 40),
-          "shape=rhombus;fillColor=black;strokeColor=black;fontColor=white;"
+          "shape=rhombus;fillColor=black;strokeColor=black;fontColor=white;tipo=xou"
         );
 
         object.setVertex(true);
@@ -1028,12 +1100,11 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.Ou(this.usingLang.or);
 
         let object = new mxCell(
-          customObject,
+          this.usingLang.or,
           new mxGeometry(0, 0, 40, 40),
-          "shape=rhombus;fillColor=black;strokeColor=black;fontColor=white;"
+          "shape=rhombus;fillColor=black;strokeColor=black;fontColor=white;tipo=ou"
         );
 
         object.setVertex(true);
@@ -1053,14 +1124,10 @@ export default {
           document.body.style.overflow = "hidden";
         }
 
-        let customObject = new window.Relacao(
-          this.usingLang.business_relationship
-        );
-
         let object = new mxCell(
-          customObject,
+          "X:Y",
           new mxGeometry(0, 0, 50, 25),
-          "shape=singleArrow;fillColor=white;strokeColor=black;fontColor=black;"
+          "shape=singleArrow;fillColor=white;strokeColor=black;fontColor=black;tipo=relacao"
         );
 
         object.setVertex(true);
@@ -1079,7 +1146,6 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.Agregador(this.usingLang.aggregator);
 
         // Parallelogram shape
         function ParallelogramShape() {
@@ -1136,9 +1202,9 @@ export default {
         mxCellRenderer.registerShape("parallelogram", ParallelogramShape);
 
         let object = new mxCell(
-          customObject,
+          this.usingLang.aggregator,
           new mxGeometry(0, 0, 200, 50),
-          "shape=parallelogram;fillColor=red;strokeColor=black;fontColor=black;"
+          "shape=parallelogram;fillColor=red;strokeColor=black;fontColor=black;tipo=agregador"
         );
 
         object.setVertex(true);
@@ -1157,9 +1223,6 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.ClienteDoCliente(
-          this.usingLang.customer_customer
-        );
 
         // clientedocliente shape
         function StepShape() {
@@ -1220,9 +1283,9 @@ export default {
         mxCellRenderer.registerShape("step", StepShape);
 
         let object = new mxCell(
-          customObject,
+          this.usingLang.customer_customer,
           new mxGeometry(0, 0, 235, 50),
-          "shape=step;fillColor=LightGrey;strokeColor=black;fontColor=black;flipH=1;"
+          "shape=step;fillColor=LightGrey;strokeColor=black;fontColor=black;flipH=1;tipo=cliente2"
         );
 
         object.setVertex(true);
@@ -1241,12 +1304,11 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.Fornecedor(this.usingLang.supplier);
 
         let object = new mxCell(
-          customObject,
+          this.usingLang.supplier,
           new mxGeometry(0, 0, 200, 50),
-          "shape=singleArrow;fillColor=orange;strokeColor=black;fontColor=black;"
+          "shape=singleArrow;fillColor=orange;strokeColor=black;fontColor=black;tipo=fornecedor;"
         );
 
         object.setVertex(true);
@@ -1265,14 +1327,11 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.Intermediario(
-          this.usingLang.intermediary
-        );
 
         let object = new mxCell(
-          customObject,
+          this.usingLang.intermediary,
           new mxGeometry(0, 0, 200, 50),
-          "shape=doubleArrow;fillColor=LimeGreen;strokeColor=black;fontColor=black;"
+          "shape=doubleArrow;fillColor=LimeGreen;strokeColor=black;fontColor=black;tipo=intermediario"
         );
 
         object.setVertex(true);
@@ -1291,8 +1350,6 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.Cliente(this.usingLang.customer);
-
         // Arrow
         function SingleArrowShape() {
           mxActor.call(this);
@@ -1422,10 +1479,9 @@ export default {
         mxCellRenderer.registerShape("doubleArrow", DoubleArrowShape);
 
         let object = new mxCell(
-          customObject,
+          this.usingLang.customer,
           new mxGeometry(0, 0, 200, 50),
-          "shape=singleArrow;fillColor=yellow;strokeColor=black;fontColor=black;flipH=1"
-          // ajeitar
+          "shape=singleArrow;fillColor=yellow;strokeColor=black;fontColor=black;flipH=1;tipo=cliente1"
         );
 
         object.setVertex(true);
@@ -1444,9 +1500,9 @@ export default {
         mxClient.IS_QUIRKS && (document.body.style.overflow = "hidden");
 
         const object = new mxCell(
-          new window.CustomUserObject(this.usingLang.company_of_interest),
+          this.usingLang.company_of_interest,
           new mxGeometry(0, 0, 200, 50),
-          "fillColor=blue;strokeColor=black;fontColor=white"
+          "fillColor=blue;strokeColor=black;fontColor=white;tipo=empresa"
         );
 
         object.setVertex(true);
@@ -1465,12 +1521,11 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
         }
-        let customObject = new window.Texto(this.usingLang.text);
 
         let object = new mxCell(
-          customObject,
+          "..." + this.usingLang.text,
           new mxGeometry(0, 0, 200, 50),
-          "fillColor=transparent;strokeColor=transparent;fontColor=black;"
+          "fillColor=transparent;strokeColor=transparent;fontColor=black;tipo=texto"
         );
 
         object.setVertex(true);
@@ -1487,13 +1542,15 @@ export default {
         // Exibe uma mensagem de erro se o navegador não for compatível.
         mxUtils.error("Navegador não suportado!", 200, false);
       } else {
+        mxEvent.disableContextMenu(document.body);
+
         mxConnectionHandler.prototype.connectImage = new mxImage(
           require("../assets/connector.gif"),
           15,
           15
         );
 
-        mxConnectionHandler.prototype.selectCells = function (edge, target) {
+        mxConnectionHandler.prototype.selectCells = function (edge) {
           this.graph.setSelectionCell(edge);
         };
 
@@ -1510,6 +1567,8 @@ export default {
 
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
+          new mxDivResizer(container);
+          new mxDivResizer(sidebar);
         }
 
         if (typeof mxLanguage != "undefined" && mxLanguage != null) {
@@ -1563,7 +1622,7 @@ export default {
         keyHandler.bindAction(46, "delete");
 
         // Clona a fonte se a nova conexão não tiver destino
-        editor.graph.connectionHandler.setCreateTarget(true);
+        editor.graph.connectionHandler.setCreateTarget(false);
 
         // altera o selecionado em um painel separado
         editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, () => {
@@ -1575,12 +1634,35 @@ export default {
 
         //================================================================================
 
-        //================================================================================
         editor.graph.centerZoom = true;
         editor.graph.swimlaneNesting = false;
         editor.graph.dropEnabled = true;
 
-        editor.graph.mxRubberband = true;
+        // Adds rotation handle and live preview
+        mxVertexHandler.prototype.rotationEnabled = true;
+        mxVertexHandler.prototype.manageSizers = true;
+        mxVertexHandler.prototype.livePreview = true;
+        mxGraphHandler.prototype.maxLivePreview = 16;
+
+        // Increases default rubberband opacity (default is 20)
+        mxRubberband.prototype.defaultOpacity = 30;
+
+        // Enables connections along the outline, virtual waypoints, parent highlight etc
+        mxConnectionHandler.prototype.outlineConnect = true;
+        mxCellHighlight.prototype.keepOnTop = true;
+        mxVertexHandler.prototype.parentHighlightEnabled = true;
+
+        mxEdgeHandler.prototype.parentHighlightEnabled = true;
+        mxEdgeHandler.prototype.dblClickRemoveEnabled = true;
+        mxEdgeHandler.prototype.straightRemoveEnabled = true;
+        mxEdgeHandler.prototype.virtualBendsEnabled = true;
+        mxEdgeHandler.prototype.mergeRemoveEnabled = true;
+        mxEdgeHandler.prototype.manageLabelHandle = true;
+        mxEdgeHandler.prototype.outlineConnect = true;
+
+        //================================================================================ novo
+
+        //================================================================================
 
         // gráfico editável
         editor.graph.isCellEditable = function () {
@@ -1595,32 +1677,6 @@ export default {
             return cell.value.name;
           }
           return mxGraph.prototype.convertValueToString.apply(this, arguments); // "supercall"
-        };
-
-        // zoom com o mouse
-        //mxEvent.addMouseWheelListener(function (evt, up) {
-          //if (!mxEvent.isConsumed(evt)) {
-            //if (up) {
-              //editor.graph.zoomIn();
-            //} else {
-              //editor.graph.zoomOut();
-            //}
-            //mxEvent.consume(evt);
-          //}
-        //});
-
-        //=================================
-        editor.graph.cellRenderer.installCellOverlayListeners = function (
-          state,
-          overlay,
-          shape
-        ) {
-          mxEvent.addGestureListeners(shape.node, function (evt) {
-            editor.graph.connectionHandler.start(state, 1, 1);
-            editor.graph.isMouseDown = true;
-            editor.graph.isMouseTrigger = true;
-            mxEvent.consume(evt);
-          });
         };
 
         // DEFINE O FORMATO DA LINHA DA LIGAÇÃO
@@ -1668,8 +1724,10 @@ export default {
           c.moveTo(p5x + floorx, p5y + floory);
           c.stroke();
         };
+
         mxCellRenderer.registerShape("link", LinkShape);
 
+        //estilo do grafico
         var style = editor.graph.getStylesheet().getDefaultVertexStyle();
         style["fillColor"] = "#FFFFFF";
         style["strokeColor"] = "#000000";
@@ -1677,6 +1735,7 @@ export default {
         style["fontStyle"] = "1";
         style["fontSize"] = "15";
 
+        // estilo da conexão
         style = editor.graph.getStylesheet().getDefaultEdgeStyle();
         style["shape"] = "link";
         style["strokeColor"] = "#000000";
@@ -1694,6 +1753,8 @@ export default {
       }
     },
 
+    // =================================================================================================================================
+
     imprimir() {
       var preview = new mxPrintPreview(editor.graph);
       preview.print();
@@ -1709,14 +1770,6 @@ export default {
 
     zommAtual() {
       editor.graph.zoomActual();
-    },
-
-    teste() {
-      if (editor.outline == null) {
-        editor.showOutline();
-      } else {
-        editor.outline.setVisible(!editor.outline.isVisible());
-      }
     },
 
     apagar() {
@@ -1788,6 +1841,120 @@ export default {
       if (editor.graph.isEnabled()) {
         editor.graph.clearSelection();
       }
+    },
+
+    gerarRelario() {
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var xmlString = mxUtils.getXml(node);
+
+      const tipos = [
+        {
+          nome: this.usingLang.company_of_interest,
+          total: occurrences(xmlString, "tipo=empresa"),
+        },
+        {
+          nome: this.usingLang.supplier,
+          total: occurrences(xmlString, "tipo=fornecedor"),
+        },
+        {
+          nome: this.usingLang.customer,
+          total: occurrences(xmlString, "tipo=cliente1"),
+        },
+        {
+          nome: this.usingLang.customer_customer,
+          total: occurrences(xmlString, "tipo=cliente2"),
+        },
+        {
+          nome: this.usingLang.intermediary,
+          total: occurrences(xmlString, "tipo=intermediario"),
+        },
+        {
+          nome: this.usingLang.aggregator,
+          total: occurrences(xmlString, "tipo=agregador"),
+        },
+      ];
+
+      this.relatorio = [
+        ...tipos,
+        {
+          nome: this.usingLang.relacionamentos,
+          total: occurrences(xmlString, `edge="1"`),
+        },
+        {
+          nome: this.usingLang.total || "Total",
+
+          total: tipos.reduce((total, obj) => total + obj.total, 0),
+        },
+      ];
+    },
+
+    propriedades() {
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var node2 = mxUtils.getXml(node);
+      this.mostarPropriedades = node2;
+    },
+
+    selecionarRelacoes() {
+      if (editor.graph.isEnabled()) {
+        let contador = editor.graph.selectEdges();
+        console.log(contador);
+      }
+    },
+
+    // metodo do importar
+    importar(xml = null) {
+      if (xml) {
+        var xmlDoc = mxUtils.parseXml(xml);
+
+        var node = xmlDoc.documentElement;
+        var dec = new mxCodec(node.ownerDocument);
+        dec.decode(node, editor.graph.getModel());
+      } else {
+        const input = document.querySelector('input[type="file"]');
+        const file = input.files[0];
+        var textType = /text.*/;
+
+        if (file.type.match(textType)) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var xmlDoc = mxUtils.parseXml(reader.result);
+
+            var node = xmlDoc.documentElement;
+            var dec = new mxCodec(node.ownerDocument);
+            dec.decode(node, editor.graph.getModel());
+          };
+
+          reader.readAsText(file);
+        } else {
+          xmlFileInfo.innerText = "File not supported!";
+        }
+        this.showModal = false;
+      }
+    },
+
+    exportarXml() {
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var node2 = mxUtils.getXml(node);
+
+      var filename = "Diagrama.xml";
+      var blob = new Blob([node2], { type: "text/xml" });
+      saveAs(blob, filename);
+    },
+
+    exportarJson() {
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var node2 = mxUtils.getXml(node);
+
+      var result1 = convert.xml2json(node2, { compact: true, spaces: 4 });
+
+      var filename = "Diagrama.json";
+      var blob = new Blob([result1], { type: "text/json" });
+      saveAs(blob, filename);
     },
 
     svgExportar() {
@@ -2080,13 +2247,6 @@ export default {
       saveSvgAsPng(root, "Diagrama.png");
     },
 
-    propriedades() {
-      var enc = new mxCodec(mxUtils.createXmlDocument());
-      var node = enc.encode(editor.graph.getModel());
-      var node2 = mxUtils.getXml(node);
-      this.mostarPropriedades = node2;
-    },
-
     negrito() {
       if (editor.graph.isEnabled()) {
         editor.graph.toggleCellStyleFlags(
@@ -2114,77 +2274,8 @@ export default {
       }
     },
 
-    // metodo do importar
-    importar() {
-      const input = document.querySelector('input[type="file"]');
-      const file = input.files[0];
-      var textType = /text.*/;
-
-      if (file.type.match(textType)) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          var xmlDoc = mxUtils.parseXml(reader.result);
-
-          var node = xmlDoc.documentElement;
-          var dec = new mxCodec(node.ownerDocument);
-          dec.decode(node, editor.graph.getModel());
-        };
-
-        reader.readAsText(file);
-      } else {
-        xmlFileInfo.innerText = "File not supported!";
-      }
-      this.showModal = false;
-    },
-
-    exportarXml() {
-      var enc = new mxCodec(mxUtils.createXmlDocument());
-      var node = enc.encode(editor.graph.getModel());
-      var node2 = mxUtils.getXml(node);
-
-      var filename = "Diagrama.xml";
-      var blob = new Blob([node2], { type: "text/xml" });
-      saveAs(blob, filename);
-    },
-
-    exportarJson() {
-      var enc = new mxCodec(mxUtils.createXmlDocument());
-      var node = enc.encode(editor.graph.getModel());
-      var node2 = mxUtils.getXml(node);
-
-      var result1 = convert.xml2json(node2, { compact: true, spaces: 4 });
-
-      var filename = "Diagrama.json";
-      var blob = new Blob([result1], { type: "text/json" });
-      saveAs(blob, filename);
-    },
-
     // configurações
     init() {
-      // CÓDIGOS DOS CAMPOS PERSONALIZADOS para importação e exportação
-      let codecCustomUserObject = new mxObjectCodec(
-        new window.CustomUserObject()
-      );
-
-      // codificar
-      codecCustomUserObject.encode = function (enc, obj) {
-        let node = enc.document.createElement("Nome");
-        mxUtils.setTextContent(node, JSON.stringify(obj));
-        console.log(node);
-        return node;
-      };
-
-      //decodificar
-      codecCustomUserObject.decode = function (dec, node) {
-        let obj = JSON.parse(mxUtils.getTextContent(node));
-        let beatyObj = new window.CustomUserObject();
-        obj = Object.assign(beatyObj, obj);
-        return obj;
-      };
-
-      mxCodecRegistry.register(codecCustomUserObject);
-
       // chama o metodo criador do grafico
       this.createGraph();
       this.createGraphTexto();
@@ -2198,10 +2289,22 @@ export default {
       this.createGraphFornecedor();
       this.createGraphEmpresa();
     },
+
+    autoSave() {
+      console.log("Iniciando salvamento automatico");
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var xml = mxUtils.getXml(node);
+
+      localStorage.setItem("modeloAutoSave", xml);
+    },
   },
 
   mounted() {
     this.init();
+
+    let modelo = localStorage.getItem("modeloAutoSave");
+    if (modelo) this.importar(modelo);
   },
 
   created() {
@@ -2255,6 +2358,8 @@ export default {
       mxResources,
       mxOutline,
       mxRubberband,
+      mxPopupMenu,
+      mxCellHighlight,
     } = mxgraph(graphConfig);
 
     window.mxClient = mxClient;
@@ -2306,94 +2411,22 @@ export default {
     window.mxResources = mxResources;
     window.mxOutline = mxOutline;
     window.mxRubberband = mxRubberband;
+    window.mxPopupMenu = mxPopupMenu;
+    window.mxCellHighlight = mxCellHighlight;
 
-    window.CustomUserObject = function (name) {
-      this.name = name;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Ou = function (name) {
-      this.name = name;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Xou = function () {
-      this.name = "";
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Cliente = function (name) {
-      this.name = name;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.ClienteDoCliente = function (name) {
-      this.name = name;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Intermediario = function (name) {
-      this.name = name;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Fornecedor = function (name) {
-      this.name = name;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Agregador = function (name) {
-      this.name = name;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Texto = function (name) {
-      this.name = `${name} ...`;
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.Relacao = function () {
-      this.name = "X:Y";
-      this.clone = function () {
-        return mxUtils.clone(this);
-      };
-    };
-
-    window.addEventListener("copy", (e) => {
+    window.addEventListener("copy", () => {
       this.copiar();
     });
 
-    window.addEventListener("paste", (e) => {
+    window.addEventListener("paste", () => {
       this.colar();
     });
 
-    window.addEventListener("cut", (e) => {
+    window.addEventListener("cut", () => {
       this.recortar();
     });
 
-    window.onbeforeunload = function () {
-      return "Teste";
-    };
-
-    function controlZ(e) {
+    document.onkeydown = (e) => {
       var evtobj = window.event ? event : e;
       if (evtobj.keyCode == 90 && evtobj.ctrlKey) {
         if (editor.graph.isEnabled()) {
@@ -2408,9 +2441,7 @@ export default {
       } else if (evtobj.keyCode == 48 && evtobj.ctrlKey) {
         editor.graph.zoomActual();
       }
-    }
-
-    document.onkeydown = controlZ;
+    };
 
     if (this.selected === "en") this.usingLang = language.en;
     else if (this.selected === "es") this.usingLang = language.es;
@@ -2419,10 +2450,14 @@ export default {
       this.selected = "pt-BR";
     }
   },
+
   watch: {
     selected: function (newValue) {
-      if (newValue === "pt-BR") this.$router.push("/pt-BR");
-      else if (newValue === "en") this.$router.push("/en");
+      this.autoSave();
+
+      if (newValue === "pt-BR") {
+        this.$router.push("/");
+      } else if (newValue === "en") this.$router.push("/en");
       else if (newValue === "es") this.$router.push("/es");
     },
   },
