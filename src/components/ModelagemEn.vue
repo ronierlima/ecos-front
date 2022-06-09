@@ -426,7 +426,6 @@
   </div>
 </template>
 
-
 <script>
 import mxgraph from "mxgraph";
 import graphConfig from "../configs/mxGraph/graphConfig";

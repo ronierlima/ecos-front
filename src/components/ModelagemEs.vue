@@ -222,6 +222,16 @@
         />
       </div>
 
+      <div id="selecionar_teste">
+        <img
+          width="30px"
+          @click="(showModalRelatorio = true), gerarRelario()"
+          src="../assets/estatisticas.svg"
+          :alt="usingLang.estatisticas"
+          :title="usingLang.estatisticas"
+        />
+      </div>
+
       <div id="show_teste">
         <img
           width="30px"
@@ -249,16 +259,6 @@
           src="../assets/none.svg"
           :alt="usingLang.desfazer_selecao"
           :title="usingLang.desfazer_selecao"
-        />
-      </div>
-
-      <div id="selecionar_teste">
-        <img
-          width="30px"
-          @click="(showModalRelatorio = true), gerarRelario()"
-          src="../assets/propriedades.svg"
-          :alt="usingLang.propriedades"
-          :title="usingLang.propriedades"
         />
       </div>
 
@@ -425,7 +425,6 @@
     </transition>
   </div>
 </template>
-
 
 <script>
 import mxgraph from "mxgraph";
