@@ -388,6 +388,13 @@
 
     <transition name="modal3" v-if="showModalRelatorio">
       <div class="modal3-mask">
+        <div id="logo-pdf">
+          <img
+            width="220px"
+            src="../assets/logo.png"
+            :title="usingLang.company_of_interest"
+          />
+        </div>
         <div class="modal3-wrapper">
           <div class="modal3-container">
             <div class="modal3-header">
@@ -402,6 +409,7 @@
                   gap: 10px;
                   padding: 20px;
                 "
+                id="relatorio"
               >
                 <li :key="index" v-for="(value, index) in relatorio">
                   {{ value.nome }}: {{ value.total }}
@@ -416,6 +424,13 @@
                   @click="showModalRelatorio = false"
                 >
                   {{ usingLang.sair }}
+                </button>
+
+                 <button
+                  class="modal3-default-button pdf"
+                  @click="printRelatorio"
+                >
+                  {{ usingLang.print }}
                 </button>
               </slot>
             </div>
@@ -439,7 +454,6 @@ import ssn from "../helpers/ssn";
 
 let editor;
 import "./modelagem.css";
-import { get } from "http";
 
 function occurrences(string, subString, allowOverlapping) {
   string += "";
@@ -1905,14 +1919,11 @@ export default {
     // metodo do importar
     importar(xml = null) {
       if (xml) {
-
-      
         var xmlDoc = mxUtils.parseXml(xml);
 
         var node = xmlDoc.documentElement;
         var dec = new mxCodec(node.ownerDocument);
         dec.decode(node, editor.graph.getModel());
-
       } else {
         const input = document.querySelector('input[type="file"]');
         const file = input.files[0];
@@ -2276,6 +2287,10 @@ export default {
       }
     },
 
+    printRelatorio() {
+      window.print();
+    },
+
     // configurações
     init() {
       // chama o metodo criador do grafico
@@ -2306,7 +2321,7 @@ export default {
     this.init();
 
     let modelo = localStorage.getItem("modeloAutoSave");
-    if (modelo) this.importar(modelo)
+    if (modelo) this.importar(modelo);
   },
 
   created() {
@@ -2416,15 +2431,15 @@ export default {
     window.mxPopupMenu = mxPopupMenu;
     window.mxCellHighlight = mxCellHighlight;
 
-    window.addEventListener("copy", () => {
+    window.addEventListener("copy", (e) => {
       this.copiar();
     });
 
-    window.addEventListener("paste", () => {
+    window.addEventListener("paste", (e) => {
       this.colar();
     });
 
-    window.addEventListener("cut", () => {
+    window.addEventListener("cut", (e) => {
       this.recortar();
     });
 
@@ -2451,13 +2466,12 @@ export default {
       this.usingLang = language.pt;
       this.selected = "pt-BR";
     }
-
   },
 
- watch: {
+  watch: {
     selected: function (newValue) {
       this.autoSave();
-      
+
       if (newValue === "pt-BR") {
         this.$router.push("/");
       } else if (newValue === "en") this.$router.push("/en");
