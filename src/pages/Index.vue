@@ -18,9 +18,11 @@
         <nav class="menu-nav">
           <ul>
             <li><a href="#sobre">Modelos público</a></li>
-            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#produtos">Meus modelos</a></li>
             <li v-if="!logado"><a @click="showModal = true">Entrar</a></li>
             <li><a href="/en">Editor</a></li>
+            <li v-if="logado"><a @click="showModal = true">| {{ nome }} |</a></li>
+            <li v-if="logado"><a @click="showModal = true">| Sair |</a></li>
           </ul>
         </nav>
       </div>

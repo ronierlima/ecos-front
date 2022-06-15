@@ -208,6 +208,11 @@ html {
   padding: 10px;
 }
 
+.usuario {
+  display: flex;
+  gap: 1rem;
+}
+
 /*Introdução*/
 
 .introducao {

@@ -62,8 +62,14 @@
                 <option value="es">es</option>
               </select>
             </li>
+            <li v-if="!logado"><a @click="showModalLogin = true">Entrar</a></li>
           </ul>
         </nav>
+
+        <div class="usuario" v-if="logado">
+          <a>{{nome}}</a>
+          <a @click="logout()">sair</a>
+        </div>
       </div>
     </header>
     <section>
@@ -138,6 +144,41 @@
         </div>
       </aside>
     </section>
+
+
+    <transition name="modal" v-if="showModalLogin">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h3 name="header">{{ usingLang.login }}</h3>
+            </div>
+
+            <div class="modal-body">
+              <form>
+
+                <label for="username">Username</label>
+                <input type="text" v-model="input.username" placeholder="Email" id="username" name="username">
+
+                <label for="password">Password</label>
+                <input type="password" v-model="input.password" placeholder="Password" id="password" name="password">
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <slot name="footer">
+                <button class="modal-default-button cancel" @click="showModalLogin = false">
+                  {{ usingLang.cancel }}
+                </button>
+                <button class="modal-default-button" v-on:click="login()">
+                  {{ usingLang.login }}
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
 
     <transition name="modal" v-if="showModal">
       <div class="modal-mask">
@@ -270,6 +311,7 @@ import graphConfig from "../configs/mxGraph/graphConfig";
 import { saveAs } from "file-saver";
 import { saveSvgAsPng } from "save-svg-as-png";
 import convert from "xml-js";
+import { services } from "../../services";
 
 import language from "../helpers/language";
 import ssn from "../helpers/ssn";
@@ -305,14 +347,45 @@ export default {
       showModalRelatorio: false,
       showModalSalvar: false,
       showModal: false,
+      showModalLogin: false,
       usingLang: {},
       currentCell: null,
       selected: "en",
       relatorio: null,
+      input: {
+        username: "",
+        password: ""
+      }
     };
   },
 
   methods: {
+    login() {
+      if (this.input.username != "" && this.input.password != "")
+        services.user
+          .login(this.input.username, this.input.password)
+          .then((res) => {
+            this.token = res.data.access_token;
+            this.nome = res.data.nome;
+            this.logado = true;
+            localStorage.setItem("token", res.data.access_token);
+            localStorage.setItem("nome", res.data.nome);
+            this.showModalLogin = false;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    logout() {
+
+      this.token = null;
+      this.logado = false;
+      this.nome = null;
+      
+
+      localStorage.removeItem("nome");
+      localStorage.removeItem("token");
+    },
     // altera o selecionado em um painel separado
     // e transfere o objeto para o ambiente VUE
     selectionChanged() {
@@ -2280,6 +2353,15 @@ export default {
     else {
       this.usingLang = language.pt;
       this.selected = "pt-BR";
+    }
+
+    const token = localStorage.getItem("token");
+    const nome = localStorage.getItem("nome");
+
+    if (token) {
+      this.token = token;
+      this.logado = true;
+      this.nome = nome;
     }
   },
 
