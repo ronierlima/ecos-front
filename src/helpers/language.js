@@ -49,6 +49,10 @@ module.exports.pt = {
   xml:"Baixar em XML",
   json:"Baixar em JSON",
   sair:"Sair",
+
+  // login de usuarios
+
+  login: "Realizar login"
   
 };
 
@@ -104,7 +108,9 @@ module.exports.en = {
   imagem_SVG:"Download SVG Image",
   xml:"Download in XML",
   json:"Download in JSON",
-  sair:"Get out"
+  sair:"Get out",
+
+  login: "Login"
 };
 
 module.exports.es = {
@@ -162,7 +168,8 @@ module.exports.es = {
   imagem_SVG:"Descargar imagen SVG",
   xml:"Descarga en XML",
   json:"Descarga en JSON",
-  sair:"Sal"
-  
+  sair:"Sal",
+
+  login: "Iniciar sesión",
   
 };

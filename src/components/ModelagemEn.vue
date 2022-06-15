@@ -3,7 +3,7 @@
     <header class="menu-bg">
       <div class="menu">
         <div class="menu-logo">
-          <img width="220px" src="../assets/logo.png" :title="usingLang.company_of_interest" />
+          <img width="220px" src="../assets/logo.png" />
         </div>
         <nav class="menu-nav">
           <ul>
@@ -18,10 +18,6 @@
             <li>
               <img width="30px" @click="zoomMais()" src="../assets/zoom_in.svg" :alt="usingLang.zoomin"
                 :title="usingLang.zoomin" />
-            </li>
-            <li>
-              <img width="30px" @click="zoomMenos()" src="../assets/zoom_out.svg" :alt="usingLang.zoomout"
-                :title="usingLang.zoomout" />
             </li>
             <li>
               <img width="30px" @click="zoomMenos()" src="../assets/zoom_out.svg" :alt="usingLang.zoomout"
@@ -310,7 +306,6 @@ export default {
       showModalSalvar: false,
       showModal: false,
       usingLang: {},
-      dialog: false,
       currentCell: null,
       selected: "en",
       relatorio: null,
@@ -2289,9 +2284,12 @@ export default {
   },
 
   watch: {
-    selected: function () {
+    selected: function (newValue) {
 
-      this.init();
+      if (newValue === "pt-BR") {
+        this.$router.push("/");
+      } else if (newValue === "en") this.$router.push("/en");
+      else if (newValue === "es") this.$router.push("/es");
     },
   },
 };

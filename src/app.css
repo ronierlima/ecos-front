@@ -37,7 +37,6 @@ html {
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 
 #app {
@@ -132,7 +131,7 @@ html {
 /*Superinfo*/
 
 .superinfo-bg {
-  background: #122ab2;
+  background: #5e5e5e;
   color: white;
 }
 
@@ -200,7 +199,6 @@ html {
   color: #5e5e5e;
   font-weight: bold;
   border: none;
-  padding: 0 2rem;
   font-size: 1rem;
 }
 
@@ -208,10 +206,6 @@ html {
   font-size: 1.25em;
   display: block;
   padding: 10px;
-}
-
-.menu-nav a:hover {
-  color: #122ab2;
 }
 
 /*Introdução*/
