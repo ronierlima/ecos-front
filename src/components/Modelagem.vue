@@ -1,7 +1,9 @@
 
 <template>
-  <div>
-    <div id="menu">
+
+  <div id="modelo">
+
+    <div class="menu-bg" id="menu">
       <div id="logo">
         <img
           width="220px"
@@ -140,6 +142,7 @@
         </select>
       </div>
     </div>
+
     <div id="sidebar"></div>
     <div id="sidebar2">
       <div id="italico_teste">
@@ -272,6 +275,7 @@
         />
       </div>
     </div>
+
     <div id="nav"></div>
 
     <div id="container"></div>

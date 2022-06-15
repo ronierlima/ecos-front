@@ -1,0 +1,442 @@
+/*  ==========================novo modal 2*/
+.modal2-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal2-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal2-container {
+  width: 100%;
+  min-width: 700px;
+  max-width: 850px;
+  margin: 0px auto;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.4s ease;
+  font-family: Helvetica, Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal2-header {
+  background-color: #f2f0e6;
+  padding: 0 10px;
+}
+.modal2-header h3 {
+  color: #5e5e5e;
+}
+
+.modal2-body {
+  position: relative;
+  margin: 0 10px;
+  display: grid;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal2-button-png {
+  position: relative;
+  font-size: large;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal2-button-svg {
+  position: relative;
+  font-size: large;
+  top: 15px;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal2-button-xml {
+  position: relative;
+  font-size: large;
+  top: 30px;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal2-button-json {
+  position: relative;
+  font-size: large;
+  top: 45px;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal2-default-button {
+  position: relative;
+  font-size: large;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+
+  padding: 4px;
+  cursor: pointer;
+}
+
+.modal2-default-button.cancel {
+  background-color: transparent;
+  border: 2px solid transparent;
+  color: #333;
+
+  transition: 0.4s;
+}
+
+.modal2-default-button.cancel:hover {
+  border: 2px solid #333;
+}
+
+.modal2-enter {
+  opacity: 0;
+}
+
+.modal2-leave-active {
+  opacity: 0;
+}
+
+.modal2-enter .modal2-container,
+.modal2-leave-active .modal2-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.modal2-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+/*  ==========================novo modal*/
+
+/*  ==========================novo modal3*/
+.modal3-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal3-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal3-container {
+  width: 100%;
+  min-width: 700px;
+  max-width: 850px;
+  margin: 0px auto;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.4s ease;
+  font-family: Helvetica, Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal3-header {
+  background-color: #f2f0e6;
+  padding: 0 10px;
+}
+.modal3-header h3 {
+  color: #5e5e5e;
+}
+
+.modal3-body {
+  position: relative;
+  margin: 30px;
+  display: grid;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+
+  overflow-y: scroll;
+  overflow-wrap: scroll;
+  overflow-anchor: scroll;
+  grid-column: 2;
+}
+
+.modal3-button-png {
+  position: relative;
+  font-size: large;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal3-button-svg {
+  position: relative;
+  font-size: large;
+  top: 15px;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal3-button-xml {
+  position: relative;
+  font-size: large;
+  top: 30px;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal3-button-json {
+  position: relative;
+  font-size: large;
+  top: 45px;
+  width: 750px;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal3-default-button {
+  position: relative;
+  font-size: large;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+
+  padding: 4px;
+  cursor: pointer;
+}
+
+.modal3-default-button.cancel {
+  background-color: transparent;
+  border: 2px solid transparent;
+  color: #333;
+
+  transition: 0.4s;
+}
+
+.modal3-default-button.cancel:hover {
+  border: 2px solid #333;
+}
+
+.modal3-enter {
+  opacity: 0;
+}
+
+.modal3-leave-active {
+  opacity: 0;
+}
+
+.modal3-enter .modal2-container,
+.modal3-leave-active .modal2-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.modal3-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+/*  ==========================novo modal*/
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 100%;
+  min-width: 500px;
+  max-width: 700px;
+  margin: 0px auto;
+
+  height: 300px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.4s ease;
+  font-family: Helvetica, Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-header {
+  background-color: #f2f0e6;
+  padding: 0 10px;
+}
+.modal-header h3 {
+  color: #5e5e5e;
+}
+
+.modal-body {
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+}
+
+input[type="file"] {
+  font-size: large;
+}
+
+input[type="file"]::file-selector-button {
+  border: 2px solid #5e5e5e;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: #5e5e5e;
+  transition: 1s;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover,
+.modal-default-button:hover {
+  background-color: #5a5a5a;
+}
+
+.modal-default-button {
+  font-size: large;
+  border: 2px solid #5e5e5e;
+  background-color: #5e5e5e;
+  color: #fff;
+  border-radius: 2px;
+
+  padding: 4px;
+  cursor: pointer;
+}
+
+.modal-default-button.cancel {
+  background-color: transparent;
+  border: 2px solid transparent;
+  color: #333;
+
+  transition: 0.4s;
+}
+
+.modal-default-button.cancel:hover {
+  border: 2px solid #333;
+}
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+@media print {
+  .modal3-mask,
+  .modal3-container,
+  .modal3-body {
+    display: block;
+  }
+
+  .modal3-container {
+    box-shadow: none;
+  }
+
+  .modal3-body {
+    overflow-y: auto;
+    margin: 1rem;
+  }
+
+  .modal3-mask #logo-pdf {
+    display: block;
+  }
+
+  .modal3-footer {
+    display: none;
+  }
+
+  #relatorio {
+    display: block;
+  }
+}

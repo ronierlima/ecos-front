@@ -1,3 +1,4 @@
+import Home from "../pages/Index.vue";
 import Modelagem from "../components/Modelagem.vue";
 import ModelagemEn from "../components/ModelagemEn.vue";
 import ModelagemEs from "../components/ModelagemEs.vue"
@@ -6,8 +7,8 @@ import ModelagemEs from "../components/ModelagemEs.vue"
 export default [
   {
     path: "/",
-    name: "Modelagem",
-    component: Modelagem,
+    name: "Home",
+    component: Home,
   },
   {
     path: "/en",
