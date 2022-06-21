@@ -1,5 +1,14 @@
 <template>
   <div id="modelo">
+  <div class="superinfo-bg">
+      <div class="superinfo">
+        <select v-model="selected" name="language" id="language" class="chave">
+          <option value="pt-BR">pt-BR</option>
+          <option value="en">en</option>
+          <option value="es">es</option>
+        </select>
+      </div>
+    </div>
     <header class="menu-bg">
       <div class="menu">
         <div class="menu-logo">
@@ -55,13 +64,7 @@
               <img width="32px" @click="selecionarRelacoes()" src="../assets/select_vertices.svg"
                 :alt="usingLang.italico" :title="usingLang.italico" />
             </li>
-            <li>
-              <select v-model="selected" name="language" id="language" class="chave">
-                <option value="pt-BR">pt-BR</option>
-                <option value="en">en</option>
-                <option value="es">es</option>
-              </select>
-            </li>
+            
             <li v-if="!logado"><a @click="showModalLogin = true">Entrar</a></li>
           </ul>
         </nav>
@@ -2368,10 +2371,11 @@ export default {
   watch: {
     selected: function (newValue) {
 
+
       if (newValue === "pt-BR") {
-        this.$router.push("/");
-      } else if (newValue === "en") this.$router.push("/en");
-      else if (newValue === "es") this.$router.push("/es");
+        this.$router.push("/pt-BR/editor");
+      } else if (newValue === "en") this.$router.push("/en/editor");
+      else if (newValue === "es") this.$router.push("/es/editor");
     },
   },
 };

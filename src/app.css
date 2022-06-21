@@ -55,7 +55,7 @@ html {
   width: 100%;
 
   display: grid;
-  grid-template-rows: 64px 1fr;
+  grid-template-rows: min-content 64px 1fr;
   justify-content: stretch;
   overflow: hidden;
 }
@@ -116,12 +116,17 @@ html {
   transform: scale(1.15, 1.15);
 }
 
+.ssnObjeto {
+  width: 100%;
+}
+
 .ssnObjeto svg,
 #ssntexto {
   transition: 0.2s ease-in;
   -webkit-transition: 0.2s ease-in;
   -moz-transition: 0.2s ease-in;
   -o-transition: 0.2s ease-in;
+  
 }
 
 .ssnObjeto:hover svg,
@@ -136,12 +141,12 @@ html {
 }
 
 .superinfo {
-  max-width: 960px;
+  max-width: 95vw;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-wrap: wrap;
-  padding-top: 10px;
+  padding: 0.5rem;
 }
 
 .superinfo p,
@@ -170,12 +175,6 @@ html {
 
 .menu a {
   color: #5e5e5e;
-}
-
-.menu-logo a {
-  font-size: 2.25em;
-  font-weight: bold;
-  margin: 0 10px;
 }
 
 .menu-nav ul {
@@ -287,8 +286,8 @@ html {
   padding: 60px 20px;
 }
 
-.purple {
-  border-top: 8px solid #ae81ff;
+.grey {
+  border-top: 8px solid #5e5e5e;
 }
 
 .pink {

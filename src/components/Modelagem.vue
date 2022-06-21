@@ -1,284 +1,187 @@
-
 <template>
-
   <div id="modelo">
-
-    <div class="menu-bg" id="menu">
-      <div id="logo">
-        <img
-          width="220px"
-          src="../assets/logo.png"
-          :title="usingLang.company_of_interest"
-        />
-      </div>
-
-      <div id="acoes_teste">
-        <div id="exportar">
-          <img
-            width="30px"
-            @click="showModalSalvar = true"
-            src="../assets/exportar.svg"
-            :alt="usingLang.export"
-            :title="usingLang.export"
-          />
-        </div>
-
-        <div id="importar">
-          <img
-            width="30px"
-            @click="showModal = true"
-            src="../assets/import.svg"
-            :alt="usingLang.import"
-            :title="usingLang.import"
-          />
-        </div>
-
-        <div id="zoom_in">
-          <img
-            width="30px"
-            @click="zoomMais()"
-            src="../assets/zoom_in.svg"
-            :alt="usingLang.zoomin"
-            :title="usingLang.zoomin"
-          />
-        </div>
-
-        <div id="zoom_out">
-          <img
-            width="30px"
-            @click="zoomMenos()"
-            src="../assets/zoom_out.svg"
-            :alt="usingLang.zoomout"
-            :title="usingLang.zoomout"
-          />
-        </div>
-
-        <div id="zoom_actual">
-          <img
-            width="30px"
-            @click="zommAtual()"
-            src="../assets/zoom_actual.svg"
-            :alt="usingLang.zoomDefault"
-            :title="usingLang.zoomDefault"
-          />
-        </div>
-
-        <div id="deletar">
-          <img
-            width="30px"
-            @click="apagar()"
-            src="../assets/delete.svg"
-            :alt="usingLang.delete"
-            :title="usingLang.delete"
-          />
-        </div>
-
-        <div id="recortar">
-          <img
-            width="30px"
-            @click="recortar()"
-            src="../assets/recortar.svg"
-            :alt="usingLang.recort"
-            :title="usingLang.recort"
-          />
-        </div>
-
-        <div id="copiar">
-          <img
-            width="30px"
-            @click="copiar()"
-            src="../assets/copiar.svg"
-            :alt="usingLang.copy"
-            :title="usingLang.copy"
-          />
-        </div>
-
-        <div id="colar">
-          <img
-            width="30px"
-            @click="colar()"
-            src="../assets/colar.svg"
-            :alt="usingLang.colar"
-            :title="usingLang.colar"
-          />
-        </div>
-
-        <div id="desfazer">
-          <img
-            width="30px"
-            @click="desfazer()"
-            src="../assets/desfazer.svg"
-            :alt="usingLang.desfazer"
-            :title="usingLang.desfazer"
-          />
-        </div>
-
-        <div id="refazer">
-          <img
-            width="30px"
-            @click="refazer()"
-            src="../assets/refazer.svg"
-            :alt="usingLang.refazer"
-            :title="usingLang.refazer"
-          />
-        </div>
-
-        <div id="selecionar">
-          <img
-            width="32px"
-            @click="selecionarRelacoes()"
-            src="../assets/select_vertices.svg"
-            :alt="usingLang.italico"
-            :title="usingLang.italico"
-          />
-        </div>
-      </div>
-
-      <div id="select">
+  <div class="superinfo-bg">
+      <div class="superinfo">
         <select v-model="selected" name="language" id="language" class="chave">
-          <option value="pt-BR">Português - Brasil</option>
-          <option value="en">Inglês</option>
-          <option value="es">Espanhol</option>
+          <option value="pt-BR">pt-BR</option>
+          <option value="en">en</option>
+          <option value="es">es</option>
         </select>
       </div>
     </div>
+    <header class="menu-bg">
+      <div class="menu">
+        <div class="menu-logo">
+          <router-link :to="'/' + this.selected"><img width="220px" src="../assets/logo.png"/></router-link>
+        </div>
+        <nav class="menu-nav">
+          <ul>
+            <li>
+              <img width="30px" @click="showModalSalvar = true" src="../assets/exportar.svg" :alt="usingLang.export"
+                :title="usingLang.export" />
+            </li>
+            <li>
+              <img width="30px" @click="showModal = true" src="../assets/import.svg" :alt="usingLang.import"
+                :title="usingLang.import" />
+            </li>
+            <li>
+              <img width="30px" @click="zoomMais()" src="../assets/zoom_in.svg" :alt="usingLang.zoomin"
+                :title="usingLang.zoomin" />
+            </li>
+            <li>
+              <img width="30px" @click="zoomMenos()" src="../assets/zoom_out.svg" :alt="usingLang.zoomout"
+                :title="usingLang.zoomout" />
+            </li>
+            <li>
+              <img width="30px" @click="zommAtual()" src="../assets/zoom_actual.svg" :alt="usingLang.zoomDefault"
+                :title="usingLang.zoomDefault" />
+            </li>
+            <li>
+              <img width="30px" @click="apagar()" src="../assets/delete.svg" :alt="usingLang.delete"
+                :title="usingLang.delete" />
+            </li>
+            <li>
+              <img width="30px" @click="recortar()" src="../assets/recortar.svg" :alt="usingLang.recort"
+                :title="usingLang.recort" />
+            </li>
+            <li>
+              <img width="30px" @click="copiar()" src="../assets/copiar.svg" :alt="usingLang.copy"
+                :title="usingLang.copy" />
+            </li>
+            <li>
+              <img width="30px" @click="colar()" src="../assets/colar.svg" :alt="usingLang.colar"
+                :title="usingLang.colar" />
+            </li>
+            <li>
+              <img width="30px" @click="desfazer()" src="../assets/desfazer.svg" :alt="usingLang.desfazer"
+                :title="usingLang.desfazer" />
+            </li>
+            <li>
+              <img width="30px" @click="refazer()" src="../assets/refazer.svg" :alt="usingLang.refazer"
+                :title="usingLang.refazer" />
+            </li>
+            <li>
+              <img width="32px" @click="selecionarRelacoes()" src="../assets/select_vertices.svg"
+                :alt="usingLang.italico" :title="usingLang.italico" />
+            </li>
+            
+            <li v-if="!logado"><a @click="showModalLogin = true">Entrar</a></li>
+          </ul>
+        </nav>
 
-    <div id="sidebar"></div>
-    <div id="sidebar2">
-      <div id="italico_teste">
-        <img
-          width="30px"
-          @click="italico()"
-          src="../assets/italico.svg"
-          :alt="usingLang.italico"
-          :title="usingLang.italico"
-        />
+        <div class="usuario" v-if="logado">
+          <a>{{nome}}</a>
+          <a @click="logout()">sair</a>
+        </div>
       </div>
+    </header>
+    <section>
+      <aside class="left-sidebar" id="sidebar"></aside>
+      <div id="container"></div>
+      <aside class="right-sidebar">
+        <div id="italico">
+          <img width="30px" @click="italico()" src="../assets/italico.svg" :alt="usingLang.italico"
+            :title="usingLang.italico" />
+        </div>
 
-      <div id="sublinhado_teste">
-        <img
-          width="30px"
-          @click="sublinhado()"
-          src="../assets/sublinhado.svg"
-          :alt="usingLang.sublinhado"
-          :title="usingLang.sublinhado"
-        />
+        <div id="sublinhado">
+          <img width="30px" @click="sublinhado()" src="../assets/sublinhado.svg" :alt="usingLang.sublinhado"
+            :title="usingLang.sublinhado" />
+        </div>
+
+        <div id="negrito">
+          <img width="30px" @click="negrito()" src="../assets/negrito.svg" :alt="usingLang.negrito"
+            :title="usingLang.negrito" />
+        </div>
+
+        <div id="prafrente">
+          <img width="30px" @click="praFrente()" src="../assets/tofront.svg" :alt="usingLang.frente"
+            :title="usingLang.frente" />
+        </div>
+
+        <div id="pratras">
+          <img width="30px" @click="praTras()" src="../assets/toback.svg" :alt="usingLang.tras"
+            :title="usingLang.tras" />
+        </div>
+
+        <div id="desagrupar">
+          <img width="30px" @click="desagrupar()" src="../assets/desagrupar.svg" :alt="usingLang.desagrupar"
+            :title="usingLang.desagrupar" />
+        </div>
+
+        <div id="agrupar">
+          <img width="30px" @click="agrupar()" src="../assets/agrupar.svg" :alt="usingLang.agrupar"
+            :title="usingLang.agrupar" />
+        </div>
+
+        <div id="desfazer_selecao">
+          <img width="30px" @click="none()" src="../assets/none.svg" :alt="usingLang.desfazer_selecao"
+            :title="usingLang.desfazer_selecao" />
+        </div>
+
+        <div id="selecionar">
+          <img width="30px" @click="selecionarTudo()" src="../assets/selecionar.svg" :alt="usingLang.all"
+            :title="usingLang.all" />
+        </div>
+
+        <hr>
+
+        <div id="propriedades">
+          <img width="30px" @click="(showModalPropriedades = true), propriedades()" src="../assets/propriedades.svg"
+            :alt="usingLang.propriedades" :title="usingLang.propriedades" />
+        </div>
+
+        <div id="selecionar">
+          <img width="30px" @click="(showModalRelatorio = true), gerarRelario()" src="../assets/estatisticas.svg"
+            :alt="usingLang.estatisticas" :title="usingLang.estatisticas" />
+        </div>
+
+        <div id="show">
+          <img width="30px" @click="show()" src="../assets/show.svg" :alt="usingLang.visualizar"
+            :title="usingLang.visualizar" />
+        </div>
+
+        <div id="imprimir">
+          <img width="30px" @click="imprimir()" src="../assets/imprimir.svg" :alt="usingLang.print"
+            :title="usingLang.print" />
+        </div>
+      </aside>
+    </section>
+
+
+    <transition name="modal" v-if="showModalLogin">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h3 name="header">{{ usingLang.login }}</h3>
+            </div>
+
+            <div class="modal-body">
+              <form>
+
+                <label for="username">Username</label>
+                <input type="text" v-model="input.username" placeholder="Email" id="username" name="username">
+
+                <label for="password">Password</label>
+                <input type="password" v-model="input.password" placeholder="Password" id="password" name="password">
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <slot name="footer">
+                <button class="modal-default-button cancel" @click="showModalLogin = false">
+                  {{ usingLang.cancel }}
+                </button>
+                <button class="modal-default-button" v-on:click="login()">
+                  {{ usingLang.login }}
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div id="negrito_teste">
-        <img
-          width="30px"
-          @click="negrito()"
-          src="../assets/negrito.svg"
-          :alt="usingLang.negrito"
-          :title="usingLang.negrito"
-        />
-      </div>
-
-      <div id="prafrente_teste">
-        <img
-          width="30px"
-          @click="praFrente()"
-          src="../assets/tofront.svg"
-          :alt="usingLang.frente"
-          :title="usingLang.frente"
-        />
-      </div>
-
-      <div id="pratras_teste">
-        <img
-          width="30px"
-          @click="praTras()"
-          src="../assets/toback.svg"
-          :alt="usingLang.tras"
-          :title="usingLang.tras"
-        />
-      </div>
-
-      <div id="desagrupar_teste">
-        <img
-          width="30px"
-          @click="desagrupar()"
-          src="../assets/desagrupar.svg"
-          :alt="usingLang.desagrupar"
-          :title="usingLang.desagrupar"
-        />
-      </div>
-
-      <div id="agrupar_teste">
-        <img
-          width="30px"
-          @click="agrupar()"
-          src="../assets/agrupar.svg"
-          :alt="usingLang.agrupar"
-          :title="usingLang.agrupar"
-        />
-      </div>
-
-      <div id="propriedades_teste">
-        <img
-          width="30px"
-          @click="(showModalPropriedades = true), propriedades()"
-          src="../assets/propriedades.svg"
-          :alt="usingLang.propriedades"
-          :title="usingLang.propriedades"
-        />
-      </div>
-
-      <div id="selecionar_teste">
-        <img
-          width="30px"
-          @click="(showModalRelatorio = true), gerarRelario()"
-          src="../assets/estatisticas.svg"
-          :alt="usingLang.estatisticas"
-          :title="usingLang.estatisticas"
-        />
-      </div>
-
-      <div id="show_teste">
-        <img
-          width="30px"
-          @click="show()"
-          src="../assets/show.svg"
-          :alt="usingLang.visualizar"
-          :title="usingLang.visualizar"
-        />
-      </div>
-
-      <div id="imprimir_teste">
-        <img
-          width="30px"
-          @click="imprimir()"
-          src="../assets/imprimir.svg"
-          :alt="usingLang.print"
-          :title="usingLang.print"
-        />
-      </div>
-
-      <div id="desfazer_selecao">
-        <img
-          width="30px"
-          @click="none()"
-          src="../assets/none.svg"
-          :alt="usingLang.desfazer_selecao"
-          :title="usingLang.desfazer_selecao"
-        />
-      </div>
-
-      <div id="selecionar_teste">
-        <img
-          width="30px"
-          @click="selecionarTudo()"
-          src="../assets/selecionar.svg"
-          :alt="usingLang.all"
-          :title="usingLang.all"
-        />
-      </div>
-    </div>
-
-    <div id="nav"></div>
-
-    <div id="container"></div>
+    </transition>
 
     <transition name="modal" v-if="showModal">
       <div class="modal-mask">
@@ -294,10 +197,7 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <button
-                  class="modal-default-button cancel"
-                  @click="showModal = false"
-                >
+                <button class="modal-default-button cancel" @click="showModal = false">
                   {{ usingLang.cancel }}
                 </button>
                 <button class="modal-default-button" @click="importar()">
@@ -319,41 +219,26 @@
             </div>
 
             <div class="modal2-body">
-              <button
-                class="modal2-button-png"
-                @click="pngSalvar(), (showModalSalvar = false)"
-              >
+              <button class="modal2-button-png" @click="pngSalvar(), (showModalSalvar = false)">
                 {{ usingLang.imagem_PNG }}
               </button>
 
-              <button
-                class="modal2-button-svg"
-                @click="svgExportar(), (showModalSalvar = false)"
-              >
+              <button class="modal2-button-svg" @click="svgExportar(), (showModalSalvar = false)">
                 {{ usingLang.imagem_SVG }}
               </button>
 
-              <button
-                class="modal2-button-xml"
-                @click="exportarXml(), (showModalSalvar = false)"
-              >
+              <button class="modal2-button-xml" @click="exportarXml(), (showModalSalvar = false)">
                 {{ usingLang.xml }}
               </button>
 
-              <button
-                class="modal2-button-json"
-                @click="exportarJson(), (showModalSalvar = false)"
-              >
+              <button class="modal2-button-json" @click="exportarJson(), (showModalSalvar = false)">
                 {{ usingLang.json }}
               </button>
             </div>
 
             <div class="modal2-footer">
               <slot name="footer">
-                <button
-                  class="modal2-default-button cancel"
-                  @click="showModalSalvar = false"
-                >
+                <button class="modal2-default-button cancel" @click="showModalSalvar = false">
                   {{ usingLang.cancel }}
                 </button>
               </slot>
@@ -377,10 +262,7 @@
 
             <div class="modal3-footer">
               <slot name="footer">
-                <button
-                  class="modal3-default-button cancel"
-                  @click="showModalPropriedades = false"
-                >
+                <button class="modal3-default-button cancel" @click="showModalPropriedades = false">
                   {{ usingLang.sair }}
                 </button>
               </slot>
@@ -392,13 +274,6 @@
 
     <transition name="modal3" v-if="showModalRelatorio">
       <div class="modal3-mask">
-        <div id="logo-pdf">
-          <img
-            width="220px"
-            src="../assets/logo.png"
-            :title="usingLang.company_of_interest"
-          />
-        </div>
         <div class="modal3-wrapper">
           <div class="modal3-container">
             <div class="modal3-header">
@@ -406,15 +281,12 @@
             </div>
 
             <div class="modal3-body">
-              <ul
-                style="
+              <ul style="
                   display: flex;
                   flex-direction: column;
                   gap: 10px;
                   padding: 20px;
-                "
-                id="relatorio"
-              >
+                ">
                 <li :key="index" v-for="(value, index) in relatorio">
                   {{ value.nome }}: {{ value.total }}
                 </li>
@@ -423,18 +295,8 @@
 
             <div class="modal3-footer">
               <slot name="footer">
-                <button
-                  class="modal3-default-button cancel"
-                  @click="showModalRelatorio = false"
-                >
+                <button class="modal3-default-button cancel" @click="showModalRelatorio = false">
                   {{ usingLang.sair }}
-                </button>
-
-                 <button
-                  class="modal3-default-button pdf"
-                  @click="printRelatorio"
-                >
-                  {{ usingLang.print }}
                 </button>
               </slot>
             </div>
@@ -452,12 +314,13 @@ import graphConfig from "../configs/mxGraph/graphConfig";
 import { saveAs } from "file-saver";
 import { saveSvgAsPng } from "save-svg-as-png";
 import convert from "xml-js";
+import { services } from "../../services";
 
 import language from "../helpers/language";
 import ssn from "../helpers/ssn";
 
 let editor;
-import "./modelagem.css";
+import "../assets/css/modal.css";
 
 function occurrences(string, subString, allowOverlapping) {
   string += "";
@@ -487,15 +350,45 @@ export default {
       showModalRelatorio: false,
       showModalSalvar: false,
       showModal: false,
+      showModalLogin: false,
       usingLang: {},
-      dialog: false,
       currentCell: null,
-      selected: navigator.language || navigator.userLanguage,
+      selected: "pt-BR",
       relatorio: null,
+      input: {
+        username: "",
+        password: ""
+      }
     };
   },
 
   methods: {
+    login() {
+      if (this.input.username != "" && this.input.password != "")
+        services.user
+          .login(this.input.username, this.input.password)
+          .then((res) => {
+            this.token = res.data.access_token;
+            this.nome = res.data.nome;
+            this.logado = true;
+            localStorage.setItem("token", res.data.access_token);
+            localStorage.setItem("nome", res.data.nome);
+            this.showModalLogin = false;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    logout() {
+
+      this.token = null;
+      this.logado = false;
+      this.nome = null;
+      
+
+      localStorage.removeItem("nome");
+      localStorage.removeItem("token");
+    },
     // altera o selecionado em um painel separado
     // e transfere o objeto para o ambiente VUE
     selectionChanged() {
@@ -1179,22 +1072,22 @@ export default {
 
           var dx = fixed
             ? Math.max(
-                0,
-                Math.min(
-                  w,
-                  parseFloat(
-                    mxUtils.getValue(this.style, "size", this.fixedSize)
-                  )
+              0,
+              Math.min(
+                w,
+                parseFloat(
+                  mxUtils.getValue(this.style, "size", this.fixedSize)
                 )
               )
+            )
             : w *
-              Math.max(
-                0,
-                Math.min(
-                  1,
-                  parseFloat(mxUtils.getValue(this.style, "size", this.size))
-                )
-              );
+            Math.max(
+              0,
+              Math.min(
+                1,
+                parseFloat(mxUtils.getValue(this.style, "size", this.size))
+              )
+            );
           var arcSize =
             mxUtils.getValue(
               this.style,
@@ -1257,22 +1150,22 @@ export default {
           var fixed = mxUtils.getValue(this.style, "fixedSize", "0") != "0";
           var s = fixed
             ? Math.max(
-                0,
-                Math.min(
-                  w,
-                  parseFloat(
-                    mxUtils.getValue(this.style, "size", this.fixedSize)
-                  )
+              0,
+              Math.min(
+                w,
+                parseFloat(
+                  mxUtils.getValue(this.style, "size", this.fixedSize)
                 )
               )
+            )
             : w *
-              Math.max(
-                0,
-                Math.min(
-                  1,
-                  parseFloat(mxUtils.getValue(this.style, "size", this.size))
-                )
-              );
+            Math.max(
+              0,
+              Math.min(
+                1,
+                parseFloat(mxUtils.getValue(this.style, "size", this.size))
+              )
+            );
           var arcSize =
             mxUtils.getValue(
               this.style,
@@ -1585,7 +1478,6 @@ export default {
         if (mxClient.IS_QUIRKS) {
           document.body.style.overflow = "hidden";
           new mxDivResizer(container);
-          new mxDivResizer(sidebar);
         }
 
         if (typeof mxLanguage != "undefined" && mxLanguage != null) {
@@ -1619,7 +1511,7 @@ export default {
         editor.graph.setPanning(true);
         editor.graph.setAllowDanglingEdges(false);
 
-        // gigrar a figura
+        // girar a figura
         mxVertexHandler.prototype.rotationEnabled = true;
 
         // Habilita guias
@@ -1661,6 +1553,7 @@ export default {
         mxVertexHandler.prototype.livePreview = true;
         mxGraphHandler.prototype.maxLivePreview = 16;
 
+        new mxRubberband(editor.graph);
         // Increases default rubberband opacity (default is 20)
         mxRubberband.prototype.defaultOpacity = 30;
 
@@ -2291,24 +2184,21 @@ export default {
       }
     },
 
-    printRelatorio() {
-      window.print();
-    },
-
     // configurações
     init() {
       // chama o metodo criador do grafico
       this.createGraph();
-      this.createGraphTexto();
-      this.createGraphXou();
-      this.createGraphOu();
-      this.createGraphRelacao();
-      this.createGraphAgregador();
-      this.createGraphClienteDoCliente();
-      this.createGraphIntermediario();
-      this.createGraphCliente();
-      this.createGraphFornecedor();
+
       this.createGraphEmpresa();
+      this.createGraphFornecedor();
+      this.createGraphCliente();
+      this.createGraphIntermediario();
+      this.createGraphClienteDoCliente();
+      this.createGraphAgregador();
+      this.createGraphRelacao();
+      this.createGraphOu();
+      this.createGraphXou();
+      this.createGraphTexto();
     },
 
     autoSave() {
@@ -2323,9 +2213,6 @@ export default {
 
   mounted() {
     this.init();
-
-    let modelo = localStorage.getItem("modeloAutoSave");
-    if (modelo) this.importar(modelo);
   },
 
   created() {
@@ -2435,15 +2322,15 @@ export default {
     window.mxPopupMenu = mxPopupMenu;
     window.mxCellHighlight = mxCellHighlight;
 
-    window.addEventListener("copy", (e) => {
+    window.addEventListener("copy", () => {
       this.copiar();
     });
 
-    window.addEventListener("paste", (e) => {
+    window.addEventListener("paste", () => {
       this.colar();
     });
 
-    window.addEventListener("cut", (e) => {
+    window.addEventListener("cut", () => {
       this.recortar();
     });
 
@@ -2470,16 +2357,24 @@ export default {
       this.usingLang = language.pt;
       this.selected = "pt-BR";
     }
+
+    const token = localStorage.getItem("token");
+    const nome = localStorage.getItem("nome");
+
+    if (token) {
+      this.token = token;
+      this.logado = true;
+      this.nome = nome;
+    }
   },
 
   watch: {
     selected: function (newValue) {
-      this.autoSave();
 
       if (newValue === "pt-BR") {
-        this.$router.push("/");
-      } else if (newValue === "en") this.$router.push("/en");
-      else if (newValue === "es") this.$router.push("/es");
+        this.$router.push("/pt-BR/editor");
+      } else if (newValue === "en") this.$router.push("/en/editor");
+      else if (newValue === "es") this.$router.push("/es/editor");
     },
   },
 };

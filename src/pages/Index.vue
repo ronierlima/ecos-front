@@ -28,7 +28,7 @@
       </div>
     </header>
 
-    <h1 class="introducao">Novos valores e<br />Propriedades de CSS</h1>
+    <h1 class="introducao">Ecos Modeling<br />Modele ecossistemas de software</h1>
 
     <section class="sobre" id="sobre">
       <div class="sobre-info">
@@ -45,11 +45,9 @@
         </p>
       </div>
       <div class="sobre-img">
-        <img src="src/img/sobre1.jpg" alt="Sobre 1" />
+        <img src="../assets/Diagrama.png" alt="Sobre 1" />
       </div>
-      <div class="sobre-img">
-        <img src="src/img/sobre2.jpg" alt="Sobre 2" />
-      </div>
+     
     </section>
 
     <section class="produtos" id="produtos">
@@ -173,10 +171,6 @@
         <button type="submit">Assinar</button>
       </form>
     </section>
-
-    <footer class="footer">
-      <p>Ronier Lima © Todos os direitos reservados.</p>
-    </footer>
 
     <transition name="modal" v-if="showModal">
       <div class="modal-mask">
