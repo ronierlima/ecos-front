@@ -2373,7 +2373,7 @@ export default {
 
 
       if (newValue === "pt-BR") {
-        this.$router.push("/pt-BR/editor");
+        this.$router.push("/pt-br/editor");
       } else if (newValue === "en") this.$router.push("/en/editor");
       else if (newValue === "es") this.$router.push("/es/editor");
     },

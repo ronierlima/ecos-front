@@ -17,10 +17,12 @@
         </div>
         <nav class="menu-nav">
           <ul>
-            <li><a href="#sobre">Modelos público</a></li>
-            <li><a href="#produtos">Meus modelos</a></li>
+            <li><a :href="'/' + selected.toLowerCase().trim() + '/editor'">Editor</a></li>
+            <li><a :href="'/' + selected.toLowerCase().trim() + '/' + usingLang.models.toLowerCase().trim()">{{
+                usingLang.public
+            }}</a></li>
+            <li v-if="logado"><a href="#produtos">Meus modelos</a></li>
             <li v-if="!logado"><a @click="showModal = true">Entrar</a></li>
-            <li><a href="/en">Editor</a></li>
             <li v-if="logado"><a @click="showModal = true">| {{ nome }} |</a></li>
             <li v-if="logado"><a @click="showModal = true">| Sair |</a></li>
           </ul>
@@ -28,11 +30,11 @@
       </div>
     </header>
 
-    <h1 class="introducao">Ecos Modeling<br />Modele ecossistemas de software</h1>
+    <h1 class="introducao">Ecos Modeling<br />{{ usingLang.sub }}</h1>
 
     <section class="sobre" id="sobre">
       <div class="sobre-info">
-        <h1>Sobre</h1>
+        <h1>{{ usingLang.about }}</h1>
         <p>
           O que temos que ter sempre em mente é que a determinação clara de
           objetivos afeta positivamente a correta previsão das condições
@@ -47,7 +49,7 @@
       <div class="sobre-img">
         <img src="../assets/Diagrama.png" alt="Sobre 1" />
       </div>
-     
+
     </section>
 
     <section class="produtos" id="produtos">
@@ -270,6 +272,8 @@ export default {
       localStorage.removeItem("token");
     },
     changeLang() {
+
+
       if (this.selected === "en") this.usingLang = language.en;
       else if (this.selected === "es") this.usingLang = language.es;
       else {
@@ -280,10 +284,15 @@ export default {
   },
 
   watch: {
-    selected: function () {
 
+    selected: function (newValue) {
+      if (newValue === "pt-BR") {
+        this.$router.push("/pt-br");
+      } else if (newValue === "en") this.$router.push("/en");
+      else if (newValue === "es") this.$router.push("/es");
       this.changeLang();
     },
+    
   },
 
 };

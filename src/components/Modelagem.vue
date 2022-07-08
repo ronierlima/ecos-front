@@ -1,6 +1,6 @@
 <template>
   <div id="modelo">
-  <div class="superinfo-bg">
+    <div class="superinfo-bg">
       <div class="superinfo">
         <select v-model="selected" name="language" id="language" class="chave">
           <option value="pt-BR">pt-BR</option>
@@ -12,7 +12,7 @@
     <header class="menu-bg">
       <div class="menu">
         <div class="menu-logo">
-          <router-link :to="'/' + this.selected"><img width="220px" src="../assets/logo.png"/></router-link>
+          <router-link :to="'/' + this.selected"><img width="220px" src="../assets/logo.png" /></router-link>
         </div>
         <nav class="menu-nav">
           <ul>
@@ -64,13 +64,13 @@
               <img width="32px" @click="selecionarRelacoes()" src="../assets/select_vertices.svg"
                 :alt="usingLang.italico" :title="usingLang.italico" />
             </li>
-            
+
             <li v-if="!logado"><a @click="showModalLogin = true">Entrar</a></li>
           </ul>
         </nav>
 
         <div class="usuario" v-if="logado">
-          <a>{{nome}}</a>
+          <a>{{ nome }}</a>
           <a @click="logout()">sair</a>
         </div>
       </div>
@@ -376,7 +376,8 @@ export default {
             this.showModalLogin = false;
           })
           .catch((error) => {
-            console.log(error);
+            this.showModalLogin = false;
+            alert(error.response.data.error_description)
           });
     },
     logout() {
@@ -384,11 +385,23 @@ export default {
       this.token = null;
       this.logado = false;
       this.nome = null;
-      
+
 
       localStorage.removeItem("nome");
       localStorage.removeItem("token");
     },
+
+    salvarOnline() {
+      var enc = new mxCodec(mxUtils.createXmlDocument());
+      var node = enc.encode(editor.graph.getModel());
+      var node2 = mxUtils.getXml(node);
+
+
+      var file = new Blob([node2], { type: "text/xml" });
+
+
+    }
+    ,
     // altera o selecionado em um painel separado
     // e transfere o objeto para o ambiente VUE
     selectionChanged() {
@@ -2372,7 +2385,7 @@ export default {
     selected: function (newValue) {
 
       if (newValue === "pt-BR") {
-        this.$router.push("/pt-BR/editor");
+        this.$router.push("/pt-br/editor");
       } else if (newValue === "en") this.$router.push("/en/editor");
       else if (newValue === "es") this.$router.push("/es/editor");
     },

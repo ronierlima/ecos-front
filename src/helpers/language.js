@@ -52,7 +52,11 @@ module.exports.pt = {
 
   // login de usuarios
 
-  login: "Realizar login"
+  login: "Realizar login",
+  public: "Modelos público",
+  sub: "Modele ecossistemas de software",
+  about: "Sobre",
+  models: "Modelos"
   
 };
 
@@ -110,7 +114,11 @@ module.exports.en = {
   json:"Download in JSON",
   sair:"Get out",
 
-  login: "Login"
+  login: "Login",
+  public: "Public Models",
+  sub: "Model software ecosystems",
+  about: "About",
+  models: "Models"
 };
 
 module.exports.es = {
@@ -124,7 +132,6 @@ module.exports.es = {
   or: "O",
   xor: "XOR",
   text: "Texto",
-  save: "Salvar",
   save: "Salvar",
   delete: "Deletar",
   export: "Exportar",
@@ -171,5 +178,8 @@ module.exports.es = {
   sair:"Sal",
 
   login: "Iniciar sesión",
-  
+  public: "Modelos públicos",
+  sub: "Modelar ecosistemas de software",
+  about: "Sobre",
+  models: "Modelos"
 };

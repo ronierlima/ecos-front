@@ -6,7 +6,11 @@ import ModelagemEs from "../components/ModelagemEs.vue";
 
 export default [
   {
-    path: "/pt-Br",
+    path: "/",
+    redirect: "/pt-br",
+  },
+  {
+    path: "/pt-br",
     name: "Home",
     component: Home,
   },
@@ -39,12 +43,12 @@ export default [
   },
 
   {
-    path: "/pt-BR/editor",
+    path: "/pt-br/editor",
     name: "enEditor",
     component: Modelagem,
   },
   {
-    path: "/pt-BR/modelos",
+    path: "/pt-br/modelos",
     name: "ptModels",
     component: Models,
   },

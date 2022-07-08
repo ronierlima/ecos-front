@@ -17,12 +17,13 @@
                 </div>
                 <nav class="menu-nav">
                     <ul>
-                        <li>
-                            <router-link :to="'/' + this.selected + '/editor'">Modelos público</router-link>
-                        </li>
-                        <li><a href="#produtos">Meus modelos</a></li>
+                        <li><a :href="'/' + selected.toLowerCase().trim() + '/editor'">Editor</a></li>
+                        <li><a
+                                :href="'/' + selected.toLowerCase().trim() + '/' + usingLang.models.toLowerCase().trim()">{{
+                                        usingLang.public
+                                }}</a></li>
+                        <li v-if="logado"><a href="#produtos">Meus modelos</a></li>
                         <li v-if="!logado"><a @click="showModal = true">Entrar</a></li>
-                        <li><router-link :to="'/' + this.selected + '/editor'">Editor</router-link></li>
                         <li v-if="logado"><a @click="showModal = true">| {{ nome }} |</a></li>
                         <li v-if="logado"><a @click="showModal = true">| Sair |</a></li>
                     </ul>
@@ -31,19 +32,15 @@
         </header>
 
         <section class="produtos" id="produtos">
-            <h1>Modelos</h1>
+            <h1>{{ usingLang.models }}</h1>
             <div class="produtos-container">
-                <div class="produtos-item grey">
-                    <h2>Purple</h2>
-                    <img src="src/img/produtos1.jpg" alt="Produtos 1" />
-                </div>
-                <div class="produtos-item grey">
-                    <h2>Pink</h2>
-                    <img src="src/img/produtos2.jpg" alt="Produtos 2" />
-                </div>
-                <div class="produtos-item grey">
-                    <h2>Blue</h2>
-                    <img src="src/img/produtos3.jpg" alt="Produtos 3" />
+                <div class="produtos-item grey" v-for="modelo in modelos" v-bind:key="modelo.codigo">
+                    <h2>{{ modelo.titulo }}</h2>
+                    <div class="preview">
+                        <img :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'"
+                            alt="Produtos 1" />
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -92,8 +89,6 @@ import language from "../helpers/language";
 
 export default {
     name: "Index",
-
-
     data() {
         return {
             loader: null,
@@ -108,7 +103,8 @@ export default {
             input: {
                 username: "",
                 password: ""
-            }
+            },
+            modelos: []
         };
     },
 
@@ -124,6 +120,7 @@ export default {
 
 
         this.changeLang();
+        this.getModelos();
     },
 
     methods: {
@@ -147,6 +144,18 @@ export default {
             this.logado = false;
             localStorage.removeItem("token");
         },
+
+        getModelos() {
+            services.models
+                .list()
+                .then((res) => {
+                    this.modelos = res.data.content;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+
         changeLang() {
             this.selected = this.$router.history.current.path.split("/")[1]
 
@@ -167,7 +176,7 @@ export default {
             if (newValue === currentValue) return;
 
             if (newValue === "pt-BR") {
-                this.$router.push("/pt-BR/modelos");
+                this.$router.push("/pt-br/modelos");
             } else if (newValue === "en") this.$router.push("/en/models");
             else if (newValue === "es") this.$router.push("/es/models");
         },

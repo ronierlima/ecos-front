@@ -44,4 +44,16 @@ export const services = {
       });
     },
   },
+  models: {
+    async list() {
+      return api({
+        method: "get",
+        url: "http://localhost:8080/ecos-api/modelos",
+        headers: {
+          ContentType: "application/x-www-form-urlencoded",
+          Authorization: "Basic b2lzb2w6YWRtaW4=",
+        },
+      });
+    },
+  }
 };
