@@ -20,6 +20,11 @@ ul {
 
 a {
   text-decoration: none;
+  cursor: pointer;
+}
+
+a#exit {
+  color: red;
 }
 
 img {
@@ -207,9 +212,71 @@ html {
   padding: 10px;
 }
 
+.content {
+
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 60px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content h1{
+  margin: 2rem 0;
+  color: #5e5e5e;
+}
+
 .usuario {
   display: flex;
   gap: 1rem;
+}
+
+.dropbtn {
+  background-color: #5e5e5e;;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #5e5e5e;;
 }
 
 /*Introdução*/
@@ -217,7 +284,7 @@ html {
 .introducao {
   font-size: 3em;
   line-height: 1;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 60px 10px;
 }
@@ -227,7 +294,7 @@ html {
 .sobre {
   border-top: 2px solid #2c70ff;
   border-bottom: 2px solid #2c70ff;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 60px 0;
   display: flex;
@@ -259,7 +326,7 @@ html {
 /*Produtos*/
 
 .produtos {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 60px auto;
 }
 
@@ -392,7 +459,7 @@ html {
 /*Qualidade*/
 
 .qualidade {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 60px auto;
   display: flex;
   flex-wrap: wrap;
@@ -439,7 +506,7 @@ html {
 
 .newsletter {
   background: #f7f7f7;
-  padding: 60px calc((100% - 960px) / 2);
+  padding: 60px calc((100% - 1200px) / 2);
   display: flex;
   flex-wrap: wrap;
 }

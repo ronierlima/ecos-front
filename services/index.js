@@ -23,7 +23,7 @@ export const services = {
         method: "post",
         url: process.env.REACT_APP_GATEWAY_AUTH + "/check_token",
         data: qs.stringify({
-          token: token, 
+          token: token,
         }),
         headers: {
           ContentType: "application/x-www-form-urlencoded",
@@ -31,7 +31,7 @@ export const services = {
         },
       });
     },
-    
+
     async forgotPassword(user) {
       return await api({
         method: "put",
@@ -45,15 +45,35 @@ export const services = {
     },
   },
   models: {
-    async list() {
+    async post(data) {
       return api({
-        method: "get",
+        method: "post",
         url: "http://localhost:8080/ecos-api/modelos",
+        data,
         headers: {
-          ContentType: "application/x-www-form-urlencoded",
-          Authorization: "Basic b2lzb2w6YWRtaW4=",
+          ContentType: "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
     },
-  }
+    async list(params) {
+      return api({
+        method: "get",
+        url: "http://localhost:8080/ecos-api/modelos",
+        params,
+      });
+    },
+    async getMyModels() {
+      return api({
+        method: "get",
+        url: "http://localhost:8080/ecos-api/usuarios/modelos",
+      });
+    },
+    async get(codigo) {
+      return api({
+        method: "get",
+        url: `http://localhost:8080/ecos-api/modelos/${codigo}/arquivo`,
+      });
+    },
+  },
 };

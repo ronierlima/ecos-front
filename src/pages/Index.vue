@@ -1,35 +1,5 @@
 <template>
-  <div>
-    <div class="superinfo-bg">
-      <div class="superinfo">
-        <select v-model="selected" name="language" id="language" class="chave">
-          <option value="pt-BR">pt-BR</option>
-          <option value="en">en</option>
-          <option value="es">es</option>
-        </select>
-      </div>
-    </div>
-
-    <header class="menu-bg">
-      <div class="menu">
-        <div class="menu-logo">
-          <img width="220px" src="../assets/logo.png" />
-        </div>
-        <nav class="menu-nav">
-          <ul>
-            <li><a :href="'/' + selected.toLowerCase().trim() + '/editor'">Editor</a></li>
-            <li><a :href="'/' + selected.toLowerCase().trim() + '/' + usingLang.models.toLowerCase().trim()">{{
-                usingLang.public
-            }}</a></li>
-            <li v-if="logado"><a href="#produtos">Meus modelos</a></li>
-            <li v-if="!logado"><a @click="showModal = true">Entrar</a></li>
-            <li v-if="logado"><a @click="showModal = true">| {{ nome }} |</a></li>
-            <li v-if="logado"><a @click="showModal = true">| Sair |</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-
+  <Main>
     <h1 class="introducao">Ecos Modeling<br />{{ usingLang.sub }}</h1>
 
     <section class="sobre" id="sobre">
@@ -53,170 +23,46 @@
     </section>
 
     <section class="produtos" id="produtos">
-      <h1>Produtos</h1>
-      <div class="produtos-container">
-        <div class="produtos-item purple">
-          <h2>Purple</h2>
-          <img src="src/img/produtos1.jpg" alt="Produtos 1" />
-        </div>
-        <div class="produtos-item pink">
-          <h2>Pink</h2>
-          <img src="src/img/produtos2.jpg" alt="Produtos 2" />
-        </div>
-        <div class="produtos-item blue">
-          <h2>Blue</h2>
-          <img src="src/img/produtos3.jpg" alt="Produtos 3" />
-        </div>
-      </div>
-    </section>
-
-    <section class="preco" id="preco">
-      <div class="preco-item">
-        <h2>Cobre</h2>
-        <span><sup>R$</sup>19</span>
-        <ul>
-          <li>Planos Ilimitados</li>
-          <li>Acesso Restrito</li>
-          <li>Conteúdo Secreto</li>
-          <li>Suporte 24h</li>
-        </ul>
-        <a href="#">Comprar</a>
-      </div>
-
-      <div class="preco-item">
-        <h2>Prata</h2>
-        <span><sup>R$</sup>39</span>
-        <ul>
-          <li>Planos Ilimitados</li>
-          <li>Acesso Restrito</li>
-          <li>Conteúdo Secreto</li>
-          <li>Suporte 24h</li>
-          <li>Compra Exclusiva</li>
-        </ul>
-        <a href="#">Comprar</a>
-      </div>
-
-      <div class="preco-item">
-        <h2>Ouro</h2>
-        <span><sup>R$</sup>79</span>
-        <ul>
-          <li>Planos Ilimitados</li>
-          <li>Acesso Restrito</li>
-          <li>Conteúdo Secreto</li>
-          <li>Suporte 24h</li>
-          <li>Compra Exclusiva</li>
-          <li>Download dos Itens</li>
-        </ul>
-        <a href="#">Comprar</a>
-      </div>
-    </section>
-
-    <section class="qualidade" id="qualidade">
-      <div class="qualidade-item">
-        <h2>Inteligente</h2>
-        <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão
-        </p>
-      </div>
-
-      <div class="qualidade-item">
-        <h2>Compacto</h2>
-        <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão das condições
-          inegavelmente
-        </p>
-      </div>
-
-      <div class="qualidade-item">
-        <h2>Econômico</h2>
-        <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão
-        </p>
-      </div>
-
-      <div class="qualidade-item">
-        <h2>Transparente</h2>
-        <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão
-        </p>
-      </div>
-
-      <div class="qualidade-item">
-        <h2>Opaco</h2>
-        <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão das condições
-          inegavelmente
-        </p>
-      </div>
-
-      <div class="qualidade-item">
-        <h2>Sustentável</h2>
-        <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão
-        </p>
-      </div>
-    </section>
-
-    <section class="newsletter">
-      <div class="newsletter-info">
-        <h1>Newsletter</h1>
-        <p>assine e fique por dentro das novidades</p>
-      </div>
-      <form class="newsletter-form">
-        <input type="text" placeholder="Seu e-mail" />
-        <button type="submit">Assinar</button>
-      </form>
-    </section>
-
-    <transition name="modal" v-if="showModal">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3 name="header">{{ usingLang.login }}</h3>
+      <h1>{{ usingLang.publicModels }}</h1>
+      <ul class="cards">
+        <li v-for="modelo in modelos" v-bind:key="modelo.codigo">
+          <a href="" class="card" v-on:click="open(modelo.codigo)">
+            <img :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'" class="card__image"
+              alt="" />
+            <div class="card__overlay">
+              <div class="card__header">
+                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+                  <path />
+                </svg>
+                <img class="card__thumb" :src="'https://joeschmoe.io/api/v1/' + modelo.criador.email" alt="" />
+                <div class="card__header-text">
+                  <h3 class="card__title">{{ modelo.criador.nome }}</h3>
+                  <span class="card__status">1 hour ago</span>
+                </div>
+              </div>
+              <p class="card__description">Abrir modelo no editor</p>
             </div>
+          </a>
+        </li>
+      </ul>
+      <a id="plusModels" :href="usingLang.routes.publicModels">
+        + {{ usingLang.publicModels }}
+      </a>
+    </section>
 
-            <div class="modal-body">
-              <form>
-
-                <label for="username">Username</label>
-                <input type="text" v-model="input.username" placeholder="Email" id="username" name="username">
-
-                <label for="password">Password</label>
-                <input type="password" v-model="input.password" placeholder="Password" id="password" name="password">
-              </form>
-            </div>
-
-            <div class="modal-footer">
-              <slot name="footer">
-                <button class="modal-default-button cancel" @click="showModal = false">
-                  {{ usingLang.cancel }}
-                </button>
-                <button class="modal-default-button" v-on:click="login()">
-                  {{ usingLang.login }}
-                </button>
-              </slot>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-  </div>
+  </Main>
 </template>
 
 <script>
 import { services } from "../../services";
 import language from "../helpers/language";
+import Main from "../components/Main.vue"
 
 export default {
   name: "Index",
-
+  components: {
+    Main,
+  },
 
   data() {
     return {
@@ -232,7 +78,8 @@ export default {
       input: {
         username: "",
         password: ""
-      }
+      },
+      modelos: []
     };
   },
 
@@ -246,7 +93,7 @@ export default {
       this.nome = nome;
     }
 
-
+    this.getModelos();
     this.changeLang();
   },
 
@@ -256,11 +103,12 @@ export default {
         services.user
           .login("ronier.lim@gmail.com", "1")
           .then((res) => {
-            this.token = res.data.token;
-            this.nome = res.data.nome;
+            this.token = res.data.access_token;
+            this.nome = res.data.nome_completo;
             this.logado = true;
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("nome", res.data.nome);
+            localStorage.setItem("token", res.data.access_token);
+            localStorage.setItem("nome", res.data.nome_completo);
+            this.showModal = false;
           })
           .catch((error) => {
             console.log(error);
@@ -280,7 +128,22 @@ export default {
         this.usingLang = language.pt;
         this.selected = "pt-BR";
       }
-    }
+    },
+
+    getModelos() {
+      services.models
+        .list({ size: 6 })
+        .then((res) => {
+          this.modelos = res.data.content;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    open(modelo) {
+      this.$router.push("/pt-br/editor/" + modelo);
+    },
   },
 
   watch: {
@@ -292,7 +155,7 @@ export default {
       else if (newValue === "es") this.$router.push("/es");
       this.changeLang();
     },
-    
+
   },
 
 };
@@ -332,5 +195,18 @@ input {
 
 ::placeholder {
   color: #5e5e5e;
+}
+
+#plusModels {
+  max-width: 100%;
+  display: block;
+  margin: 20px auto;
+  border: 4px solid;
+  color: #222222;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2em;
+  padding: 15px 0;
+  text-align: center;
 }
 </style>
