@@ -2,7 +2,7 @@ import Home from "../pages/Index.vue";
 import PublicModels from "../pages/PublicModels.vue";
 import PrivateModels from "../pages/PrivateModels.vue";
 
-import Modelagem from "../components/Modelagem.vue";
+import Modelagem from "../components/Editor.vue";
 
 export default [
   {

@@ -34,7 +34,7 @@
                 <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
                   <path />
                 </svg>
-                <img class="card__thumb" :src="'https://joeschmoe.io/api/v1/' + modelo.criador.email" alt="" />
+                <img class="card__thumb" :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo" alt="" />
                 <div class="card__header-text">
                   <h3 class="card__title">{{ modelo.criador.nome }}</h3>
                   <span class="card__status">1 hour ago</span>

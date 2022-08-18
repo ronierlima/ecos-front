@@ -15,7 +15,9 @@
         "mxgraph": "^4.2.2",
         "save-svg-as-png": "^1.4.17",
         "vue": "^2.6.12",
+        "vue-moment": "^4.1.0",
         "vue-router": "^3.5.1",
+        "vue-toastification": "^1.7.14",
         "xml-js": "^1.6.11",
         "xmlhttprequest": "^1.8.0"
     },

@@ -3,7 +3,7 @@
 
         <section class="content" id="modelos">
 
-            <h1>Meus Modelos /</h1>
+            <h1>Modelos públicos /</h1>
 
             <ul class="cards">
                 <li v-for="modelo in modelos" v-bind:key="modelo.codigo">
@@ -15,11 +15,11 @@
                                 <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
                                     <path />
                                 </svg>
-                                <img class="card__thumb" :src="'https://joeschmoe.io/api/v1/' + modelo.criador.email"
+                                <img class="card__thumb" :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo"
                                     alt="" />
                                 <div class="card__header-text">
                                     <h3 class="card__title">{{ modelo.criador.nome }}</h3>
-                                    <span class="card__status">1 hour ago</span>
+                                    <span class="card__status">{{ modelo.dataCadastro }}</span>
                                 </div>
                             </div>
                             <p class="card__description">Abrir modelo no editor</p>
@@ -32,7 +32,6 @@
         </section>
     </Main>
 </template>
-
 <script>
 import { services } from "../../services";
 import Main from "../components/Main.vue"
@@ -78,8 +77,8 @@ export default {
                 .then((res) => {
                     this.modelos = res.data.content;
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch(() => {
+                    this.$toast.error("Ocorreu um erro ao carregar os modelos")
                 });
         },
 
@@ -93,9 +92,9 @@ export default {
 };
 </script>
 
-<style>
+<!-- <style>
 :root {
-    --surface-color: #fff;
+    --surface-color: #f2f0e6;
     --curve: 40;
 }
 
@@ -105,7 +104,7 @@ export default {
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: #fef8f8;
+    background-color: #f2f0e6;
 }
 
 .cards {
@@ -125,12 +124,27 @@ body {
     border-radius: calc(var(--curve) * 1px);
     overflow: hidden;
     text-decoration: none;
-    border: solid 2px #6A515E;
+    border: solid 2px #5e5e5e;
+    text-align: center;
+    background-color: #5e5e5e;
 }
 
 .card__image {
     width: 100%;
-    height: auto;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    transition: transform .75s;
+    transform: translateY(-30%);
+
+    
+}
+
+.card:hover .card__image {
+ position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(.5);  
 }
 
 .card__overlay {
@@ -189,7 +203,7 @@ body {
 .card__title {
     font-size: 1em;
     margin: 0 0 .3em;
-    color: #6A515E;
+    color: #5e5e5e;
 }
 
 .card__tagline {
@@ -215,4 +229,4 @@ body {
     -webkit-line-clamp: 3;
     overflow: hidden;
 }
-</style>
+</style> -->

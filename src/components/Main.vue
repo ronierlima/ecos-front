@@ -31,8 +31,8 @@
             </li>
 
             <li v-if="!logado"><a @click="showModal = true">Entrar</a></li>
-            <li v-if="logado"><a >| {{ nome }} |</a></li>
-            <li v-if="logado"><a @click="logout()">| Sair |</a></li>
+            <li v-if="logado"><a>| {{ nome }} |</a></li>
+            <li v-if="logado"><a id="exit" @click="logout()">| Sair |</a></li>
           </ul>
         </nav>
       </div>
@@ -118,7 +118,7 @@ export default {
 
   methods: {
     login() {
-      if (this.input.username != "" && this.input.password != "")
+      if (this.input.username != "" && this.input.password != "") {
         services.user
           .login("ronier.lim@gmail.com", "1")
           .then((res) => {
@@ -128,15 +128,22 @@ export default {
             localStorage.setItem("token", res.data.access_token);
             localStorage.setItem("nome", res.data.nome_completo);
             this.showModal = false;
+            this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
           })
           .catch((error) => {
-            console.log(error);
+            this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
           });
+
+      } else {
+        this.$toast.error("Preencha todos os campos");
+      }
     },
     logout() {
       this.token = null;
       this.logado = false;
       localStorage.removeItem("token");
+       localStorage.removeItem("nome");
+      this.$router.push(this.usingLang.routes.home)
     },
     changeLang() {
 

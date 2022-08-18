@@ -213,17 +213,18 @@ html {
 }
 
 .content {
-
   max-width: 1250px;
   margin: 0 auto;
   padding: 60px 0;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .content h1{
   margin: 2rem 0;
   color: #5e5e5e;
+  
 }
 
 .usuario {

@@ -5,29 +5,40 @@
 
             <h1>Modelos públicos /</h1>
 
-            <ul class="cards">
-                <li v-for="modelo in modelos" v-bind:key="modelo.codigo">
-                    <a href="" class="card" v-on:click="open(modelo.codigo)">
-                        <img :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'"
-                            class="card__image" alt="" />
-                        <div class="card__overlay">
-                            <div class="card__header">
-                                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
-                                    <path />
-                                </svg>
-                                <img class="card__thumb" :src="'https://joeschmoe.io/api/v1/' + modelo.criador.email"
-                                    alt="" />
-                                <div class="card__header-text">
-                                    <h3 class="card__title">{{ modelo.criador.nome }}</h3>
-                                    <span class="card__status">1 hour ago</span>
-                                </div>
-                            </div>
-                            <p class="card__description">Abrir modelo no editor</p>
+            <div class="container">
+                <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
+                    <div class="user">
+                        <img :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo" alt="user" />
+                        <div class="user-info">
+                            <h5>{{ modelo.criador.nome }}</h5>
+                            <small>{{ modelo.dataCadastro | moment("DD/MM/YYYY") }}</small>
                         </div>
-                    </a>
-                </li>
+                    </div>
+                    <div class="card-header">
+                        <img class="image" :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'"
+                            alt="rover" />
 
-            </ul>
+                        <div class="middle">
+                            <div class="text" @click="open(modelo.codigo)" >Abrir no editor</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <h4>
+                            {{ modelo.titulo }}
+                        </h4>
+                        <p>
+                            {{ modelo.descricao || "aqui ficaria uma descição" }}
+                        </p>
+
+                    </div>
+                    <div class="card-actions">
+                        <span class="tag tag-teal">abrir</span>
+                        <span class="tag tag-purple">atualizar</span>
+                        <span class="tag tag-pink">excluir</span>
+                    </div>
+                </div>
+            </div>
 
         </section>
     </Main>
@@ -67,8 +78,8 @@ export default {
                 .then((res) => {
                     this.modelos = res.data.content;
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch(() => {
+                    this.$toast.error("Ocorreu um erro ao carregar os modelos")
                 });
         },
 
@@ -83,125 +94,151 @@ export default {
 </script>
 
 <style>
-:root {
-    --surface-color: #fff;
-    --curve: 40;
-}
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #fef8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #f7f8fc;
+    font-family: "Roboto", sans-serif;
+    color: #10182f;
 }
 
-.cards {
+.container {
     display: flex;
-    gap: 2rem;
-    justify-content: center;
-    padding: 0;
-    list-style-type: none;
+    width: 100%;
+    justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.card-header:hover .image {
+  opacity: 0.3;
+}
+
+.card-header:hover .middle {
+  opacity: 1;
+}
+.text {
+  background-color: #5e5e5e;
+  color: white;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
 .card {
-    position: relative;
-    display: block;
-    width: 350px;
-    height: 400px;
-    border-radius: calc(var(--curve) * 1px);
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    text-decoration: none;
-    border: solid 2px #6A515E;
+    width: 300px;
 }
 
-.card__image {
+.card-header {
+    padding: 1rem;
+
+}
+
+
+.card-header img {
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
 }
 
-.card__overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    border-radius: calc(var(--curve) * 1px);
-    background-color: var(--surface-color);
-    transform: translateY(100%);
-    transition: .2s ease-in-out;
-}
-
-.card:hover .card__overlay {
-    transform: translateY(0);
-}
-
-.card__header {
-    position: relative;
+.card-body {
     display: flex;
-    align-items: center;
-    gap: 2em;
-    padding: 2em;
-    border-radius: calc(var(--curve) * 1px) 0 0 0;
-    background-color: var(--surface-color);
-    transform: translateY(-100%);
-    transition: .2s ease-in-out;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 20px;
+    border-top: #5e5e5e1e dotted 4px;
+
 }
 
-.card__arc {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    z-index: 1;
+.card-actions {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #5e5e5e1e;
+    padding: 20px;
+    gap: .5rem;
 }
 
-.card__arc path {
-    fill: var(--surface-color);
-    d: path("M 40 80 c 22 0 40 -22 40 -40 v 40 Z");
-}
-
-.card:hover .card__header {
-    transform: translateY(0);
-}
-
-.card__thumb {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.card__title {
-    font-size: 1em;
-    margin: 0 0 .3em;
-    color: #6A515E;
-}
-
-.card__tagline {
-    display: block;
-    margin: 1em 0;
-    font-family: "MockFlowFont";
-    font-size: .8em;
-    color: #D7BDCA;
-}
-
-.card__status {
-    font-size: .8em;
-    color: #D7BDCA;
-}
-
-.card__description {
-    padding: 0 2em 2em;
+.tag {
+    background: #cccccc;
+    font-size: 1rem;
     margin: 0;
-    color: #D7BDCA;
-    font-family: "MockFlowFont";
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
+    color: #fff;
+    padding: .25rem .75rem;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.tag-teal:hover {
+background-color: #47bcd479;
+}
+
+.tag-teal {
+    background-color: #47bcd4;
+}
+
+.tag-purple {
+    background-color: #5e76bf;
+}
+
+.tag-pink {
+    background-color: #cd5b9f;
+}
+
+.card-body p {
+    font-size: 13px;
+    margin: 0 0 40px;
+}
+
+.user {
+    display: flex;
+    padding: 1rem;
+    background-color: #5e5e5e1e;
+}
+
+.user img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.user-info h5 {
+    margin: 0;
+}
+
+.user-info small {
+    color: #545d7a;
 }
 </style>
