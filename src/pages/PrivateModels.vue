@@ -5,29 +5,40 @@
 
             <h1>Modelos públicos /</h1>
 
-            <ul class="cards">
-                <li v-for="modelo in modelos" v-bind:key="modelo.codigo">
-                    <a href="" class="card" v-on:click="open(modelo.codigo)">
-                        <img :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'"
-                            class="card__image" alt="" />
-                        <div class="card__overlay">
-                            <div class="card__header">
-                                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
-                                    <path />
-                                </svg>
-                                <img class="card__thumb" :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo"
-                                    alt="" />
-                                <div class="card__header-text">
-                                    <h3 class="card__title">{{ modelo.criador.nome }}</h3>
-                                    <span class="card__status">{{ modelo.dataCadastro }}</span>
-                                </div>
-                            </div>
-                            <p class="card__description">Abrir modelo no editor</p>
+             <div class="container">
+                <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
+                    <div class="user">
+                        <img :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo" alt="user" />
+                        <div class="user-info">
+                            <h5>{{ modelo.criador.nome }}</h5>
+                            <small>{{ modelo.dataCadastro | moment("DD/MM/YYYY") }}</small>
                         </div>
-                    </a>
-                </li>
+                    </div>
+                    <div class="card-header">
+                        <img class="image" :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'"
+                            alt="rover" />
 
-            </ul>
+                        <div class="middle">
+                            <div class="text" @click="open(modelo.codigo)">Abrir no editor</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <h4>
+                            {{ modelo.titulo }}
+                        </h4>
+                        <p>
+                            {{ modelo.descricao || "aqui ficaria uma descição" }}
+                        </p>
+
+                    </div>
+                    <div class="card-actions">
+                        <span class="tag tag-teal">abrir</span>
+                        <span class="tag tag-purple">atualizar</span>
+                        <span class="tag tag-red">excluir</span>
+                    </div>
+                </div>
+            </div>
 
         </section>
     </Main>

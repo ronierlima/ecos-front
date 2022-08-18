@@ -19,7 +19,7 @@
                             alt="rover" />
 
                         <div class="middle">
-                            <div class="text" @click="open(modelo.codigo)" >Abrir no editor</div>
+                            <div class="text" @click="open(modelo.codigo)">Abrir no editor</div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -32,11 +32,7 @@
                         </p>
 
                     </div>
-                    <div class="card-actions">
-                        <span class="tag tag-teal">abrir</span>
-                        <span class="tag tag-purple">atualizar</span>
-                        <span class="tag tag-pink">excluir</span>
-                    </div>
+                     
                 </div>
             </div>
 
@@ -94,22 +90,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    background-color: #f7f8fc;
-    font-family: "Roboto", sans-serif;
-    color: #10182f;
-}
-
+ 
 .container {
     display: flex;
     width: 100%;
@@ -118,38 +99,39 @@ body {
 }
 
 .image {
-  opacity: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: .5s ease;
-  backface-visibility: hidden;
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
 }
 
 .middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .card-header:hover .image {
-  opacity: 0.3;
+    opacity: 0.3;
 }
 
 .card-header:hover .middle {
-  opacity: 1;
+    opacity: 1;
 }
+
 .text {
-  background-color: #5e5e5e;
-  color: white;
-  font-size: 1rem;
-  padding: 1rem 2rem;
-  cursor: pointer;
+    background-color: #5e5e5e;
+    color: white;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
 }
 
 .card {
@@ -162,9 +144,9 @@ body {
 
 .card-header {
     padding: 1rem;
+    position: relative;
 
 }
-
 
 .card-header img {
     width: 100%;
@@ -191,7 +173,7 @@ body {
 }
 
 .tag {
-    background: #cccccc;
+    background: #3498db;
     font-size: 1rem;
     margin: 0;
     color: #fff;
@@ -200,21 +182,32 @@ body {
     cursor: pointer;
 }
 
-.tag-teal:hover {
-background-color: #47bcd479;
-}
 
 .tag-teal {
-    background-color: #47bcd4;
+    background-color: #3498db;
+}
+
+.tag-teal:hover  {
+    background-color: #2980b9;
 }
 
 .tag-purple {
-    background-color: #5e76bf;
+    background-color: #1abc9c;
 }
 
-.tag-pink {
-    background-color: #cd5b9f;
+.tag-purple:hover {
+    background-color: #16a085;
 }
+
+
+.tag-red {
+    background-color: #e74c3c;
+}
+
+.tag-red:hover {
+    background-color: #c0392b;
+}
+
 
 .card-body p {
     font-size: 13px;

@@ -75,5 +75,11 @@ export const services = {
         url: `http://localhost:8080/ecos-api/modelos/${codigo}/arquivo`,
       });
     },
+    async index(codigo) {
+      return api({
+        method: "get",
+        url: `http://localhost:8080/ecos-api/modelos/${codigo}`,
+      });
+    },
   },
 };

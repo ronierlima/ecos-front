@@ -10,11 +10,13 @@
       </div>
     </div>
     <header class="menu-bg">
+
       <div class="menu">
         <div class="menu-logo">
           <router-link :to="'/' + this.selected"><img width="220px" src="../assets/logo.png" /></router-link>
         </div>
         <nav class="menu-nav">
+
           <ul>
             <li>
               <img width="30px" @click="showModalSalvar = true" src="../assets/exportar.svg" :alt="usingLang.export"
@@ -72,7 +74,13 @@
           <button class="dropbtn" @click="!logado ? showModalLogin = true : null">{{ logado ? nome : "entrar"
           }}</button>
           <div class="dropdown-content" v-if="logado">
-            <a @click="logado ? showModalRegister = true : null">Salvar modelo</a>
+            <a v-if="codigo_usuario !== modelo.criador.codigo" @click="logado ? showModalRegister = true : null">Salvar
+              modelo</a>
+            <a :href="usingLang.routes.editor">
+              Novo modelo
+            </a>
+            <a v-if="codigo_usuario === modelo.criador.codigo"
+              @click="logado ? showModalRegister = true : null">Atualizar modelo</a>
             <a :href="usingLang.routes.privateModels">
               {{ usingLang.privateModels }}
             </a>
@@ -398,13 +406,17 @@ export default {
       selected: "pt-BR",
       relatorio: null,
       logado: false,
+      codigo_usuario: null,
       input: {
         username: "",
         password: ""
       },
       modelo: {
         titulo: "",
-        descricao: ""
+        descricao: "",
+        criador: {
+          codigo: ""
+        }
       }
     };
   },
@@ -417,11 +429,16 @@ export default {
           .then((res) => {
             this.token = res.data.access_token;
             this.nome = res.data.nome_completo;
+            this.codigo_usuario = res.data.codigo_usuario;
+
             this.logado = true;
+
             localStorage.setItem("token", res.data.access_token);
             localStorage.setItem("nome", res.data.nome_completo);
+            localStorage.setItem("codigo_usuario", res.data.codigo_usuario);
 
             this.showModalLogin = false;
+
             this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
           })
           .catch((error) => {
@@ -559,8 +576,9 @@ export default {
 
           services.models
             .post(formData)
-            .then(() => {
+            .then(({ data: modelo }) => {
               this.showModalRegister = false;
+              this.$router.push(this.usingLang.routes.editor + "/" + modelo.codigo)
               this.$toast.success("Modelo salvo com sucesso");
 
             })
@@ -2426,8 +2444,12 @@ export default {
     if (this.$route.params.id) {
 
       try {
-        const response = await services.models.get(this.$route.params.id);
-        this.importar(response.data);
+
+        const { data: arquivo } = await services.models.get(this.$route.params.id);
+        const { data: modelo } = await services.models.index(this.$route.params.id);
+
+        this.importar(arquivo);
+        this.modelo = modelo;
         this.$toast.success("Modelo carregado");
 
       } catch (error) {
@@ -2439,11 +2461,13 @@ export default {
 
     const token = localStorage.getItem("token");
     const nome = localStorage.getItem("nome");
+    const codigo_usuario = localStorage.getItem("codigo_usuario");
 
     if (token) {
       this.token = token;
       this.logado = true;
       this.nome = nome;
+      this.codigo_usuario = codigo_usuario;
     }
   },
 
