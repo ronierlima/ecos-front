@@ -6,7 +6,7 @@ export const services = {
     async login(username, password) {
       return api({
         method: "post",
-        url: "http://localhost:8080/ecos-api/oauth/token",
+        url: "https://whale-app-7vakw.ondigitalocean.app/ecos-api/oauth/token",
         data: qs.stringify({
           username: username,
           password: password,
@@ -48,7 +48,7 @@ export const services = {
     async post(data) {
       return api({
         method: "post",
-        url: "http://localhost:8080/ecos-api/modelos",
+        url: "https://whale-app-7vakw.ondigitalocean.app/ecos-api/modelos",
         data,
         headers: {
           ContentType: "multipart/form-data",
@@ -59,26 +59,26 @@ export const services = {
     async list(params) {
       return api({
         method: "get",
-        url: "http://localhost:8080/ecos-api/modelos",
+        url: "https://whale-app-7vakw.ondigitalocean.app/ecos-api/modelos",
         params,
       });
     },
     async getMyModels() {
       return api({
         method: "get",
-        url: "http://localhost:8080/ecos-api/usuarios/modelos",
+        url: "https://whale-app-7vakw.ondigitalocean.app/ecos-api/usuarios/modelos",
       });
     },
     async get(codigo) {
       return api({
         method: "get",
-        url: `http://localhost:8080/ecos-api/modelos/${codigo}/arquivo`,
+        url: `https://whale-app-7vakw.ondigitalocean.app/ecos-api/modelos/${codigo}/arquivo`,
       });
     },
     async index(codigo) {
       return api({
         method: "get",
-        url: `http://localhost:8080/ecos-api/modelos/${codigo}`,
+        url: `https://whale-app-7vakw.ondigitalocean.app/ecos-api/modelos/${codigo}`,
       });
     },
   },

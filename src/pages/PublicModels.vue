@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="card-header">
-                        <img class="image" :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'"
+                        <img class="image" :src="'https://whale-app-7vakw.ondigitalocean.app/ecos-api/modelos/' + modelo.codigo + '/preview'"
                             alt="rover" />
 
                         <div class="middle">

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/ecos-api/",
+  baseURL: "https://whale-app-7vakw.ondigitalocean.app/ecos-api/",
 });
 
 api.interceptors.request.use(
