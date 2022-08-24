@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="card-header">
-                        <img class="image" :src="'https://whale-app-7vakw.ondigitalocean.app/ecos-api/modelos/' + modelo.codigo + '/preview'"
+                        <img class="image" :src="getPreview(modelo.codigo)"
                             alt="rover" />
 
                         <div class="middle">
@@ -28,7 +28,7 @@
                             {{ modelo.titulo }}
                         </h4>
                         <p>
-                            {{ modelo.descricao || "aqui ficaria uma descição" }}
+                            {{ modelo.descricao }}
                         </p>
 
                     </div>
@@ -82,6 +82,10 @@ export default {
         open(modelo) {
             this.$router.push("/pt-br/editor/" + modelo);
         },
+
+        getPreview(codigo) {
+            return services.models.preview(codigo)
+        }
     },
 
 

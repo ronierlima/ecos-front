@@ -5,7 +5,7 @@
 
             <h1>Modelos públicos /</h1>
 
-             <div class="container">
+            <div class="container">
                 <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
                     <div class="user">
                         <img :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo" alt="user" />
@@ -15,8 +15,7 @@
                         </div>
                     </div>
                     <div class="card-header">
-                        <img class="image" :src="'https://whale-app-7vakw.ondigitalocean.app/ecos-api/modelos/' + modelo.codigo + '/preview'"
-                            alt="rover" />
+                        <img class="image" :src="getPreview(modelo.codigo)" alt="preview" />
 
                         <div class="middle">
                             <div class="text" @click="open(modelo.codigo)">Abrir no editor</div>
@@ -28,7 +27,7 @@
                             {{ modelo.titulo }}
                         </h4>
                         <p>
-                            {{ modelo.descricao || "aqui ficaria uma descição" }}
+                            {{ modelo.descricao }}
                         </p>
 
                     </div>
@@ -77,7 +76,7 @@ export default {
         } else {
             this.$router.push("/");
         }
-        
+
     },
 
     methods: {
@@ -96,6 +95,10 @@ export default {
         open(modelo) {
             this.$router.push("/pt-br/editor/" + modelo);
         },
+
+        getPreview(codigo) {
+            return services.models.preview(codigo)
+        }
     },
 
 

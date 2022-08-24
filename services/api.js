@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://whale-app-7vakw.ondigitalocean.app/ecos-api/",
+  baseURL: process.env.VUE_APP_BASE_URL,
 });
 
 api.interceptors.request.use(

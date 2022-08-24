@@ -578,7 +578,7 @@ export default {
             .post(formData)
             .then(({ data: modelo }) => {
               this.showModalRegister = false;
-              this.$router.push(this.usingLang.routes.editor + "/" + modelo.codigo)
+              this.$router.go(this.usingLang.routes.editor + "/" + modelo.codigo)
               this.$toast.success("Modelo salvo com sucesso");
 
             })

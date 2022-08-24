@@ -6,6 +6,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 Vue.config.productionTip = false;
+Vue.prototype.$baseUrl = process.env.VUE_APP_API_BASE_URL;
 
 const options = {
     transition: "Vue-Toastification__bounce",
@@ -14,6 +15,7 @@ const options = {
 };
 Vue.use(Toast, options);
 Vue.use(require('vue-moment'));
+
 
 
 new Vue({
