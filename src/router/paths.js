@@ -1,6 +1,7 @@
 import Home from "../pages/Index.vue";
 import PublicModels from "../pages/PublicModels.vue";
 import PrivateModels from "../pages/PrivateModels.vue";
+import Register from "../pages/Register.vue";
 
 import Modelagem from "../pages/Editor.vue";
 
@@ -33,5 +34,10 @@ export default [
     path: "/pt-br/modelos/privado",
     name: "ptPrivateModels",
     component: PrivateModels,
+  },
+  {
+    path: "/pt-br/registro",
+    name: "ptRegister",
+    component: Register,
   },
 ];

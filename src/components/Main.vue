@@ -64,7 +64,7 @@
                 <button class="modal-default-button cancel" @click="showModal = false">
                   {{ usingLang.cancel }}
                 </button>
-                <button class="modal-default-button" v-on:click="login()">
+                <button class="modal-default-button" @click="login()">
                   {{ usingLang.login }}
                 </button>
               </slot>
@@ -73,6 +73,7 @@
         </div>
       </div>
     </transition>
+
   </div>
 </template>
 
@@ -97,7 +98,7 @@ export default {
       input: {
         username: "",
         password: ""
-      }
+      },
     };
   },
 
@@ -117,17 +118,24 @@ export default {
   },
 
   methods: {
+
     login() {
       if (this.input.username != "" && this.input.password != "") {
         services.user
-          .login("ronier.lim@gmail.com", "1")
+          .login(this.input.username, this.input.password)
           .then((res) => {
             this.token = res.data.access_token;
             this.nome = res.data.nome_completo;
+            this.codigo_usuario = res.data.codigo_usuario;
+
             this.logado = true;
+
             localStorage.setItem("token", res.data.access_token);
             localStorage.setItem("nome", res.data.nome_completo);
+            localStorage.setItem("codigo_usuario", res.data.codigo_usuario);
+
             this.showModal = false;
+
             this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
           })
           .catch((error) => {
@@ -138,6 +146,7 @@ export default {
         this.$toast.error("Preencha todos os campos");
       }
     },
+
     logout() {
       this.token = null;
       this.logado = false;
@@ -145,6 +154,7 @@ export default {
        localStorage.removeItem("nome");
       this.$router.push(this.usingLang.routes.home)
     },
+    
     changeLang() {
 
 

@@ -31,11 +31,22 @@ export const services = {
         },
       });
     },
-
     async forgotPassword(user) {
       return await api({
         method: "put",
         url: process.env.REACT_APP_GATEWAY + "/usuarios/recuperar-senha",
+        data: user,
+        headers: {
+          ContentType: "application/x-www-form-urlencoded",
+          Authorization: "Basic b2lzb2w6YWRtaW4=",
+        },
+      });
+    },
+
+    async register(user) {
+      return await api({
+        method: "post",
+        url: `${process.env.VUE_APP_BASE_URL}/usuarios`,
         data: user,
         headers: {
           ContentType: "application/x-www-form-urlencoded",
@@ -81,6 +92,6 @@ export const services = {
         url: `/modelos/${codigo}`,
       });
     },
-    preview: (codigo) => ` ${process.env.VUE_APP_BASE_URL}/modelos/${codigo}/preview`,
+    preview: (codigo) => `${process.env.VUE_APP_BASE_URL}/modelos/${codigo}/preview`,
   },
 };
