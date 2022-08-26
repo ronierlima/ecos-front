@@ -114,14 +114,28 @@ export default {
 
             e.preventDefault();
 
-            if (this.error) {
-                alert("error");
-            } else {
+            if (!this.error) {
+
                 services.user
                     .register(this.usuarioInput)
-                    .then((res) => {
-                        console.log("alert");
-                        alert("cadastrado")
+                    .then(() => {
+                        services.user
+                            .login(this.usuarioInput.username, this.usuarioInput.senha)
+                            .then((res) => {
+                                this.token = res.data.access_token;
+                                this.nome = res.data.nome_completo;
+                                this.codigo_usuario = res.data.codigo_usuario;
+
+
+                                localStorage.setItem("token", res.data.access_token);
+                                localStorage.setItem("nome", res.data.nome_completo);
+                                localStorage.setItem("codigo_usuario", res.data.codigo_usuario);
+                                this.$router.push("/");
+                                this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
+                            })
+                            .catch((error) => {
+                                this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
+                            });
                     })
                     .catch((error) => {
                         this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");

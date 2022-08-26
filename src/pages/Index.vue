@@ -107,20 +107,31 @@ export default {
 
   methods: {
     login() {
-      if (this.input.username != "" && this.input.password != "")
+      if (this.input.username != "" && this.input.password != "") {
         services.user
-          .login("ronier.lim@gmail.com", "1")
+          .login(this.input.username, this.input.password)
           .then((res) => {
             this.token = res.data.access_token;
             this.nome = res.data.nome_completo;
+            this.codigo_usuario = res.data.codigo_usuario;
+
             this.logado = true;
+
             localStorage.setItem("token", res.data.access_token);
             localStorage.setItem("nome", res.data.nome_completo);
-            this.showModal = false;
+            localStorage.setItem("codigo_usuario", res.data.codigo_usuario);
+
+            this.showModalLogin = false;
+
+            this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
           })
           .catch((error) => {
-            console.log(error);
+            this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
           });
+
+      } else {
+        this.$toast.error("Preencha todos os campos");
+      }
     },
     logout() {
       this.token = null;
