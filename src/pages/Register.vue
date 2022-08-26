@@ -120,7 +120,7 @@ export default {
                     .register(this.usuarioInput)
                     .then(() => {
                         services.user
-                            .login(this.usuarioInput.nome, this.usuarioInput.senha)
+                            .login(this.usuarioInput.email, this.usuarioInput.senha)
                             .then((res) => {
                                 this.token = res.data.access_token;
                                 this.nome = res.data.nome_completo;
@@ -134,7 +134,7 @@ export default {
                                 this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
                             })
                             .catch((error) => {
-                                this.$toast.error(error.response.data.userMessage || "Ocorreu um erro desconhecido");
+                                this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
                             });
                     })
                     .catch((error) => {
