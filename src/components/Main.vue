@@ -30,6 +30,7 @@
               </a>
             </li>
 
+            <li v-if="!logado"><a :href="usingLang.routes.register">Cadastro</a></li>
             <li v-if="!logado"><a @click="showModal = true">Entrar</a></li>
             <li v-if="logado"><a>| {{ nome }} |</a></li>
             <li v-if="logado"><a id="exit" @click="logout()">| Sair |</a></li>
@@ -156,7 +157,6 @@ export default {
     },
     
     changeLang() {
-
 
       if (this.selected === "en") this.usingLang = language.en;
       else if (this.selected === "es") this.usingLang = language.es;

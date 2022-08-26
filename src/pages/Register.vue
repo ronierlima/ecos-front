@@ -4,7 +4,7 @@
 
             <h1>Faça seu cadastro</h1>
 
-            <form @submit="checkForm" novalidate="true">
+            <form @submit="registerUser" novalidate="true">
                 <ul class="flex-outer">
                     <li>
                         <label for="username">Name</label>
@@ -87,7 +87,7 @@ export default {
     },
 
     methods: {
-        checkForm: function (e) {
+        registerUser: function (e) {
 
             if (!this.usuarioInput.nome) {
                 this.$toast.error('O nome é obrigatório.');
@@ -104,11 +104,10 @@ export default {
 
             if (!this.usuarioInput.senha) {
                 this.$toast.error('A senha é obrigatório.');
-                this.error = true
-            }
+                this.error = true;
 
-            if (!this.senhaCheck) {
-                this.$toast.error('Repetir a senha é obrigatório.');
+            } else if (this.usuarioInput.senha !== this.senhaCheck) {
+                this.$toast.error('As senhas devem ser iguais');
                 this.error = true
             }
 
@@ -122,14 +121,15 @@ export default {
                         services.user
                             .login(this.usuarioInput.email, this.usuarioInput.senha)
                             .then((res) => {
+
                                 this.token = res.data.access_token;
                                 this.nome = res.data.nome_completo;
                                 this.codigo_usuario = res.data.codigo_usuario;
 
-
                                 localStorage.setItem("token", res.data.access_token);
                                 localStorage.setItem("nome", res.data.nome_completo);
                                 localStorage.setItem("codigo_usuario", res.data.codigo_usuario);
+
                                 this.$router.push("/");
                                 this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
                             })
@@ -140,6 +140,7 @@ export default {
                     .catch((error) => {
                         this.$toast.error(error.response.data.userMessage || "Ocorreu um erro desconhecido");
                     });
+
                 this.error = false;
             }
 

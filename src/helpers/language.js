@@ -64,6 +64,7 @@ module.exports.pt = {
     editor: "/pt-br/editor",
     publicModels: "/pt-br/modelos",
     privateModels: "/pt-br/modelos/privado",
+    register: "/pt-br/registro",
   },
 };
 
