@@ -79,8 +79,8 @@
             <a :href="usingLang.routes.editor">
               Novo modelo
             </a>
-            <a v-if="codigo_usuario === modelo.criador.codigo"
-              @click="logado ? showModalRegister = true : null">Atualizar modelo</a>
+            <a v-if="logado && (codigo_usuario === modelo.criador.codigo)"
+              @click="() => { showModalRegister = true; this.isUpdate = true; alert(this.isUpdate); }">Atualizar modelo</a>
             <a :href="usingLang.routes.privateModels">
               {{ usingLang.privateModels }}
             </a>
@@ -187,8 +187,9 @@
                 <button class="modal-default-button cancel" @click="showModalRegister = false">
                   {{ usingLang.cancel }}
                 </button>
-                <button class="modal-default-button" v-on:click="salvarOnline()">
-                  salvar
+                <button class="modal-default-button"
+                  v-on:click="() => { isUpdate ? atualizarOnline() : salvarOnline() }">
+                  enviar
                 </button>
               </slot>
             </div>
@@ -407,6 +408,7 @@ export default {
       relatorio: null,
       logado: false,
       codigo_usuario: null,
+      isUpdate: false,
       input: {
         username: "",
         password: ""
@@ -466,106 +468,9 @@ export default {
 
       try {
         if (this.modelo.titulo && this.modelo.descricao) {
-          /*XML */
-          var enc = new mxCodec(mxUtils.createXmlDocument());
-          var node = enc.encode(editor.graph.getModel());
-          var node2 = mxUtils.getXml(node);
 
-
-          /*SVG*/
-          var graph = editor.graph;
-          var background = "#ffffff";
-          var scale = 1;
-          var border = 0;
-
-          var imgExport = new mxImageExport();
-          var bounds = graph.getGraphBounds();
-          var vs = graph.view.scale;
-
-          // Prepares SVG document that holds the output
-          var svgDoc = mxUtils.createXmlDocument();
-          var root =
-            svgDoc.createElementNS != null
-              ? svgDoc.createElementNS(mxConstants.NS_SVG, "svg")
-              : svgDoc.createElement("svg");
-
-          if (background != null) {
-            if (root.style != null) {
-              root.style.backgroundColor = background;
-            } else {
-              root.setAttribute("style", "background-color:" + background);
-            }
-          }
-
-          if (svgDoc.createElementNS == null) {
-            root.setAttribute("xmlns", mxConstants.NS_SVG);
-            root.setAttribute("xmlns:xlink", mxConstants.NS_XLINK);
-          } else {
-            // KNOWN: Ignored in IE9-11, adds namespace for each image element instead. No workaround.
-            root.setAttributeNS(
-              "http://www.w3.org/2000/xmlns/",
-              "xmlns:xlink",
-              mxConstants.NS_XLINK
-            );
-          }
-
-          root.setAttribute(
-            "width",
-            Math.ceil((bounds.width * scale) / vs) + 2 * border + "px"
-          );
-          root.setAttribute(
-            "height",
-            Math.ceil((bounds.height * scale) / vs) + 2 * border + "px"
-          );
-          root.setAttribute("version", "1.1");
-
-          // Adds group for anti-aliasing via transform
-          var group =
-            svgDoc.createElementNS != null
-              ? svgDoc.createElementNS(mxConstants.NS_SVG, "g")
-              : svgDoc.createElement("g");
-          group.setAttribute("transform", "translate(0.5,0.5)");
-          root.appendChild(group);
-          svgDoc.appendChild(root);
-
-          // Renders graph. Offset will be multiplied with state's scale when painting state.
-          var svgCanvas = new mxSvgCanvas2D(group);
-          svgCanvas.translate(
-            Math.floor((border / scale - bounds.x) / vs),
-            Math.floor((border / scale - bounds.y) / vs)
-          );
-          svgCanvas.scale(scale / vs);
-
-          // Displayed if a viewer does not support foreignObjects (which is needed to HTML output)
-          svgCanvas.foAltText = "[Not supported by viewer]";
-
-          imgExport.drawState(
-            graph.getView().getState(graph.model.root),
-            svgCanvas
-          );
-
-          var grupos = root.getElementsByTagName("g")[0];
-          var g = grupos.getElementsByTagName("g");
-          var arr = [...g];
-
-          arr.forEach((g) => {
-            var s = g.getElementsByTagName("switch")[0];
-            var elemento = document.createElement("text");
-            elemento = s.getElementsByTagName("text")[0];
-            var texto =
-              s.getElementsByTagName("foreignObject")[0].lastElementChild.innerText;
-            elemento.innerText = texto;
-            elemento.innerHTML = texto;
-
-            s.remove();
-            g.appendChild(elemento);
-          });
-
-          var xml = mxUtils.getXml(root);
-
-
-          var fileXML = new Blob([node2], { type: "text/xml" });
-          var fileSVG = new Blob([xml], { type: "image/svg+xml" });
+          var fileXML = new Blob([this.getXML()], { type: "text/xml" });
+          var fileSVG = new Blob([this.getSVG()], { type: "image/svg+xml" });
 
           var formData = new FormData();
 
@@ -578,26 +483,13 @@ export default {
             .post(formData)
             .then(({ data: modelo }) => {
               this.showModalRegister = false;
-              this.$router.go(this.usingLang.routes.editor + "/" + modelo.codigo)
+              window.location.replace(this.usingLang.routes.editor + "/" + modelo.codigo)
               this.$toast.success("Modelo salvo com sucesso");
 
             })
             .catch(() => {
               this.showModalRegister = false;
-              this.$toast.error("Não foi possível salvar o modelo", {
-                position: "top-right",
-                timeout: 5000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.66,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-              });
+              this.$toast.error("Não foi possível salvar o modelo");
             });
         } else {
           this.$toast.error("Preencha todos os campos");
@@ -609,6 +501,44 @@ export default {
 
     }
     ,
+    async atualizarOnline() {
+
+      try {
+        if (this.modelo.titulo && this.modelo.descricao) {
+
+          var fileXML = new Blob([this.getXML()], { type: "text/xml" });
+          var fileSVG = new Blob([this.getSVG()], { type: "image/svg+xml" });
+
+          var formData = new FormData();
+
+          formData.append("modelo", fileXML);
+          formData.append("descricao", this.modelo.descricao);
+          formData.append("titulo", this.modelo.titulo);
+          formData.append("preview", fileSVG);
+
+          services.models
+            .put(this.$route.params.id, formData)
+            .then(({ data: modelo }) => {
+              this.showModalRegister = false;
+              window.location.replace(this.usingLang.routes.editor + "/" + modelo.codigo)
+              this.$toast.success("Modelo salvo com sucesso");
+
+            })
+            .catch(() => {
+              this.showModalRegister = false;
+              this.$toast.error("Não foi possível salvar o modelo");
+            });
+        } else {
+          this.$toast.error("Preencha todos os campos");
+        }
+      } catch (error) {
+        this.showModalRegister = false;
+        this.$toast.error("Não foi possível salvar o modelo");
+      }
+
+    }
+    ,
+
     // altera o selecionado em um painel separado
     // e transfere o objeto para o ambiente VUE
     selectionChanged() {
@@ -2426,14 +2356,105 @@ export default {
 
     },
 
-    autoSave() {
-      console.log("Iniciando salvamento automatico");
+    getXML() {
+
       var enc = new mxCodec(mxUtils.createXmlDocument());
       var node = enc.encode(editor.graph.getModel());
-      var xml = mxUtils.getXml(node);
+      return mxUtils.getXml(node);
 
-      localStorage.setItem("modeloAutoSave", xml);
     },
+
+    getSVG() {
+      var graph = editor.graph;
+      var background = "#ffffff";
+      var scale = 1;
+      var border = 0;
+
+      var imgExport = new mxImageExport();
+      var bounds = graph.getGraphBounds();
+      var vs = graph.view.scale;
+
+      // Prepares SVG document that holds the output
+      var svgDoc = mxUtils.createXmlDocument();
+      var root =
+        svgDoc.createElementNS != null
+          ? svgDoc.createElementNS(mxConstants.NS_SVG, "svg")
+          : svgDoc.createElement("svg");
+
+      if (background != null) {
+        if (root.style != null) {
+          root.style.backgroundColor = background;
+        } else {
+          root.setAttribute("style", "background-color:" + background);
+        }
+      }
+
+      if (svgDoc.createElementNS == null) {
+        root.setAttribute("xmlns", mxConstants.NS_SVG);
+        root.setAttribute("xmlns:xlink", mxConstants.NS_XLINK);
+      } else {
+        // KNOWN: Ignored in IE9-11, adds namespace for each image element instead. No workaround.
+        root.setAttributeNS(
+          "http://www.w3.org/2000/xmlns/",
+          "xmlns:xlink",
+          mxConstants.NS_XLINK
+        );
+      }
+
+      root.setAttribute(
+        "width",
+        Math.ceil((bounds.width * scale) / vs) + 2 * border + "px"
+      );
+      root.setAttribute(
+        "height",
+        Math.ceil((bounds.height * scale) / vs) + 2 * border + "px"
+      );
+      root.setAttribute("version", "1.1");
+
+      // Adds group for anti-aliasing via transform
+      var group =
+        svgDoc.createElementNS != null
+          ? svgDoc.createElementNS(mxConstants.NS_SVG, "g")
+          : svgDoc.createElement("g");
+      group.setAttribute("transform", "translate(0.5,0.5)");
+      root.appendChild(group);
+      svgDoc.appendChild(root);
+
+      // Renders graph. Offset will be multiplied with state's scale when painting state.
+      var svgCanvas = new mxSvgCanvas2D(group);
+      svgCanvas.translate(
+        Math.floor((border / scale - bounds.x) / vs),
+        Math.floor((border / scale - bounds.y) / vs)
+      );
+      svgCanvas.scale(scale / vs);
+
+      // Displayed if a viewer does not support foreignObjects (which is needed to HTML output)
+      svgCanvas.foAltText = "[Not supported by viewer]";
+
+      imgExport.drawState(
+        graph.getView().getState(graph.model.root),
+        svgCanvas
+      );
+
+      var grupos = root.getElementsByTagName("g")[0];
+      var g = grupos.getElementsByTagName("g");
+      var arr = [...g];
+
+      arr.forEach((g) => {
+        var s = g.getElementsByTagName("switch")[0];
+        var elemento = document.createElement("text");
+        elemento = s.getElementsByTagName("text")[0];
+        var texto =
+          s.getElementsByTagName("foreignObject")[0].lastElementChild.innerText;
+        elemento.innerText = texto;
+        elemento.innerHTML = texto;
+
+        s.remove();
+        g.appendChild(elemento);
+      });
+
+      return mxUtils.getXml(root);
+    }
 
 
   },

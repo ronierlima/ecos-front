@@ -67,6 +67,17 @@ export const services = {
         },
       });
     },
+    async put(codigo, data) {
+      return api({
+        method: "put",
+        url: "/modelos/"+codigo,
+        data,
+        headers: {
+          ContentType: "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
     async list(params) {
       return api({
         method: "get",
