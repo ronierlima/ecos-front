@@ -70,7 +70,7 @@ export const services = {
     async put(codigo, data) {
       return api({
         method: "put",
-        url: "/modelos/"+codigo,
+        url: "/modelos/" + codigo,
         data,
         headers: {
           ContentType: "multipart/form-data",
@@ -97,12 +97,19 @@ export const services = {
         url: `/modelos/${codigo}/arquivo`,
       });
     },
+    async delete(codigo) {
+      return api({
+        method: "delete",
+        url: `/modelos/${codigo}`,
+      });
+    },
     async index(codigo) {
       return api({
         method: "get",
         url: `/modelos/${codigo}`,
       });
     },
-    preview: (codigo) => `${process.env.VUE_APP_BASE_URL}/modelos/${codigo}/preview`,
+    preview: (codigo) =>
+      `${process.env.VUE_APP_BASE_URL}/modelos/${codigo}/preview`,
   },
 };

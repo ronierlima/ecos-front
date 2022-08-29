@@ -79,8 +79,8 @@
             <a :href="usingLang.routes.editor">
               Novo modelo
             </a>
-            <a v-if="logado && (codigo_usuario === modelo.criador.codigo)"
-              @click="() => { showModalRegister = true; this.isUpdate = true; alert(this.isUpdate); }">Atualizar modelo</a>
+            <a v-if="logado && (codigo_usuario === modelo.criador.codigo)" @click="openUpdate()">Atualizar
+              modelo</a>
             <a :href="usingLang.routes.privateModels">
               {{ usingLang.privateModels }}
             </a>
@@ -461,6 +461,7 @@ export default {
 
       localStorage.removeItem("nome");
       localStorage.removeItem("token");
+      localStorage.removeItem("codigo_usuario");
 
     },
 
@@ -518,15 +519,15 @@ export default {
 
           services.models
             .put(this.$route.params.id, formData)
-            .then(({ data: modelo }) => {
+            .then(() => {
               this.showModalRegister = false;
-              window.location.replace(this.usingLang.routes.editor + "/" + modelo.codigo)
-              this.$toast.success("Modelo salvo com sucesso");
+
+              this.$toast.success("Modelo atualizado com sucesso");
 
             })
             .catch(() => {
               this.showModalRegister = false;
-              this.$toast.error("Não foi possível salvar o modelo");
+              this.$toast.error("Não foi possível atualizar o modelo");
             });
         } else {
           this.$toast.error("Preencha todos os campos");
@@ -538,6 +539,12 @@ export default {
 
     }
     ,
+
+    openUpdate() {
+
+      this.showModalRegister = true;
+      this.isUpdate = true
+    },
 
     // altera o selecionado em um painel separado
     // e transfere o objeto para o ambiente VUE

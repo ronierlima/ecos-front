@@ -1,6 +1,5 @@
 <template>
     <Main>
-
         <section class="content" id="modelos">
 
             <h1>Modelos públicos /</h1>
@@ -32,9 +31,9 @@
 
                     </div>
                     <div class="card-actions">
-                        <span class="tag tag-teal">abrir</span>
+                        <span class="tag tag-teal" @click="open(modelo.codigo)">abrir</span>
                         <span class="tag tag-purple">atualizar</span>
-                        <span class="tag tag-red">excluir</span>
+                        <span class="tag tag-red" @click="deleteModel(modelo.codigo)">excluir</span>
                     </div>
                 </div>
             </div>
@@ -89,6 +88,17 @@ export default {
                 })
                 .catch(() => {
                     this.$toast.error("Ocorreu um erro ao carregar os modelos")
+                });
+        },
+        deleteModel(codigo) {
+            services.models
+                .delete(codigo)
+                .then(() => {
+                    this.getModelos();
+                    this.$toast.success("Modelo deletado");
+                })
+                .catch((error) => {
+                    this.$toast.error(error)
                 });
         },
 
