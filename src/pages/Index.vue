@@ -63,7 +63,7 @@
 
 <script>
 import { services } from "../../services";
-import language from "../helpers/language";
+
 import Main from "../components/Main.vue"
 
 export default {
@@ -71,7 +71,7 @@ export default {
   components: {
     Main,
   },
-
+  props: { usingLang: Object },
   data() {
     return {
       loader: null,
@@ -81,8 +81,6 @@ export default {
       nome: "",
       usuario: { nome: "teste" },
       showModal: false,
-      usingLang: {},
-      selected: "pt-BR",
       input: {
         username: "",
         password: ""
@@ -101,8 +99,7 @@ export default {
       this.nome = nome;
     }
 
-    this.getModelos();
-    this.changeLang();
+    this.getModelos(); 
   },
 
   methods: {
@@ -138,16 +135,7 @@ export default {
       this.logado = false;
       localStorage.removeItem("token");
     },
-    changeLang() {
 
-
-      if (this.selected === "en") this.usingLang = language.en;
-      else if (this.selected === "es") this.usingLang = language.es;
-      else {
-        this.usingLang = language.pt;
-        this.selected = "pt-BR";
-      }
-    },
 
     getModelos() {
       services.models
@@ -169,17 +157,7 @@ export default {
     }
   },
 
-  watch: {
 
-    selected: function (newValue) {
-      if (newValue === "pt-BR") {
-        this.$router.push("/pt-br");
-      } else if (newValue === "en") this.$router.push("/en");
-      else if (newValue === "es") this.$router.push("/es");
-      this.changeLang();
-    },
-
-  },
 
 };
 </script>
@@ -219,17 +197,5 @@ input {
 ::placeholder {
   color: #5e5e5e;
 }
-
-#plusModels {
-  max-width: 100%;
-  display: block;
-  margin: 20px auto;
-  border: 4px solid;
-  color: #222222;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 2em;
-  padding: 15px 0;
-  text-align: center;
-}
+ 
 </style>

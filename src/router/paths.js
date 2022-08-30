@@ -1,29 +1,30 @@
-import Home from "../pages/Index.vue";
+import Home from "../pages/Home.vue";
 import PublicModels from "../pages/PublicModels.vue";
 import PrivateModels from "../pages/PrivateModels.vue";
 import Register from "../pages/Register.vue";
+import Login from "../pages/Login.vue";
 
-import Modelagem from "../pages/Editor.vue";
+import Editor from "../pages/Editor.vue";
 
 export default [
   {
     path: "/",
-    redirect: "/pt-br",
+    redirect: "/pt-br/",
   },
   {
-    path: "/pt-br",
+    path: "/pt-br/",
     name: "Home",
     component: Home,
   },
   {
     path: "/pt-br/editor",
     name: "ptEditor",
-    component: Modelagem,
+    component: Editor,
   },
   {
     path: "/pt-br/editor/:id",
     name: "ptEditorId",
-    component: Modelagem,
+    component: Editor,
   },
   {
     path: "/pt-br/modelos",
@@ -36,8 +37,43 @@ export default [
     component: PrivateModels,
   },
   {
-    path: "/pt-br/registro",
+    path: "/pt-br/cadastro",
     name: "ptRegister",
+    component: Register,
+  },
+  {
+    path: "/pt-br/login",
+    name: "ptLogin",
+    component: Login,
+  },
+  {
+    path: "/en/",
+    name: "enHome",
+    component: Home,
+  },
+  {
+    path: "/en/editor",
+    name: "enEditor",
+    component: Editor,
+  },
+  {
+    path: "/en/editor/:id",
+    name: "enEditorId",
+    component: Editor,
+  },
+  {
+    path: "/en/modelos",
+    name: "enPublicModels",
+    component: PublicModels,
+  },
+  {
+    path: "/en/modelos/privado",
+    name: "enPrivateModels",
+    component: PrivateModels,
+  },
+  {
+    path: "/en/cadastro",
+    name: "enRegister",
     component: Register,
   },
 ];

@@ -1,8 +1,8 @@
 <template>
-    <Main>
+    <MainPage>
         <section class="content" id="modelos">
 
-            <h1>Modelos públicos /</h1>
+            <h1 class="">{{ language.privateModels }}</h1>
 
             <div class="container">
                 <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
@@ -17,7 +17,7 @@
                         <img class="image" :src="getPreview(modelo.codigo)" alt="preview" />
 
                         <div class="middle">
-                            <div class="text" @click="open(modelo.codigo)">Abrir no editor</div>
+                            <div class="text" @click="open(modelo.codigo)">{{ language.openEditor }}</div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -31,50 +31,39 @@
 
                     </div>
                     <div class="card-actions">
-                        <span class="tag tag-teal" @click="open(modelo.codigo)">abrir</span>
-                        <span class="tag tag-purple">atualizar</span>
-                        <span class="tag tag-red" @click="deleteModel(modelo.codigo)">excluir</span>
+ 
+                        <span class="tag tag-purple">{{ language.update }}</span>
+                        <span class="tag tag-red" @click="deleteModel(modelo.codigo)">{{ language.delete }}</span>
                     </div>
                 </div>
             </div>
 
         </section>
-    </Main>
+    </MainPage>
 </template>
 <script>
 import { services } from "../../services";
-import Main from "../components/Main.vue"
+import MainPage from "../components/MainPage.vue"
 
 
 export default {
     name: "PrivateModels",
-
+    inject: ['getLanguage', 'getLogado', 'getUsuario'],
     components: {
-        Main,
+        MainPage,
     },
-
     data() {
         return {
-            loader: null,
-            loading: false,
-            usingLang: {},
             modelos: []
         };
     },
 
-
     created: function () {
-        const token = localStorage.getItem("token");
-        const nome = localStorage.getItem("nome");
 
-        if (token) {
-            this.token = token;
-            this.logado = true;
-            this.nome = nome;
-            this.getModelos();
-        } else {
-            this.$router.push("/");
-        }
+
+        if (!this.getLogado()) this.$router.push("/login");
+
+        this.getModelos();
 
     },
 
@@ -87,7 +76,7 @@ export default {
                     this.modelos = res.data.content;
                 })
                 .catch(() => {
-                    this.$toast.error("Ocorreu um erro ao carregar os modelos")
+                    this.$toast.error(this.language.loadModelErro)
                 });
         },
         deleteModel(codigo) {
@@ -95,7 +84,7 @@ export default {
                 .delete(codigo)
                 .then(() => {
                     this.getModelos();
-                    this.$toast.success("Modelo deletado");
+                    this.$toast.success(this.language.deleteSuccess);
                 })
                 .catch((error) => {
                     this.$toast.error(error)
@@ -110,6 +99,17 @@ export default {
             return services.models.preview(codigo)
         }
     },
+
+
+    computed: {
+        language() {
+            return this.getLanguage();
+        },
+        usuario() {
+            return this.getUsuario();
+        },
+
+    }
 
 
 

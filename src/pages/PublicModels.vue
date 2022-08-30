@@ -1,9 +1,9 @@
 <template>
-    <Main>
+    <MainPage>
 
         <section class="content" id="modelos">
 
-            <h1>Modelos públicos /</h1>
+            <h1>{{ language.publicModels }}</h1>
 
             <div class="container">
                 <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
@@ -15,11 +15,10 @@
                         </div>
                     </div>
                     <div class="card-header">
-                        <img class="image" :src="getPreview(modelo.codigo)"
-                            alt="rover" />
+                        <img class="image" :src="getPreview(modelo.codigo)" alt="rover" />
 
                         <div class="middle">
-                            <div class="text" @click="open(modelo.codigo)">Abrir no editor</div>
+                            <div class="text" @click="open(modelo.codigo)">{{ language.openEditor }}</div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -32,31 +31,28 @@
                         </p>
 
                     </div>
-                     
+
                 </div>
             </div>
 
         </section>
-    </Main>
+    </MainPage>
 </template>
 
 <script>
 import { services } from "../../services";
-import Main from "../components/Main.vue"
+import MainPage from "../components/MainPage.vue"
 
 
 export default {
     name: "Index",
-
+    inject: ['getLanguage', 'getLogado', 'getUsuario'],
     components: {
-        Main,
+        MainPage,
     },
 
     data() {
         return {
-            loader: null,
-            loading: false,
-            usingLang: {},
             modelos: []
         };
     },
@@ -67,7 +63,6 @@ export default {
     },
 
     methods: {
-
         getModelos() {
             services.models
                 .list()
@@ -75,12 +70,12 @@ export default {
                     this.modelos = res.data.content;
                 })
                 .catch(() => {
-                    this.$toast.error("Ocorreu um erro ao carregar os modelos")
+                    this.$toast.error(this.language.loadModelErro)
                 });
         },
 
         open(modelo) {
-            this.$router.push("/pt-br/editor/" + modelo);
+            this.$router.push(this.language.routes.modelEditor.replace(":codigo", modelo));
         },
 
         getPreview(codigo) {
@@ -88,13 +83,22 @@ export default {
         }
     },
 
+    computed: {
+        language() {
+            return this.getLanguage();
+        },
+        usuario() {
+            return this.getUsuario();
+        },
+        logado() {
+            return this.getLogado();
+        },
 
-
+    }
 };
 </script>
 
 <style>
- 
 .container {
     display: flex;
     width: 100%;
@@ -191,7 +195,7 @@ export default {
     background-color: #3498db;
 }
 
-.tag-teal:hover  {
+.tag-teal:hover {
     background-color: #2980b9;
 }
 

@@ -1,57 +1,53 @@
 <template>
     <Main>
-        <section class="content" id="modelos">
+        <section class="content">
+            <div class="register">
+                <h1 class="title">Registration</h1>
+                <div class="registerContent">
+                    <form @submit="registerUser">
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">*Nome</span>
+                                <input v-model="usuarioInput.nome" type="text" id="username" required
+                                    placeholder="Enter your name">
+                            </div>
 
-            <h1>Faça seu cadastro</h1>
-
-            <form @submit="registerUser" novalidate="true">
-                <ul class="flex-outer">
-                    <li>
-                        <label for="username">Name</label>
-                        <input v-model="usuarioInput.nome" type="text" id="username"
-                            placeholder="Enter your first name here">
-                    </li>
-
-                    <li>
-                        <label for="email">Email</label>
-                        <input v-model="usuarioInput.email" type="email" id="email" placeholder="Enter your email here">
-                    </li>
-                    <li>
-                        <label for="company">Instituição</label>
-                        <input v-model="usuarioInput.instituicao" type="text" id="company"
-                            placeholder="Enter your company here">
-                    </li>
-
-                    <li>
-                        <label for="password">Senha</label>
-                        <input v-model="usuarioInput.senha" type="password" id="password"
-                            placeholder="Enter your password">
-                    </li>
-
-                    <li>
-                        <label for="passwordCheck">Confirme a Senha</label>
-                        <input v-model="senhaCheck" type="password" id="passwordCheck"
-                            placeholder="Enter your password to check">
-                    </li>
-
-                    <li>
-                        <button type="submit">Submit</button>
-                    </li>
-                </ul>
-            </form>
-
+                            <div class="input-box">
+                                <span class="details">*Email</span>
+                                <input v-model="usuarioInput.email" type="email" placeholder="Enter your email"
+                                    required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Instituição</span>
+                                <input v-model="usuarioInput.instituicao" type="text" placeholder="Enter your company">
+                            </div>
+                            <div class="input-box">
+                                <span class="details">*Password</span>
+                                <input v-model="usuarioInput.senha" type="password" placeholder="Enter your password"
+                                    required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">*Confirm Password</span>
+                                <input v-model="senhaCheck" type="password" placeholder="Confirm your password"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="button">
+                            <input type="submit" value="Register">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </section>
-
     </Main>
 </template>
 
 <script>
 import { services } from "../../services";
-import language from "../helpers/language";
-import Main from "../components/Main.vue"
+import Main from "../components/MainPage.vue"
 
 export default {
-    name: "Index",
+    name: "Register",
     components: {
         Main,
     },
@@ -72,22 +68,9 @@ export default {
         };
     },
 
-    created: function () {
-        const token = localStorage.getItem("token");
-        const nome = localStorage.getItem("nome");
-
-        if (token) {
-            this.token = token;
-            this.logado = true;
-            this.nome = nome;
-        }
-
-        this.getModelos();
-        this.changeLang();
-    },
-
     methods: {
         registerUser: function (e) {
+            e.preventDefault();
 
             if (!this.usuarioInput.nome) {
                 this.$toast.error('O nome é obrigatório.');
@@ -110,8 +93,6 @@ export default {
                 this.$toast.error('As senhas devem ser iguais');
                 this.error = true
             }
-
-            e.preventDefault();
 
             if (!this.error) {
 
@@ -143,84 +124,161 @@ export default {
 
                 this.error = false;
             }
-
-
         },
-
     },
 
 };
 </script>
 
-<style>
-.flex-outer,
-.flex-inner {
-    list-style-type: none;
-    padding: 0;
+<style >
+.register {
+    max-width: 700px;
+    width: 100%;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    background: #f2f0e6;
+    position: relative;
 }
 
-.flex-outer {
-    max-width: 800px;
-    margin: 0 auto;
+.register .title {
+    font-size: 25px;
+    position: relative;
+    color: #5e5e5e;
 }
 
-.flex-outer li,
-.flex-inner {
+.register .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #f2f0e6, #5e5e5e);
+}
+
+.registerContent form .user-details {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
 }
 
-.flex-inner {
-    padding: 0 8px;
+form .user-details .input-box {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+form .input-box span.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+form textarea {
+    width: 100%;
+    min-height: 150px;
+    resize: none;
+    font-weight: 500;
+}
+
+.user-details .input-box input, form textarea {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.user-details .input-box input:focus, form textarea:focus,
+.user-details .input-box input:valid {
+    border-color: #5e5e5e;
+}
+
+form .gender-details .gender-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+form .category {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
     justify-content: space-between;
 }
 
-.flex-outer>li:not(:last-child) {
-    margin-bottom: 20px;
+form .category label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-.flex-outer li label,
-.flex-outer li p {
-    padding: 8px;
-    font-weight: 300;
-    letter-spacing: .09em;
-    text-transform: uppercase;
+form .category label .dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
 }
 
-.flex-outer>li>label,
-.flex-outer li p {
-    flex: 1 0 120px;
-    max-width: 220px;
+form .button {
+    height: 45px;
+    margin: 35px 0
 }
 
-.flex-outer>li>label+*,
-.flex-inner {
-    flex: 1 0 220px;
-}
-
-.flex-outer li p {
-    margin: 0;
-}
-
-.flex-outer li input:not([type='checkbox']),
-.flex-outer li textarea {
-    padding: 15px;
+form .button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
     border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #5e5e5e;
 }
 
-.flex-outer li button {
-    margin-left: auto;
-    padding: 8px 16px;
-    border: none;
-    background: #333;
-    color: #f2f2f2;
-    text-transform: uppercase;
-    letter-spacing: .09em;
-    border-radius: 2px;
+form .button input:hover {
+    /* transform: scale(0.99); */
+    background: #5e5e5e52;
 }
 
-.flex-inner li {
-    width: 100px;
+@media(max-width: 584px) {
+    .register {
+        max-width: 100%;
+    }
+
+    form .user-details .input-box {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    form .category {
+        width: 100%;
+    }
+
+    .content form .user-details {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+
+    .user-details::-webkit-scrollbar {
+        width: 5px;
+    }
+}
+
+@media(max-width: 459px) {
+    .register .content .category {
+        flex-direction: column;
+    }
 }
 </style>

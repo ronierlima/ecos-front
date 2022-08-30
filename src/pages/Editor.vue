@@ -1,19 +1,11 @@
 <template>
   <div id="modelo">
-    <div class="superinfo-bg">
-      <div class="superinfo">
-        <select v-model="selected" name="language" id="language" class="chave">
-          <option value="pt-BR">pt-BR</option>
-          <option value="en">en</option>
-          <option value="es">es</option>
-        </select>
-      </div>
-    </div>
+    <Superinfo></Superinfo>
     <header class="menu-bg">
 
       <div class="menu">
         <div class="menu-logo">
-          <router-link :to="'/' + this.selected"><img width="220px" src="../assets/logo.png" /></router-link>
+          <router-link :to="usingLang.routes.home"><img width="220px" src="../assets/logo.png" /></router-link>
         </div>
         <nav class="menu-nav">
 
@@ -166,35 +158,43 @@
     <transition name="modal" v-if="showModalRegister">
       <div class="modal-mask">
         <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3 name="header">Salvar modelo atual</h3>
-            </div>
 
-            <div class="modal-body">
-              <form>
 
-                <label for="modelName">Titulo do modelo</label>
-                <input type="text" v-model="modelo.titulo" placeholder="titulo" id="modelName" name="modelName">
 
-                <label for="description">Descrição</label>
-                <input v-model="modelo.descricao" placeholder="Descrição" id="description" name="description">
-              </form>
-            </div>
+          <div class="modal-body">
 
-            <div class="modal-footer">
-              <slot name="footer">
-                <button class="modal-default-button cancel" @click="showModalRegister = false">
-                  {{ usingLang.cancel }}
-                </button>
-                <button class="modal-default-button"
-                  v-on:click="() => { isUpdate ? atualizarOnline() : salvarOnline() }">
-                  enviar
-                </button>
-              </slot>
+            <div class="register">
+              <h1 class="title">Salvar modelo atual</h1>
+              <button class="closeButton" @click="showModalRegister = false">
+                x
+              </button>
+              <div class="registerContent">
+                <form @submit="(e) => { isUpdate ? atualizarOnline(e) : salvarOnline(e); }">
+                  <div class="user-details">
+
+                    <div class="input-box">
+                      <span class="details">*Titulo</span>
+                      <input v-model="modelo.titulo" type="text" placeholder="Enter titulo modelo" required
+                        name="modelName">
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">*Descrição</span>
+                      <textarea v-model="modelo.descricao" placeholder="Enter your password" required
+                        name="description"></textarea>
+                    </div>
+
+                  </div>
+                  <div class="button">
+                    <input type="submit" value="Save">
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
+
         </div>
+
       </div>
     </transition>
 
@@ -202,31 +202,33 @@
     <transition name="modal" v-if="showModalLogin">
       <div class="modal-mask">
         <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3 name="header">{{ usingLang.login }}</h3>
-            </div>
+          <div class="modal-body">
+            <div class="register">
+              <h1 class="title">Login</h1>
+              <button class="closeButton" @click="showModalLogin = false">
+                x
+              </button>
+              <div class="registerContent">
+                <form @submit="login">
+                  <div class="user-details">
 
-            <div class="modal-body">
-              <form>
+                    <div class="input-box">
+                      <span class="details">*Email</span>
+                      <input v-model="input.username" type="email" placeholder="Enter your email" required name="email">
+                    </div>
 
-                <label for="username">Username</label>
-                <input type="text" v-model="input.username" placeholder="Email" id="username" name="username">
+                    <div class="input-box">
+                      <span class="details">*Password</span>
+                      <input v-model="input.password" type="password" placeholder="Enter your password" required
+                        name="senha">
+                    </div>
 
-                <label for="password">Password</label>
-                <input type="password" v-model="input.password" placeholder="Password" id="password" name="password">
-              </form>
-            </div>
-
-            <div class="modal-footer">
-              <slot name="footer">
-                <button class="modal-default-button cancel" @click="showModalLogin = false">
-                  {{ usingLang.cancel }}
-                </button>
-                <button class="modal-default-button" @click="login()">
-                  {{ usingLang.login }}
-                </button>
-              </slot>
+                  </div>
+                  <div class="button">
+                    <input type="submit" value="Login">
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -358,6 +360,7 @@
 </template>
 
 <script>
+import Superinfo from "../components/Superinfo"
 import mxgraph from "mxgraph";
 import graphConfig from "../configs/mxGraph/graphConfig";
 
@@ -393,6 +396,7 @@ function occurrences(string, subString, allowOverlapping) {
 
 export default {
   name: "Editor",
+  components: { Superinfo },
   data() {
     return {
       mostarPropriedades: "",
@@ -404,7 +408,6 @@ export default {
       showModalLogin: false,
       usingLang: {},
       currentCell: null,
-      selected: "pt-BR",
       relatorio: null,
       logado: false,
       codigo_usuario: null,
@@ -424,7 +427,8 @@ export default {
   },
 
   methods: {
-    login() {
+    login(e) {
+      e.preventDefault();
       if (this.input.username != "" && this.input.password != "") {
         services.user
           .login(this.input.username, this.input.password)
@@ -458,15 +462,15 @@ export default {
       this.logado = false;
       this.nome = null;
 
-
       localStorage.removeItem("nome");
       localStorage.removeItem("token");
       localStorage.removeItem("codigo_usuario");
 
+      this.$router.push("/")
     },
 
-    async salvarOnline() {
-
+    async salvarOnline(e) {
+      e.preventDefault();
       try {
         if (this.modelo.titulo && this.modelo.descricao) {
 
@@ -500,10 +504,10 @@ export default {
         this.$toast.error("Não foi possível salvar o modelo");
       }
 
-    }
-    ,
-    async atualizarOnline() {
+    },
 
+    async atualizarOnline(e) {
+      e.preventDefault();
       try {
         if (this.modelo.titulo && this.modelo.descricao) {
 
@@ -2635,24 +2639,21 @@ export default {
       }
     };
 
-    if (this.selected === "en") this.usingLang = language.en;
-    else if (this.selected === "es") this.usingLang = language.es;
+    if (window.location.pathname.includes("/en/")) {
+      this.usingLang = language.en;
+
+    }
+    else if (window.location.pathname.includes("/es/" === "es")) {
+      this.usingLang = language.es;
+
+    }
     else {
       this.usingLang = language.pt;
-      this.selected = "pt-BR";
+
     }
 
 
   },
 
-  watch: {
-    selected: function (newValue) {
-
-      if (newValue === "pt-BR") {
-        this.$router.push("/pt-br/editor");
-      } else if (newValue === "en") this.$router.push("/en/editor/");
-      else if (newValue === "es") this.$router.push("/es/editor");
-    },
-  },
 };
 </script>
