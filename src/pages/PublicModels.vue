@@ -31,11 +31,52 @@
                         </p>
 
                     </div>
+                    <div class="card-actions">
+                        <span class="tag tag-purple" @click="handleOpenDetails(modelo)">ver detalhes</span>
+                    </div>
 
                 </div>
             </div>
 
         </section>
+
+        <transition name="modal" v-if="showModalDetails">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-body">
+                        <div class="register modeloDetails">
+                            <h1 class="title">{{ modelInShow.titulo }}</h1>
+                            <button class="closeButton" @click="showModalDetails = false">x</button>
+                            <div class="registerContent">
+                                <div class="user">
+                                    <img :src="'https://joeschmoe.io/api/v1/' + modelInShow.criador.codigo"
+                                        alt="user" />
+                                    <div class="user-info">
+                                        <h5>{{ modelInShow.criador.nome }}</h5>
+                                        <small>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</small>
+                                    </div>
+                                </div>
+                                <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
+                                <div class="details">
+
+                                    <dl>
+                                        <dt>Titulo</dt>
+                                        <dd>{{ modelInShow.titulo }}</dd>
+                                        <dt>Descricao</dt>
+                                        <dd>{{ modelInShow.descricao }}</dd>
+                                        <dt>Autor</dt>
+                                        <dd>{{ modelInShow.criador.nome }}</dd>
+                                        <dt>last update</dt>
+                                        <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
+                                    </dl> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
     </MainPage>
 </template>
 
@@ -53,7 +94,9 @@ export default {
 
     data() {
         return {
-            modelos: []
+            modelos: [],
+            showModalDetails: false,
+            modelInShow: { titulo: "teste" }
         };
     },
 
@@ -76,6 +119,13 @@ export default {
 
         open(modelo) {
             this.$router.push(this.language.routes.modelEditor.replace(":codigo", modelo));
+        },
+
+        handleOpenDetails(modelo) {
+
+            this.modelInShow = modelo;
+            this.showModalDetails = true;
+
         },
 
         getPreview(codigo) {
@@ -136,7 +186,7 @@ export default {
 
 .text {
     background-color: #5e5e5e;
-    color: white;
+    color: #fff;
     font-size: 1rem;
     padding: 1rem 2rem;
     cursor: pointer;
@@ -241,5 +291,22 @@ export default {
 
 .user-info small {
     color: #545d7a;
+}
+
+.modeloDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modeloDetails .imageDetails {
+    border: 2px solid #5e5e5e;
+    padding: 1rem;
+}
+
+.modeloDetails .user,
+.modeloDetails small {
+    background: #5e5e5e;
+    color: #fff;
 }
 </style>
