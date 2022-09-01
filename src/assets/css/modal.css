@@ -316,6 +316,7 @@
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+ 
 }
 
 .modal-container {
@@ -350,6 +351,7 @@
   display: flex;
   padding: 1rem;
   justify-content: center;
+  
 }
 
 .closeButton {

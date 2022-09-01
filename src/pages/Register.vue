@@ -139,7 +139,13 @@ export default {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     background: #f2f0e6;
     position: relative;
+    
 }
+
+.xl .register {
+    max-width: 50vw;
+ 
+  }
 
 .register .title {
     font-size: 25px;

@@ -42,23 +42,15 @@
 
         <transition name="modal" v-if="showModalDetails">
             <div class="modal-mask">
-                <div class="modal-wrapper">
+                <div class="modal-wrapper xl">
                     <div class="modal-body">
                         <div class="register modeloDetails">
                             <h1 class="title">{{ modelInShow.titulo }}</h1>
                             <button class="closeButton" @click="showModalDetails = false">x</button>
                             <div class="registerContent">
-                                <div class="user">
-                                    <img :src="'https://joeschmoe.io/api/v1/' + modelInShow.criador.codigo"
-                                        alt="user" />
-                                    <div class="user-info">
-                                        <h5>{{ modelInShow.criador.nome }}</h5>
-                                        <small>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</small>
-                                    </div>
-                                </div>
+
                                 <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
                                 <div class="details">
-
                                     <dl>
                                         <dt>Titulo</dt>
                                         <dd>{{ modelInShow.titulo }}</dd>
@@ -66,9 +58,11 @@
                                         <dd>{{ modelInShow.descricao }}</dd>
                                         <dt>Autor</dt>
                                         <dd>{{ modelInShow.criador.nome }}</dd>
+                                        <dt>create</dt>
+                                        <dd>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</dd>
                                         <dt>last update</dt>
                                         <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
-                                    </dl> 
+                                    </dl>
                                 </div>
                             </div>
                         </div>
@@ -299,14 +293,40 @@ export default {
     gap: 1rem;
 }
 
-.modeloDetails .imageDetails {
-    border: 2px solid #5e5e5e;
-    padding: 1rem;
-}
-
 .modeloDetails .user,
 .modeloDetails small {
     background: #5e5e5e;
     color: #fff;
 }
+
+.registerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+}
+
+.registerContent img {
+    max-width: 100%;
+    max-height: 60vh;
+}
+
+dt {
+    float: left;
+    clear: left;
+    width: 110px;
+    font-weight: bold;
+    color: green;
+}
+
+dt::after {
+    content: ":";
+}
+
+dd {
+    margin: 0 0 0 80px;
+    padding: 0 0 0.5em 0;
+}
+
+
 </style>

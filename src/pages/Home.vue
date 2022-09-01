@@ -42,14 +42,12 @@
             </div>
           </div>
           <div class="card-body">
-
             <h4>
               {{ modelo.titulo }}
             </h4>
             <p>
               {{ modelo.descricao }}
             </p>
-
           </div>
 
           <div class="card-actions">
@@ -64,23 +62,16 @@
     </section>
 
     <transition name="modal" v-if="showModalDetails">
-      <div class="modal-mask">
+      <div class="modal-mask xl">
         <div class="modal-wrapper">
           <div class="modal-body">
             <div class="register modeloDetails">
               <h1 class="title">{{ modelInShow.titulo }}</h1>
               <button class="closeButton" @click="showModalDetails = false">x</button>
               <div class="registerContent">
-                <div class="user">
-                  <img :src="'https://joeschmoe.io/api/v1/' + modelInShow.criador.codigo" alt="user" />
-                  <div class="user-info">
-                    <h5>{{ modelInShow.criador.nome }}</h5>
-                    <small>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</small>
-                  </div>
-                </div>
+
                 <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
                 <div class="details">
-
                   <dl>
                     <dt>Titulo</dt>
                     <dd>{{ modelInShow.titulo }}</dd>
@@ -88,6 +79,8 @@
                     <dd>{{ modelInShow.descricao }}</dd>
                     <dt>Autor</dt>
                     <dd>{{ modelInShow.criador.nome }}</dd>
+                    <dt>create</dt>
+                    <dd>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</dd>
                     <dt>last update</dt>
                     <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
                   </dl>
