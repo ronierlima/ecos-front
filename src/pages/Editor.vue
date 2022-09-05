@@ -204,7 +204,7 @@
         <div class="modal-wrapper">
           <div class="modal-body">
             <div class="register">
-              <h1 class="title">Login</h1>
+              <h1 class="title">{{ usingLang.login }}</h1>
               <button class="closeButton" @click="showModalLogin = false">
                 x
               </button>
@@ -214,18 +214,19 @@
 
                     <div class="input-box">
                       <span class="details">*Email</span>
-                      <input v-model="input.username" type="email" placeholder="Enter your email" required name="email">
+                      <input v-model="input.username" type="email" :placeholder="usingLang.enterEmail" required
+                        name="email">
                     </div>
 
                     <div class="input-box">
                       <span class="details">*Password</span>
-                      <input v-model="input.password" type="password" placeholder="Enter your password" required
+                      <input v-model="input.password" type="password" :placeholder="usingLang.enterPassword" required
                         name="senha">
                     </div>
 
                   </div>
                   <div class="button">
-                    <input type="submit" value="Login">
+                    <button type="submit">{{ usingLang.login }}</button>
                   </div>
                 </form>
               </div>
@@ -2507,7 +2508,7 @@ export default {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
       alert("Não recomendamos o uso nesse dispositivo")
     }
-    
+
     const {
       mxClient,
       mxUtils,

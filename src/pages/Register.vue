@@ -14,7 +14,7 @@
 
                             <div class="input-box">
                                 <span class="details">*Email</span>
-                                <input v-model="usuarioInput.email" type="email" placeholder="Enter your email"
+                                <input v-model="usuarioInput.email" type="email" :placeholder="lang"
                                     required>
                             </div>
                             <div class="input-box">
@@ -55,7 +55,6 @@ export default {
     data() {
         return {
             loading: false,
-            usingLang: {},
             error: false,
             usuarioInput: {
                 nome: "",
@@ -239,7 +238,7 @@ form .button {
     margin: 35px 0
 }
 
-form .button input {
+form .button input, form .button button {
     height: 100%;
     width: 100%;
     border-radius: 5px;
@@ -253,7 +252,7 @@ form .button input {
     background: #5e5e5e;
 }
 
-form .button input:hover {
+form .button input:hover, form .button button:hover {
     /* transform: scale(0.99); */
     background: #5e5e5e52;
 }

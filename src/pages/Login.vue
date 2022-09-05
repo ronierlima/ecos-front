@@ -2,26 +2,26 @@
     <Main>
         <section class="content">
             <div class="register">
-                <h1 class="title">Login</h1>
+                <h1 class="title">{{ language.login }}</h1>
                 <div class="registerContent">
                     <form @submit="login">
                         <div class="user-details">
 
                             <div class="input-box">
                                 <span class="details">*Email</span>
-                                <input v-model="usuarioInput.email" type="email" placeholder="Enter your email" required
-                                    name="email">
+                                <input v-model="usuarioInput.email" type="email" :placeholder="language.enterEmail"
+                                    required name="email">
                             </div>
 
                             <div class="input-box">
-                                <span class="details">*Password</span>
-                                <input v-model="usuarioInput.senha" type="password" placeholder="Enter your password"
-                                    required name="senha">
+                                <span class="details">*{{ language.password }}</span>
+                                <input v-model="usuarioInput.senha" type="password"
+                                    :placeholder="language.enterPassword" required name="senha">
                             </div>
 
                         </div>
                         <div class="button">
-                            <input type="submit" value="Login">
+                            <button type="submit">{{ language.login }}</button>
                         </div>
                     </form>
                 </div>
@@ -54,7 +54,7 @@ export default {
 
 
         if (this.getLogado()) this.$router.push("/");
- 
+
 
     },
     methods: {
@@ -87,6 +87,16 @@ export default {
             }
         },
     },
+
+    computed: {
+        language() {
+            return this.getLanguage();
+        },
+        logado() {
+            return this.getLogado();
+        },
+
+    }
 
 };
 </script>

@@ -47,7 +47,7 @@ module.exports.pt = {
   xml: "Baixar em XML",
   json: "Baixar em JSON",
   sair: "Sair",
-  login: "Realizar login",
+  login: "Login",
   publicModels: "Modelos público",
   privateModels: "Meus modelos",
   sub: "Modele ecossistemas de software",
@@ -66,6 +66,9 @@ module.exports.pt = {
   description: "Descrição",
   createAt: "Criado em",
   updateAt: "Última atualização",
+  password: "Senha",
+  enterEmail: "Entre com seu email",
+  enterPassword: "Entre com sua senha",
 
   routes: {
     home: "/pt-br/",
@@ -146,6 +149,9 @@ module.exports.en = {
   description: "Description",
   createAt: "Created in",
   updateAt: "Last update",
+  password: "Password",
+  enterEmail: "Enter your email",
+  enterPassword: "Enter your password",
 
   routes: {
     home: "/en/",
@@ -226,6 +232,9 @@ module.exports.es = {
   description: "Descripción",
   createAt: "Creado en",
   updateAt: "Última actualización",
+  password: "Clave",
+  enterEmail: "Introduce tu correo electrónico",
+  enterPassword: "Ingresa tu contraseña",
 
   routes: {
     home: "/es/",
