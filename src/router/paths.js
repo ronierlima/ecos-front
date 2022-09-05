@@ -10,8 +10,8 @@ function getBase() {
   const language = localStorage.getItem("language");
 
   if (language && language !== "null" && language !== "undefined")
-    return language;
-
+    return "/" + language + "/";
+    
   return "/pt-br/";
 }
 

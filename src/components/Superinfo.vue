@@ -42,20 +42,9 @@ export default {
   },
   created: function () {
 
-    if (window.location.pathname.includes("/en/")) {
 
-      this.selected = "en"
 
-    }
-    else if (window.location.pathname.includes("/es/")) {
-
-      this.selected = "es"
-
-    }
-    else {
-      this.selected = "pt-br"
-
-    }
+    this.selected = localStorage.getItem("language");
 
   }
 

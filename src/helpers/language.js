@@ -158,7 +158,7 @@ module.exports.en = {
   },
 };
 
-module.exports.pt = {
+module.exports.es = {
   company_of_interest: "Compañía de interés",
   supplier: "Proveedor",
   customer: "Cliente",

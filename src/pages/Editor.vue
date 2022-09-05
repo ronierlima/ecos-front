@@ -2643,7 +2643,7 @@ export default {
       this.usingLang = language.en;
 
     }
-    else if (window.location.pathname.includes("/es/" === "es")) {
+    else if (window.location.pathname.includes("/es/")) {
       this.usingLang = language.es;
 
     }

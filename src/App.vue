@@ -45,7 +45,7 @@ export default {
         this.language = language.en;
 
       }
-      else if (window.location.pathname.includes("/es/" === "es")) {
+      else if (window.location.pathname.includes("/es/")) {
         this.language = language.es;
 
       }
