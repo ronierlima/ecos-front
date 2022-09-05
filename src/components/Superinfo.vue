@@ -28,7 +28,7 @@ export default {
       if (window.location.pathname.includes("/en/") && value !== "en") {
         this.$router.push(window.location.pathname.replace("/en/", "/" + value + "/"));
       }
-      else if (window.location.pathname.includes("/es/" === "es") && value !== "es") {
+      else if (window.location.pathname.includes("/es/") && value !== "es") {
         this.$router.push(window.location.pathname.replace("/es/", "/" + value + "/"));
       }
       else {
@@ -42,10 +42,12 @@ export default {
   created: function () {
 
     if (window.location.pathname.includes("/en/")) {
+     
       this.selected = "en"
 
     }
-    else if (window.location.pathname.includes("/es/" === "es")) {
+    else if (window.location.pathname.includes("/es/")) {
+
       this.selected = "es"
 
     }
