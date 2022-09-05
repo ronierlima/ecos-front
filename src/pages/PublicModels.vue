@@ -32,7 +32,7 @@
 
                     </div>
                     <div class="card-actions">
-                        <span class="tag tag-purple" @click="handleOpenDetails(modelo)">ver detalhes</span>
+                        <span class="tag tag-purple" @click="handleOpenDetails(modelo)">{{ language.details }}</span>
                     </div>
 
                 </div>
@@ -41,8 +41,8 @@
         </section>
 
         <transition name="modal" v-if="showModalDetails">
-            <div class="modal-mask">
-                <div class="modal-wrapper xl">
+            <div class="modal-mask xl">
+                <div class="modal-wrapper">
                     <div class="modal-body">
                         <div class="register modeloDetails">
                             <h1 class="title">{{ modelInShow.titulo }}</h1>
@@ -52,15 +52,15 @@
                                 <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
                                 <div class="details">
                                     <dl>
-                                        <dt>Titulo</dt>
+                                        <dt>{{ language.title }}</dt>
                                         <dd>{{ modelInShow.titulo }}</dd>
-                                        <dt>Descricao</dt>
+                                        <dt>{{ language.description }}</dt>
                                         <dd>{{ modelInShow.descricao }}</dd>
                                         <dt>Autor</dt>
                                         <dd>{{ modelInShow.criador.nome }}</dd>
-                                        <dt>create</dt>
+                                        <dt>{{ language.createAt }}</dt>
                                         <dd>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</dd>
-                                        <dt>last update</dt>
+                                        <dt>{{ language.updateAt }}</dt>
                                         <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
                                     </dl>
                                 </div>
@@ -303,7 +303,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    
+
 }
 
 .registerContent img {
@@ -327,6 +327,4 @@ dd {
     margin: 0 0 0 80px;
     padding: 0 0 0.5em 0;
 }
-
-
 </style>

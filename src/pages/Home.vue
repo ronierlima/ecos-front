@@ -38,7 +38,7 @@
             <img class="image" :src="getPreview(modelo.codigo)" alt="preview" />
 
             <div class="middle">
-              <div class="text" @click="open(modelo.codigo)">Abrir no editor</div>
+              <div class="text" @click="open(modelo.codigo)">{{ language.openEditor }}</div>
             </div>
           </div>
           <div class="card-body">
@@ -51,7 +51,7 @@
           </div>
 
           <div class="card-actions">
-            <span class="tag tag-purple" @click="handleOpenDetails(modelo)">ver detalhes</span>
+            <span class="tag tag-purple" @click="handleOpenDetails(modelo)">{{ language.details }}</span>
           </div>
 
         </div>
@@ -73,15 +73,15 @@
                 <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
                 <div class="details">
                   <dl>
-                    <dt>Titulo</dt>
+                    <dt>{{ language.title }}</dt>
                     <dd>{{ modelInShow.titulo }}</dd>
-                    <dt>Descricao</dt>
+                    <dt>{{ language.description }}</dt>
                     <dd>{{ modelInShow.descricao }}</dd>
                     <dt>Autor</dt>
                     <dd>{{ modelInShow.criador.nome }}</dd>
-                    <dt>create</dt>
+                    <dt>{{ language.createAt }}</dt>
                     <dd>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</dd>
-                    <dt>last update</dt>
+                    <dt>{{ language.updateAt }}</dt>
                     <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
                   </dl>
                 </div>
