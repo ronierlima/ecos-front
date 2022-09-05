@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { services } from "../../services";
+import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
 
 
@@ -90,7 +90,7 @@ export default {
         return {
             modelos: [],
             showModalDetails: false,
-            modelInShow: { titulo: "teste" }
+            modelInShow: { titulo: "" }
         };
     },
 

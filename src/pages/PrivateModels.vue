@@ -31,18 +31,56 @@
 
                     </div>
                     <div class="card-actions">
- 
-                        <span class="tag tag-purple">{{ language.update }}</span>
+
+                        <span class="tag tag-purple" @click="handleOpenDetails(modelo)">{{ language.update }}</span>
                         <span class="tag tag-red" @click="deleteModel(modelo.codigo)">{{ language.delete }}</span>
                     </div>
                 </div>
             </div>
 
         </section>
+
+        <transition name="modal" v-if="showModalDetails">
+            <div class="modal-mask">
+                <div class="modal-wrapper xl">
+                    <div class="modal-body">
+                        <div class="register modeloDetails">
+                            <h1 class="title">{{ modelInShow.titulo }}</h1>
+                            <button class="closeButton" @click="showModalDetails = false">x</button>
+                            <div class="registerContent">
+
+                                <form @submit="atualizar">
+                                    <div class="user-details">
+
+                                        <div class="input-box">
+                                            <span class="details">*Titulo</span>
+                                            <input v-model="input.titulo" type="text" placeholder="Enter titulo modelo"
+                                                required name="modelName">
+                                        </div>
+
+                                        <div class="input-box">
+                                            <span class="details">*Descrição</span>
+                                            <textarea v-model="input.descricao" placeholder="Enter description model"
+                                                required name="description"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="button">
+                                        <input type="submit" value="Save">
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </MainPage>
 </template>
 <script>
-import { services } from "../../services";
+import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
 
 
@@ -54,7 +92,13 @@ export default {
     },
     data() {
         return {
-            modelos: []
+            modelos: [],
+            showModalDetails: false,
+            modelInShow: { titulo: "" },
+            input: {
+                titulo: "",
+                descricao: ""
+            }
         };
     },
 
@@ -79,6 +123,21 @@ export default {
                     this.$toast.error(this.language.loadModelErro)
                 });
         },
+        atualizar(e) {
+            e.preventDefault();
+
+            services.models
+                .patch(this.modelInShow.codigo, this.input)
+                .then(() => {
+                    this.getModelos();
+                    this.$toast.success(this.language.update)
+                })
+                .catch(() => {
+                    this.$toast.error(this.language.loadModelErro)
+                });
+
+            this.showModalDetails = false;
+        },
         deleteModel(codigo) {
             services.models
                 .delete(codigo)
@@ -97,7 +156,18 @@ export default {
 
         getPreview(codigo) {
             return services.models.preview(codigo)
-        }
+        },
+        handleOpenDetails(modelo) {
+
+            this.modelInShow = modelo;
+            this.showModalDetails = true;
+
+            this.input = {
+                titulo: modelo.titulo,
+                descricao: modelo.descricao
+            }
+
+        },
     },
 
 
@@ -115,3 +185,9 @@ export default {
 
 };
 </script>
+
+<style>
+dl {
+    width: 100%;
+}
+</style>

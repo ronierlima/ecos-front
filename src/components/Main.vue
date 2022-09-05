@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { services } from "../../services";
+import { services } from "../services";
 
 export default {
   name: "Main",

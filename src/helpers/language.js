@@ -59,6 +59,7 @@ module.exports.pt = {
   update: "Atualizar",
   deleteSuccess: "Modelo deletado",
   register: "Cadastro",
+  autor: "Autor",
 
   routes: {
     home: "/pt-br/",
@@ -132,6 +133,7 @@ module.exports.en = {
   update: "Update",
   deleteSuccess: "Deleted Model",
   register: "Registration",
+  autor: "Author",
 
   routes: {
     home: "/en/",

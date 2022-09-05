@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { services } from "../../services";
+import { services } from "../services";
 
 import Main from "../components/Main.vue"
 

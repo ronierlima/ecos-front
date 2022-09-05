@@ -21,7 +21,7 @@ export const services = {
     async checkToken(token) {
       return api({
         method: "post",
-        url: process.env.REACT_APP_GATEWAY_AUTH + "/check_token",
+        url: process.env.VUE_APP_BASE_URL + "/oauth/check_token",
         data: qs.stringify({
           token: token,
         }),
@@ -78,6 +78,16 @@ export const services = {
         },
       });
     },
+    async patch(codigo, data) {
+      return api({
+        method: "patch",
+        url: "/modelos/" + codigo,
+        data,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
     async list(params) {
       return api({
         method: "get",
@@ -89,6 +99,9 @@ export const services = {
       return api({
         method: "get",
         url: "/usuarios/modelos",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       });
     },
     async get(codigo) {
@@ -101,6 +114,9 @@ export const services = {
       return api({
         method: "delete",
         url: `/modelos/${codigo}`,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       });
     },
     async index(codigo) {

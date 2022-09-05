@@ -174,19 +174,19 @@
 
                     <div class="input-box">
                       <span class="details">*Titulo</span>
-                      <input v-model="modelo.titulo" type="text" placeholder="Enter titulo modelo" required
+                      <input v-model="modelo.titulo" type="text" placeholder="Enter titulo model" required
                         name="modelName">
                     </div>
 
                     <div class="input-box">
                       <span class="details">*Descrição</span>
-                      <textarea v-model="modelo.descricao" placeholder="Enter your password" required
+                      <textarea v-model="modelo.descricao" placeholder="Enter description model" required
                         name="description"></textarea>
                     </div>
 
                   </div>
                   <div class="button">
-                    <input type="submit" value="Save">
+                    <input type="submit" value="Update">
                   </div>
                 </form>
               </div>
@@ -367,7 +367,7 @@ import graphConfig from "../configs/mxGraph/graphConfig";
 import { saveAs } from "file-saver";
 import { saveSvgAsPng } from "save-svg-as-png";
 import convert from "xml-js";
-import { services } from "../../services";
+import { services } from "../services";
 
 import language from "../helpers/language";
 import ssn from "../helpers/ssn";

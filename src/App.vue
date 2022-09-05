@@ -8,6 +8,7 @@
 import './app.css';
 
 import language from "./helpers/language";
+import { services } from "./services";
 
 export default {
   name: "app",
@@ -54,6 +55,7 @@ export default {
       }
     },
     getCredentials() {
+
       const token = localStorage.getItem("token");
       const nome = localStorage.getItem("nome");
       const codigo_usuario = localStorage.getItem("codigo_usuario");
@@ -65,15 +67,55 @@ export default {
         this.usuario.token = token;
         this.usuario.nome = nome;
         this.usuario.codigo = codigo_usuario;
+
       }
-    }
+    },
+    async check() {
+
+      try {
+
+        const token = localStorage.getItem("token");
+        const nome = localStorage.getItem("nome");
+        const codigo_usuario = localStorage.getItem("codigo_usuario");
+
+        if (token) {
+
+          await services.user.checkToken(token);
+
+
+          this.logado = true;
+
+          this.usuario.token = token;
+          this.usuario.nome = nome;
+          this.usuario.codigo = codigo_usuario;
+
+        }
+
+      } catch (error) {
+
+        
+
+        this.logado = false;
+
+        this.usuario.token = null;
+        this.usuario.nome = null;
+        this.usuario.codigo = null;
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("nome");
+        localStorage.removeItem("codigo_usuario");
+
+        this.$router.push("/");
+        this.$toast.error('login inspirado');
+
+      }
+
+    },
   },
 
   created: function () {
-
-
-
-    this.getCredentials()
+    this.check()
+    this.getCredentials();
     this.changeLanguage();
 
 

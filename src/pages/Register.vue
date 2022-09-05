@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { services } from "../../services";
+import { services } from "../services";
 import Main from "../components/MainPage.vue"
 
 export default {
