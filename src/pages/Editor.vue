@@ -2504,6 +2504,10 @@ export default {
   },
 
   created() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      alert("Não recomendamos o uso nesse dispositivo")
+    }
+    
     const {
       mxClient,
       mxUtils,

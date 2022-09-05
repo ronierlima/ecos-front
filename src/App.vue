@@ -93,7 +93,7 @@ export default {
 
       } catch (error) {
 
-        
+
 
         this.logado = false;
 
@@ -117,8 +117,6 @@ export default {
     this.check()
     this.getCredentials();
     this.changeLanguage();
-
-
   },
 
   watch: {
