@@ -34,6 +34,7 @@ export default {
       else {
         this.$router.push(window.location.pathname.replace("/pt-br/", "/" + value + "/"));
       }
+      localStorage.setItem("language", value)
 
       location.reload();
 
@@ -42,7 +43,7 @@ export default {
   created: function () {
 
     if (window.location.pathname.includes("/en/")) {
-     
+
       this.selected = "en"
 
     }

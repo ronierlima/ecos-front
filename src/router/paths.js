@@ -6,10 +6,19 @@ import Login from "../pages/Login.vue";
 
 import Editor from "../pages/Editor.vue";
 
+function getBase() {
+  const language = localStorage.getItem("language");
+
+  if (language && language !== "null" && language !== "undefined")
+    return language;
+
+  return "/pt-br/";
+}
+
 export default [
   {
     path: "/",
-    redirect: "/pt-br/",
+    redirect: getBase(),
   },
   {
     path: "/pt-br/",
