@@ -76,4 +76,45 @@ export default [
     name: "enRegister",
     component: Register,
   },
+  {
+    path: "/en/login",
+    name: "enLogin",
+    component: Login,
+  },
+
+  {
+    path: "/es/",
+    name: "esHome",
+    component: Home,
+  },
+  {
+    path: "/es/editor",
+    name: "esEditor",
+    component: Editor,
+  },
+  {
+    path: "/es/editor/:id",
+    name: "esEditorId",
+    component: Editor,
+  },
+  {
+    path: "/es/modelos",
+    name: "esPublicModels",
+    component: PublicModels,
+  },
+  {
+    path: "/es/modelos/privado",
+    name: "esPrivateModels",
+    component: PrivateModels,
+  },
+  {
+    path: "/es/cadastro",
+    name: "esRegister",
+    component: Register,
+  },
+  {
+    path: "/es/login",
+    name: "esLogin",
+    component: Login,
+  },
 ];
