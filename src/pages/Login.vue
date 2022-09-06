@@ -92,9 +92,6 @@ export default {
         language() {
             return this.getLanguage();
         },
-        logado() {
-            return this.getLogado();
-        },
 
     }
 
