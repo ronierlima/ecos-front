@@ -56,9 +56,12 @@
 
         </div>
       </div>
+    <div class="sectionPlus">
       <a id="plusModels" :href="language.routes.publicModels">
         + {{ language.publicModels }}
       </a>
+    </div>
+
     </section>
 
     <transition name="modal" v-if="showModalDetails">
@@ -150,6 +153,7 @@ export default {
     },
 
   },
+  
   created: function () {
     this.getModelos();
   }
@@ -158,15 +162,28 @@ export default {
 </script>
 
 <style>
+
+.sectionPlus{
+  width: 100%;
+  display: flex;
+  padding: 2.5rem;
+  justify-content: center;
+}
+
 #plusModels {
-  max-width: 100%;
   display: block;
   border: 4px solid;
   color: #222222;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 2em;
-  padding: 15px 0;
+  padding: 1rem;
   text-align: center;
+}
+
+#plusModels:hover {
+ 
+  color: #22222288;
+  
 }
 </style>

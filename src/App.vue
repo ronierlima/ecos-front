@@ -17,7 +17,8 @@ export default {
     return {
       usuario: { nome: "" },
       language: language.pt,
-      selectLanguage: "pt-br"
+      selectLanguage: "pt-br",
+      logado: false
     }
   },
 
@@ -93,8 +94,6 @@ export default {
 
       } catch (error) {
 
-
-
         this.logado = false;
 
         this.usuario.token = null;
@@ -106,6 +105,7 @@ export default {
         localStorage.removeItem("codigo_usuario");
 
         this.$router.push("/");
+        // document.location.reload(true);
         this.$toast.error('login inspirado');
 
       }

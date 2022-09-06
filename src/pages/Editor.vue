@@ -467,7 +467,8 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("codigo_usuario");
 
-      this.$router.push("/")
+      this.$router.push("/");
+      document.location.reload(true);
     },
 
     async salvarOnline(e) {

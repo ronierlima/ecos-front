@@ -2,38 +2,38 @@
     <Main>
         <section class="content">
             <div class="register">
-                <h1 class="title">Registration</h1>
+                <h1 class="title">{{ language.register }}</h1>
                 <div class="registerContent">
                     <form @submit="registerUser">
                         <div class="user-details">
                             <div class="input-box">
-                                <span class="details">*Nome</span>
+                                <span class="details">*{{ language.name }}</span>
                                 <input v-model="usuarioInput.nome" type="text" id="username" required
                                     placeholder="Enter your name">
                             </div>
 
                             <div class="input-box">
                                 <span class="details">*Email</span>
-                                <input v-model="usuarioInput.email" type="email" :placeholder="lang"
+                                <input v-model="usuarioInput.email" type="email" :placeholder="language.enterEmail"
                                     required>
                             </div>
                             <div class="input-box">
-                                <span class="details">Instituição</span>
+                                <span class="details">{{ language.institution }}</span>
                                 <input v-model="usuarioInput.instituicao" type="text" placeholder="Enter your company">
                             </div>
                             <div class="input-box">
-                                <span class="details">*Password</span>
-                                <input v-model="usuarioInput.senha" type="password" placeholder="Enter your password"
-                                    required>
+                                <span class="details">*{{ language.password }}</span>
+                                <input v-model="usuarioInput.senha" type="password"
+                                    :placeholder="language.enterPassword" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">*Confirm Password</span>
-                                <input v-model="senhaCheck" type="password" placeholder="Confirm your password"
+                                <span class="details">*{{ language.confirmPassword }}</span>
+                                <input v-model="senhaCheck" type="password" :placeholder="language.confirmPassword"
                                     required>
                             </div>
                         </div>
                         <div class="button">
-                            <input type="submit" value="Register">
+                            <button type="submit">{{ language.registerAction }}</button>
                         </div>
                     </form>
                 </div>
@@ -48,6 +48,7 @@ import Main from "../components/MainPage.vue"
 
 export default {
     name: "Register",
+    inject: ['getLanguage', 'getLogado'],
     components: {
         Main,
     },
@@ -125,6 +126,16 @@ export default {
             }
         },
     },
+    computed: {
+        language() {
+            return this.getLanguage();
+        },
+
+        logado() {
+            return this.getLogado();
+        },
+
+    }
 
 };
 </script>
@@ -138,13 +149,13 @@ export default {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     background: #f2f0e6;
     position: relative;
-    
+
 }
 
 .xl .register {
     max-width: 50vw;
- 
-  }
+
+}
 
 .register .title {
     font-size: 25px;
@@ -188,7 +199,8 @@ form textarea {
     font-weight: 500;
 }
 
-.user-details .input-box input, form textarea {
+.user-details .input-box input,
+form textarea {
     height: 45px;
     width: 100%;
     outline: none;
@@ -200,7 +212,8 @@ form textarea {
     transition: all 0.3s ease;
 }
 
-.user-details .input-box input:focus, form textarea:focus,
+.user-details .input-box input:focus,
+form textarea:focus,
 .user-details .input-box input:valid {
     border-color: #5e5e5e;
 }
@@ -238,7 +251,8 @@ form .button {
     margin: 35px 0
 }
 
-form .button input, form .button button {
+form .button input,
+form .button button {
     height: 100%;
     width: 100%;
     border-radius: 5px;
@@ -252,10 +266,21 @@ form .button input, form .button button {
     background: #5e5e5e;
 }
 
-form .button input:hover, form .button button:hover {
+form .button input:hover,
+form .button button:hover {
     /* transform: scale(0.99); */
     background: #5e5e5e52;
 }
+
+
+form .button button.excluir  {
+    background: #e74c3c;
+}
+
+form .button button.excluir:hover{
+    background: #c0392b;
+}
+
 
 @media(max-width: 584px) {
     .register {

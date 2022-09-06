@@ -33,7 +33,7 @@
                     <div class="card-actions">
 
                         <span class="tag tag-purple" @click="handleOpenDetails(modelo)">{{ language.update }}</span>
-                        <span class="tag tag-red" @click="deleteModel(modelo.codigo)">{{ language.delete }}</span>
+                        <span class="tag tag-red" @click="handleOpenDelete(modelo)">{{ language.delete }}</span>
                     </div>
                 </div>
             </div>
@@ -68,8 +68,32 @@
                                     <div class="button">
                                         <input type="submit" value="Save">
                                     </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
 
+        <transition name="modal" v-if="showModalDelete">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-body">
+                        <div class="register modeloDetails">
+                            <h1 class="title">Deseja realmente excluir o modelo {{ modelInShow.titulo }}</h1>
+                            <button class="closeButton" @click="showModalDelete = false">x</button>
+                            <div class="registerContent">
 
+                                <form @submit="deleteModel" @reset="showModalDelete = false">
+
+                                    <div class="button">
+                                        <button type="reset">no</button>
+                                    </div>
+
+                                    <div class="button">
+                                        <button class="excluir" type="submit">yes</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -94,6 +118,7 @@ export default {
         return {
             modelos: [],
             showModalDetails: false,
+            showModalDelete: false,
             modelInShow: { titulo: "" },
             input: {
                 titulo: "",
@@ -138,16 +163,23 @@ export default {
 
             this.showModalDetails = false;
         },
-        deleteModel(codigo) {
+
+        deleteModel(e) {
+
+            e.preventDefault();
+
             services.models
-                .delete(codigo)
+                .delete(this.modelInShow.codigo)
                 .then(() => {
                     this.getModelos();
+
                     this.$toast.success(this.language.deleteSuccess);
                 })
                 .catch((error) => {
                     this.$toast.error(error)
                 });
+
+            this.showModalDelete = false;
         },
 
         open(modelo) {
@@ -168,6 +200,17 @@ export default {
             }
 
         },
+        handleOpenDelete(modelo) {
+
+            this.modelInShow = modelo;
+            this.showModalDelete = true;
+
+            this.input = {
+                titulo: modelo.titulo,
+                descricao: modelo.descricao
+            }
+
+        },
     },
 
 
@@ -180,8 +223,6 @@ export default {
         },
 
     }
-
-
 
 };
 </script>
