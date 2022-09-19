@@ -213,7 +213,6 @@ export default {
         },
     },
 
-
     computed: {
         language() {
             return this.getLanguage();
@@ -221,7 +220,6 @@ export default {
         usuario() {
             return this.getUsuario();
         },
-
     }
 
 };

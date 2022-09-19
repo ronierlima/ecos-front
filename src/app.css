@@ -240,7 +240,7 @@ html {
 }
 
 .dropbtn {
-  background-color: #5e5e5e;;
+  background-color: #5e5e5e;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -266,9 +266,13 @@ html {
   left: calc(-50%);
 }
 
+.dropdown.menu .dropdown-content {
+  left: initial;
+}
+
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: black;
+  color: #5e5e5e;
   padding: 12px 16px;
   text-decoration: none;
   display: block;

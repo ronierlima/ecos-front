@@ -82,6 +82,8 @@ module.exports.pt = {
     privateModels: "/pt-br/modelos/privado",
     register: "/pt-br/cadastro",
     login: "/pt-br/login",
+    user: "/pt-br/conta",
+    password: "/pt-br/password",
     modelEditor: "/pt-br/editor/:codigo",
   },
 };
@@ -170,6 +172,8 @@ module.exports.en = {
     privateModels: "/en/modelos/privado",
     register: "/en/cadastro",
     login: "/en/login",
+    user: "/en/conta",
+    password: "/en/password",
     modelEditor: "/en/editor/:codigo",
   },
 };
@@ -258,6 +262,8 @@ module.exports.es = {
     privateModels: "/es/modelos/privado",
     register: "/es/cadastro",
     login: "/es/login",
+    user: "/es/conta",
+    password: "/es/password",
     modelEditor: "/es/editor/:codigo",
   },
 };

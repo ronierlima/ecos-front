@@ -54,6 +54,27 @@ export const services = {
         },
       });
     },
+
+    async getDetails(codigo) {
+      return await api({
+        method: "get",
+        url: `${process.env.VUE_APP_BASE_URL}/usuarios/${codigo}`,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
+    async update(codigo, user) {
+
+      return await api({
+        method: "patch",
+        url: `/usuarios/${codigo}`,
+        data: user,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
   },
   models: {
     async post(data) {
