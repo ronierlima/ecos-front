@@ -4,6 +4,7 @@ import PrivateModels from "../pages/PrivateModels.vue";
 import Register from "../pages/Register.vue";
 import Login from "../pages/Login.vue";
 import User from "../pages/User.vue";
+import Password from "../pages/Password.vue";
 
 import Editor from "../pages/Editor.vue";
 
@@ -55,6 +56,11 @@ export default [
     path: "/pt-br/login",
     name: "ptLogin",
     component: Login,
+  },
+  {
+    path: "/pt-br/password",
+    name: "ptPassword",
+    component: Password,
   },
   {
     path: "/pt-br/conta",

@@ -75,6 +75,17 @@ export const services = {
         },
       });
     },
+    async updatePass(codigo, senhas) {
+
+      return await api({
+        method: "put",
+        url: `/usuarios/${codigo}/senha`,
+        data: senhas,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
   },
   models: {
     async post(data) {

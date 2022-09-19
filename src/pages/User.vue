@@ -24,7 +24,7 @@
 
                         </div>
                         <div class="button">
-                            <button type="submit">{{ language.registerAction }}</button>
+                            <button type="submit">{{ language.save }}</button>
                         </div>
                     </form>
                 </div>
@@ -38,7 +38,7 @@ import { services } from "../services";
 import Main from "../components/MainPage.vue"
 
 export default {
-    name: "Register",
+    name: "User",
     inject: ['getLanguage', 'getLogado', 'getUsuario'],
     components: {
         Main,
