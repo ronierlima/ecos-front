@@ -62,7 +62,7 @@ export default {
             e.preventDefault();
             if (this.usuarioInput.email !== "" && this.usuarioInput.senha !== "") {
                 services.user
-                    .login(this.usuarioInput.email, this.usuarioInput.senha)
+                    .login(this.usuarioInput.email.toLowerCase(), this.usuarioInput.senha)
                     .then((res) => {
                         this.token = res.data.access_token;
                         this.nome = res.data.nome_completo;

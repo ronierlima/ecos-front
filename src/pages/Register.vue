@@ -97,10 +97,10 @@ export default {
             if (!this.error) {
 
                 services.user
-                    .register(this.usuarioInput)
+                    .register({ ...this.usuarioInput, email: this.usuarioInput.email.toLowerCase() })
                     .then(() => {
                         services.user
-                            .login(this.usuarioInput.email, this.usuarioInput.senha)
+                            .login(this.usuarioInput.email.toLowerCase(), this.usuarioInput.senha)
                             .then((res) => {
 
                                 this.token = res.data.access_token;
@@ -273,11 +273,11 @@ form .button button:hover {
 }
 
 
-form .button button.excluir  {
+form .button button.excluir {
     background: #e74c3c;
 }
 
-form .button button.excluir:hover{
+form .button button.excluir:hover {
     background: #c0392b;
 }
 

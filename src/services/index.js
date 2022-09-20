@@ -86,6 +86,20 @@ export const services = {
         },
       });
     },
+    async updatePhoto(codigo, data) {
+      return api({
+        method: "put",
+        url: `/usuarios/${codigo}/foto`,
+        data,
+        headers: {
+          ContentType: "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
+
+    foto: (codigo) =>
+    `${process.env.VUE_APP_BASE_URL}/usuarios/${codigo}/foto`,
   },
   models: {
     async post(data) {

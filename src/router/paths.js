@@ -5,6 +5,7 @@ import Register from "../pages/Register.vue";
 import Login from "../pages/Login.vue";
 import User from "../pages/User.vue";
 import Password from "../pages/Password.vue";
+import Photo from "../pages/Photo.vue";
 
 import Editor from "../pages/Editor.vue";
 
@@ -58,7 +59,7 @@ export default [
     component: Login,
   },
   {
-    path: "/pt-br/password",
+    path: "/pt-br/conta/password",
     name: "ptPassword",
     component: Password,
   },
@@ -66,6 +67,11 @@ export default [
     path: "/pt-br/conta",
     name: "ptUser",
     component: User,
+  },
+  {
+    path: "/pt-br/conta/foto",
+    name: "ptPhoto",
+    component: Photo,
   },
   {
     path: "/en/",

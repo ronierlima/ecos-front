@@ -26,6 +26,7 @@
                         <li v-if="logado"><a>| {{ usuario.nome }} |</a></li>
                         <div class="dropdown-content">
                             <router-link :to="language.routes.user">Meus dados</router-link>
+                            <router-link :to="language.routes.photo">Alterar Foto</router-link>
                             <router-link :to="language.routes.password">Alterar Senha</router-link>
                         </div>
                     </div>

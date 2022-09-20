@@ -106,10 +106,7 @@ export default {
         },
 
     },
-    created: function () {
-
-        this.getUser();
-    },
+    
 
 };
 </script>

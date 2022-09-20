@@ -83,7 +83,8 @@ module.exports.pt = {
     register: "/pt-br/cadastro",
     login: "/pt-br/login",
     user: "/pt-br/conta",
-    password: "/pt-br/password",
+    photo: "/pt-br/conta/foto",
+    password: "/pt-br/conta/password",
     modelEditor: "/pt-br/editor/:codigo",
   },
 };
@@ -173,7 +174,8 @@ module.exports.en = {
     register: "/en/cadastro",
     login: "/en/login",
     user: "/en/conta",
-    password: "/en/password",
+    photo: "/en/conta/foto",
+    password: "/en/conta/password",
     modelEditor: "/en/editor/:codigo",
   },
 };
@@ -263,7 +265,7 @@ module.exports.es = {
     register: "/es/cadastro",
     login: "/es/login",
     user: "/es/conta",
-    password: "/es/password",
+    password: "/es/conta/password",
     modelEditor: "/es/editor/:codigo",
   },
 };

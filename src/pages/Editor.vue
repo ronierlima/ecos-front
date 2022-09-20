@@ -284,9 +284,9 @@
                 {{ usingLang.xml }}
               </button>
 
-              <button class="modal2-button-json" @click="exportarJson(), (showModalSalvar = false)">
+              <!-- <button class="modal2-button-json" @click="exportarJson(), (showModalSalvar = false)">
                 {{ usingLang.json }}
-              </button>
+              </button> -->
             </div>
 
             <div class="modal2-footer">
@@ -2020,6 +2020,7 @@ export default {
       saveAs(blob, filename);
     },
 
+    // Depreciated
     exportarJson() {
       var enc = new mxCodec(mxUtils.createXmlDocument());
       var node = enc.encode(editor.graph.getModel());
