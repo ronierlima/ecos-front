@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
                     <div class="user">
-                        <img :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo" alt="user" />
+                        <img :src="getProfile(modelo)" alt="user" />
                         <div class="user-info">
                             <h5>{{ modelo.criador.nome }}</h5>
                             <small>{{ modelo.dataCadastro | moment("DD/MM/YYYY") }}</small>
@@ -124,6 +124,10 @@ export default {
 
         getPreview(codigo) {
             return services.models.preview(codigo)
+        },
+        getProfile(modelo) {
+
+            return modelo.criador.fotoPerfil ? services.user.foto(modelo.criador.codigo) : `https://avatars.dicebear.com/api/identicon/${modelo.criador.email}.svg`
         }
     },
 

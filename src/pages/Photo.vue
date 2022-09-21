@@ -71,11 +71,15 @@ export default {
                         email: data.email,
                         instituicao: data.instituicao,
                     };
-
+            
                     if (data.fotoPerfil) {
+                       
                         this.hasPhoto = true
                         this.image.url = services.user.foto(this.usuario.codigo)
+                    }else{
+                        this.image.url = `https://avatars.dicebear.com/api/identicon/${this.usuario.email}.svg`
                     }
+                
 
                 })
                 .catch((error) => {
@@ -103,17 +107,19 @@ export default {
 
                 services.user
                     .updatePhoto(this.usuario.codigo, formData)
-                    .then((res) => {
+                    .then(() => {
                         this.$toast.success("Perfil atualizado com sucesso");
+                        this.getUser();
                     })
                     .catch((error) => {
                         this.$toast.error(error.response.data.userMessage || "Ocorreu um erro desconhecido");
                     });
 
                 this.error = false;
-                this.getUser();
+               
             }
         },
+       
     },
     computed: {
         language() {

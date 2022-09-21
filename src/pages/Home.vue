@@ -28,7 +28,7 @@
       <div class="container">
         <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
           <div class="user">
-            <img :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo" alt="user" />
+            <img :src="getProfile(modelo)" alt="user" />
             <div class="user-info">
               <h5>{{ modelo.criador.nome }}</h5>
               <small>{{ modelo.dataCadastro | moment("DD/MM/YYYY") }}</small>
@@ -56,11 +56,11 @@
 
         </div>
       </div>
-    <div class="sectionPlus">
-      <a id="plusModels" :href="language.routes.publicModels">
-        + {{ language.publicModels }}
-      </a>
-    </div>
+      <div class="sectionPlus">
+        <a id="plusModels" :href="language.routes.publicModels">
+          + {{ language.publicModels }}
+        </a>
+      </div>
 
     </section>
 
@@ -143,6 +143,9 @@ export default {
       this.showModalDetails = true;
 
     },
+    getProfile(modelo) {
+      return modelo.criador.fotoPerfil ? services.user.foto(modelo.criador.codigo) : `https://avatars.dicebear.com/api/identicon/${modelo.criador.email}.svg`
+    }
 
   },
 
@@ -153,7 +156,7 @@ export default {
     },
 
   },
-  
+
   created: function () {
     this.getModelos();
   }
@@ -162,8 +165,7 @@ export default {
 </script>
 
 <style>
-
-.sectionPlus{
+.sectionPlus {
   width: 100%;
   display: flex;
   padding: 2.5rem;
@@ -182,8 +184,8 @@ export default {
 }
 
 #plusModels:hover {
- 
+
   color: #22222288;
-  
+
 }
 </style>
