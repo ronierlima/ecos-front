@@ -1,6 +1,7 @@
 <template>
   <div id="modelo">
     <Superinfo></Superinfo>
+
     <header class="menu-bg">
 
       <div class="menu">
@@ -83,7 +84,11 @@
       </div>
     </header>
     <section>
-      <aside class="left-sidebar" id="sidebar"></aside>
+      <aside class="left-sidebar" id="sidebar">
+      </aside>
+      <button id="sidebar-togle" @click="togleNav()">
+        {{this.navIsOpen ? "❮":"❯"}}
+      </button>
       <div id="container"></div>
       <aside class="right-sidebar">
         <div id="italico">
@@ -413,6 +418,7 @@ export default {
       logado: false,
       codigo_usuario: null,
       isUpdate: false,
+      navIsOpen: true,
       input: {
         username: "",
         password: ""
@@ -545,6 +551,13 @@ export default {
 
     }
     ,
+
+    togleNav() {
+
+      document.getElementById("sidebar").classList.toggle("colapse")
+
+      this.navIsOpen = !this.navIsOpen
+    },
 
     openUpdate() {
 
@@ -2020,7 +2033,7 @@ export default {
       saveAs(blob, filename);
     },
 
-    // Depreciated
+    // depreciated
     exportarJson() {
       var enc = new mxCodec(mxUtils.createXmlDocument());
       var node = enc.encode(editor.graph.getModel());

@@ -13,6 +13,7 @@ const options = {
     maxToasts: 20,
     newestOnTop: true
 };
+
 Vue.use(Toast, options);
 Vue.use(require('vue-moment'));
 
