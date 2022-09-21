@@ -191,71 +191,13 @@
 }
 
 .modal3-body {
-  position: relative;
+ 
   margin: 30px;
-  display: grid;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  justify-content: center;
 
   overflow-y: scroll;
-  overflow-wrap: scroll;
-  overflow-anchor: scroll;
-  grid-column: 2;
+ 
 }
-
-.modal3-button-png {
-  position: relative;
-  font-size: large;
-  width: 750px;
-  border: 2px solid #5e5e5e;
-  background-color: #5e5e5e;
-  color: #fff;
-  border-radius: 2px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.modal3-button-svg {
-  position: relative;
-  font-size: large;
-  top: 15px;
-  width: 750px;
-  border: 2px solid #5e5e5e;
-  background-color: #5e5e5e;
-  color: #fff;
-  border-radius: 2px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.modal3-button-xml {
-  position: relative;
-  font-size: large;
-  top: 30px;
-  width: 750px;
-  border: 2px solid #5e5e5e;
-  background-color: #5e5e5e;
-  color: #fff;
-  border-radius: 2px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.modal3-button-json {
-  position: relative;
-  font-size: large;
-  top: 45px;
-  width: 750px;
-  border: 2px solid #5e5e5e;
-  background-color: #5e5e5e;
-  color: #fff;
-  border-radius: 2px;
-  padding: 10px;
-  cursor: pointer;
-}
-
+ 
 .modal3-default-button {
   position: relative;
   font-size: large;

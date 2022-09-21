@@ -314,11 +314,11 @@
         <div class="modal3-wrapper">
           <div class="modal3-container">
             <div class="modal3-header">
-              <h3 name="header">{{ usingLang.propriedades }}</h3>
+              <h3 name="header">{{ usingLang.propriedades }} </h3>
             </div>
 
             <div class="modal3-body">
-              {{ this.mostarPropriedades }}
+              <pre><code> {{ this.XMLTree(this.mostarPropriedades, "  ") }}</code></pre>
             </div>
 
             <div class="modal3-footer">
@@ -326,6 +326,7 @@
                 <button class="modal3-default-button cancel" @click="showModalPropriedades = false">
                   {{ usingLang.sair }}
                 </button>
+                <button @click="copy()">📎</button>
               </slot>
             </div>
           </div>
@@ -359,6 +360,10 @@
                 <button class="modal3-default-button cancel" @click="showModalRelatorio = false">
                   {{ usingLang.sair }}
                 </button>
+
+                <button class="modal3-default-button pdf" @click="printRelatorio">
+                  PDF
+                </button>
               </slot>
             </div>
           </div>
@@ -372,6 +377,7 @@
 import Superinfo from "../components/Superinfo"
 import mxgraph from "mxgraph";
 import graphConfig from "../configs/mxGraph/graphConfig";
+import { jsPDF } from "jspdf";
 
 import { saveAs } from "file-saver";
 import { saveSvgAsPng } from "save-svg-as-png";
@@ -380,6 +386,8 @@ import { services } from "../services";
 
 import language from "../helpers/language";
 import ssn from "../helpers/ssn";
+
+import logo from "../assets/logo.png"
 
 let editor;
 import "../assets/css/modal.css";
@@ -560,14 +568,56 @@ export default {
 
       document.getElementById("sidebar").classList.toggle("colapse")
 
-      this.navIsOpen = !this.navIsOpen
+      this.navIsOpen = !this.navIsOpen;
     },
 
     togleTool() {
 
       document.getElementById("tool").classList.toggle("colapse")
 
-      this.toolsIsOpen = !this.toolsIsOpen
+      this.toolsIsOpen = !this.toolsIsOpen;
+    },
+
+    XMLTree(xmlString, indent) {
+      indent = indent || "\t"; //can be specified by second argument of the function
+
+      var tabs = "";  //store the current indentation
+
+      var result = xmlString.replace(
+        /\s*<[^>\/]*>[^<>]*<\/[^>]*>|\s*<.+?>|\s*[^<]+/g, //pattern to match nodes (angled brackets or text)
+        function (m, i) {
+          m = m.replace(/^\s+|\s+$/g, "");  //trim the match just in case
+
+          if (i < 38)
+            if (/^<[?]xml/.test(m)) return m + "\n";  //if the match is a header, ignore it
+
+          if (/^<[/]/.test(m))  //if the match is a closing tag
+          {
+            tabs = tabs.replace(indent, "");  //remove one indent from the store
+            m = tabs + m;  //add the tabs at the beginning of the match
+          }
+          else if (/<.*>.*<\/.*>|<.*[^>]\/>/.test(m))  //if the match contains an entire node
+          {
+            //leave the store as is or
+            m = m.replace(/(<[^\/>]*)><[\/][^>]*>/g, "$1 />");  //join opening with closing tags of the same node to one entire node if no content is between them
+            m = tabs + m; //add the tabs at the beginning of the match
+          }
+          else if (/<.*>/.test(m)) //if the match starts with an opening tag and does not contain an entire node
+          {
+            m = tabs + m;  //add the tabs at the beginning of the match
+            tabs += indent;  //and add one indent to the store
+          }
+          else  //if the match contain a text node
+          {
+            m = tabs + m;  // add the tabs at the beginning of the match
+          }
+
+          //return m+"\n";
+          return "\n" + m; //content has additional space(match) from header
+        }//anonymous function
+      );//replace
+
+      return result;
     },
 
     openUpdate() {
@@ -1948,27 +1998,27 @@ export default {
       const tipos = [
         {
           nome: this.usingLang.company_of_interest,
-          total: occurrences(xmlString, "tipo=empresa"),
+          total: occurrences(xmlString, "tipo=empresa").toString(),
         },
         {
           nome: this.usingLang.supplier,
-          total: occurrences(xmlString, "tipo=fornecedor"),
+          total: occurrences(xmlString, "tipo=fornecedor").toString(),
         },
         {
           nome: this.usingLang.customer,
-          total: occurrences(xmlString, "tipo=cliente1"),
+          total: occurrences(xmlString, "tipo=cliente1").toString(),
         },
         {
           nome: this.usingLang.customer_customer,
-          total: occurrences(xmlString, "tipo=cliente2"),
+          total: occurrences(xmlString, "tipo=cliente2").toString(),
         },
         {
           nome: this.usingLang.intermediary,
-          total: occurrences(xmlString, "tipo=intermediario"),
+          total: occurrences(xmlString, "tipo=intermediario").toString(),
         },
         {
           nome: this.usingLang.aggregator,
-          total: occurrences(xmlString, "tipo=agregador"),
+          total: occurrences(xmlString, "tipo=agregador").toString(),
         },
       ];
 
@@ -1976,12 +2026,12 @@ export default {
         ...tipos,
         {
           nome: this.usingLang.relacionamentos,
-          total: occurrences(xmlString, `edge="1"`),
+          total: occurrences(xmlString, `edge="1"`).toString(),
         },
         {
           nome: this.usingLang.total || "Total",
 
-          total: tipos.reduce((total, obj) => total + obj.total, 0),
+          total: tipos.reduce((total, obj) => total + Number(obj.total), 0).toString(),
         },
       ];
     },
@@ -2374,7 +2424,15 @@ export default {
       }
     },
 
+    printRelatorio() {
+      let pdfName = 'report';
+      var doc = new jsPDF();
 
+      doc.addImage(logo, "PNG", 10, 10)
+      doc.table(10, 30, this.relatorio, ["nome", "total"])
+      
+      doc.save(pdfName + '.pdf');
+    },
     // configurações
     init() {
       // chama o metodo criador do grafico
