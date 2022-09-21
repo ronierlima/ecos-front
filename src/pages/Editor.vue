@@ -1,19 +1,11 @@
 <template>
   <div id="modelo">
-    <div class="superinfo-bg">
-      <div class="superinfo">
-        <select v-model="selected" name="language" id="language" class="chave">
-          <option value="pt-BR">pt-BR</option>
-          <option value="en">en</option>
-          <option value="es">es</option>
-        </select>
-      </div>
-    </div>
+    <Superinfo></Superinfo>
     <header class="menu-bg">
 
       <div class="menu">
         <div class="menu-logo">
-          <router-link :to="'/' + this.selected"><img width="220px" src="../assets/logo.png" /></router-link>
+          <router-link :to="usingLang.routes.home"><img width="220px" src="../assets/logo.png" /></router-link>
         </div>
         <nav class="menu-nav">
 
@@ -79,8 +71,8 @@
             <a :href="usingLang.routes.editor">
               Novo modelo
             </a>
-            <a v-if="codigo_usuario === modelo.criador.codigo"
-              @click="logado ? showModalRegister = true : null">Atualizar modelo</a>
+            <a v-if="logado && (codigo_usuario === modelo.criador.codigo)" @click="openUpdate()">Atualizar
+              modelo</a>
             <a :href="usingLang.routes.privateModels">
               {{ usingLang.privateModels }}
             </a>
@@ -166,34 +158,43 @@
     <transition name="modal" v-if="showModalRegister">
       <div class="modal-mask">
         <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3 name="header">Salvar modelo atual</h3>
-            </div>
 
-            <div class="modal-body">
-              <form>
 
-                <label for="modelName">Titulo do modelo</label>
-                <input type="text" v-model="modelo.titulo" placeholder="titulo" id="modelName" name="modelName">
 
-                <label for="description">Descrição</label>
-                <input v-model="modelo.descricao" placeholder="Descrição" id="description" name="description">
-              </form>
-            </div>
+          <div class="modal-body">
 
-            <div class="modal-footer">
-              <slot name="footer">
-                <button class="modal-default-button cancel" @click="showModalRegister = false">
-                  {{ usingLang.cancel }}
-                </button>
-                <button class="modal-default-button" v-on:click="salvarOnline()">
-                  salvar
-                </button>
-              </slot>
+            <div class="register">
+              <h1 class="title">Salvar modelo atual</h1>
+              <button class="closeButton" @click="showModalRegister = false">
+                x
+              </button>
+              <div class="registerContent">
+                <form @submit="(e) => { isUpdate ? atualizarOnline(e) : salvarOnline(e); }">
+                  <div class="user-details">
+
+                    <div class="input-box">
+                      <span class="details">*Titulo</span>
+                      <input v-model="modelo.titulo" type="text" placeholder="Enter titulo model" required
+                        name="modelName">
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">*Descrição</span>
+                      <textarea v-model="modelo.descricao" placeholder="Enter description model" required
+                        name="description"></textarea>
+                    </div>
+
+                  </div>
+                  <div class="button">
+                    <input type="submit" value="Update">
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
+
         </div>
+
       </div>
     </transition>
 
@@ -201,31 +202,34 @@
     <transition name="modal" v-if="showModalLogin">
       <div class="modal-mask">
         <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3 name="header">{{ usingLang.login }}</h3>
-            </div>
+          <div class="modal-body">
+            <div class="register">
+              <h1 class="title">{{ usingLang.login }}</h1>
+              <button class="closeButton" @click="showModalLogin = false">
+                x
+              </button>
+              <div class="registerContent">
+                <form @submit="login">
+                  <div class="user-details">
 
-            <div class="modal-body">
-              <form>
+                    <div class="input-box">
+                      <span class="details">*Email</span>
+                      <input v-model="input.username" type="email" :placeholder="usingLang.enterEmail" required
+                        name="email">
+                    </div>
 
-                <label for="username">Username</label>
-                <input type="text" v-model="input.username" placeholder="Email" id="username" name="username">
+                    <div class="input-box">
+                      <span class="details">*Password</span>
+                      <input v-model="input.password" type="password" :placeholder="usingLang.enterPassword" required
+                        name="senha">
+                    </div>
 
-                <label for="password">Password</label>
-                <input type="password" v-model="input.password" placeholder="Password" id="password" name="password">
-              </form>
-            </div>
-
-            <div class="modal-footer">
-              <slot name="footer">
-                <button class="modal-default-button cancel" @click="showModalLogin = false">
-                  {{ usingLang.cancel }}
-                </button>
-                <button class="modal-default-button" @click="login()">
-                  {{ usingLang.login }}
-                </button>
-              </slot>
+                  </div>
+                  <div class="button">
+                    <button type="submit">{{ usingLang.login }}</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -280,9 +284,9 @@
                 {{ usingLang.xml }}
               </button>
 
-              <button class="modal2-button-json" @click="exportarJson(), (showModalSalvar = false)">
+              <!-- <button class="modal2-button-json" @click="exportarJson(), (showModalSalvar = false)">
                 {{ usingLang.json }}
-              </button>
+              </button> -->
             </div>
 
             <div class="modal2-footer">
@@ -357,13 +361,14 @@
 </template>
 
 <script>
+import Superinfo from "../components/Superinfo"
 import mxgraph from "mxgraph";
 import graphConfig from "../configs/mxGraph/graphConfig";
 
 import { saveAs } from "file-saver";
 import { saveSvgAsPng } from "save-svg-as-png";
 import convert from "xml-js";
-import { services } from "../../services";
+import { services } from "../services";
 
 import language from "../helpers/language";
 import ssn from "../helpers/ssn";
@@ -392,6 +397,7 @@ function occurrences(string, subString, allowOverlapping) {
 
 export default {
   name: "Editor",
+  components: { Superinfo },
   data() {
     return {
       mostarPropriedades: "",
@@ -403,10 +409,10 @@ export default {
       showModalLogin: false,
       usingLang: {},
       currentCell: null,
-      selected: "pt-BR",
       relatorio: null,
       logado: false,
       codigo_usuario: null,
+      isUpdate: false,
       input: {
         username: "",
         password: ""
@@ -422,7 +428,8 @@ export default {
   },
 
   methods: {
-    login() {
+    login(e) {
+      e.preventDefault();
       if (this.input.username != "" && this.input.password != "") {
         services.user
           .login(this.input.username, this.input.password)
@@ -456,116 +463,21 @@ export default {
       this.logado = false;
       this.nome = null;
 
-
       localStorage.removeItem("nome");
       localStorage.removeItem("token");
+      localStorage.removeItem("codigo_usuario");
 
+      this.$router.push("/");
+      document.location.reload(true);
     },
 
-    async salvarOnline() {
-
+    async salvarOnline(e) {
+      e.preventDefault();
       try {
         if (this.modelo.titulo && this.modelo.descricao) {
-          /*XML */
-          var enc = new mxCodec(mxUtils.createXmlDocument());
-          var node = enc.encode(editor.graph.getModel());
-          var node2 = mxUtils.getXml(node);
 
-
-          /*SVG*/
-          var graph = editor.graph;
-          var background = "#ffffff";
-          var scale = 1;
-          var border = 0;
-
-          var imgExport = new mxImageExport();
-          var bounds = graph.getGraphBounds();
-          var vs = graph.view.scale;
-
-          // Prepares SVG document that holds the output
-          var svgDoc = mxUtils.createXmlDocument();
-          var root =
-            svgDoc.createElementNS != null
-              ? svgDoc.createElementNS(mxConstants.NS_SVG, "svg")
-              : svgDoc.createElement("svg");
-
-          if (background != null) {
-            if (root.style != null) {
-              root.style.backgroundColor = background;
-            } else {
-              root.setAttribute("style", "background-color:" + background);
-            }
-          }
-
-          if (svgDoc.createElementNS == null) {
-            root.setAttribute("xmlns", mxConstants.NS_SVG);
-            root.setAttribute("xmlns:xlink", mxConstants.NS_XLINK);
-          } else {
-            // KNOWN: Ignored in IE9-11, adds namespace for each image element instead. No workaround.
-            root.setAttributeNS(
-              "http://www.w3.org/2000/xmlns/",
-              "xmlns:xlink",
-              mxConstants.NS_XLINK
-            );
-          }
-
-          root.setAttribute(
-            "width",
-            Math.ceil((bounds.width * scale) / vs) + 2 * border + "px"
-          );
-          root.setAttribute(
-            "height",
-            Math.ceil((bounds.height * scale) / vs) + 2 * border + "px"
-          );
-          root.setAttribute("version", "1.1");
-
-          // Adds group for anti-aliasing via transform
-          var group =
-            svgDoc.createElementNS != null
-              ? svgDoc.createElementNS(mxConstants.NS_SVG, "g")
-              : svgDoc.createElement("g");
-          group.setAttribute("transform", "translate(0.5,0.5)");
-          root.appendChild(group);
-          svgDoc.appendChild(root);
-
-          // Renders graph. Offset will be multiplied with state's scale when painting state.
-          var svgCanvas = new mxSvgCanvas2D(group);
-          svgCanvas.translate(
-            Math.floor((border / scale - bounds.x) / vs),
-            Math.floor((border / scale - bounds.y) / vs)
-          );
-          svgCanvas.scale(scale / vs);
-
-          // Displayed if a viewer does not support foreignObjects (which is needed to HTML output)
-          svgCanvas.foAltText = "[Not supported by viewer]";
-
-          imgExport.drawState(
-            graph.getView().getState(graph.model.root),
-            svgCanvas
-          );
-
-          var grupos = root.getElementsByTagName("g")[0];
-          var g = grupos.getElementsByTagName("g");
-          var arr = [...g];
-
-          arr.forEach((g) => {
-            var s = g.getElementsByTagName("switch")[0];
-            var elemento = document.createElement("text");
-            elemento = s.getElementsByTagName("text")[0];
-            var texto =
-              s.getElementsByTagName("foreignObject")[0].lastElementChild.innerText;
-            elemento.innerText = texto;
-            elemento.innerHTML = texto;
-
-            s.remove();
-            g.appendChild(elemento);
-          });
-
-          var xml = mxUtils.getXml(root);
-
-
-          var fileXML = new Blob([node2], { type: "text/xml" });
-          var fileSVG = new Blob([xml], { type: "image/svg+xml" });
+          var fileXML = new Blob([this.getXML()], { type: "text/xml" });
+          var fileSVG = new Blob([this.getSVG()], { type: "image/svg+xml" });
 
           var formData = new FormData();
 
@@ -578,26 +490,50 @@ export default {
             .post(formData)
             .then(({ data: modelo }) => {
               this.showModalRegister = false;
-              this.$router.push(this.usingLang.routes.editor + "/" + modelo.codigo)
+              window.location.replace(this.usingLang.routes.editor + "/" + modelo.codigo)
               this.$toast.success("Modelo salvo com sucesso");
 
             })
             .catch(() => {
               this.showModalRegister = false;
-              this.$toast.error("Não foi possível salvar o modelo", {
-                position: "top-right",
-                timeout: 5000,
-                closeOnClick: true,
-                pauseOnFocusLoss: true,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.66,
-                showCloseButtonOnHover: false,
-                hideProgressBar: true,
-                closeButton: "button",
-                icon: true,
-                rtl: false
-              });
+              this.$toast.error("Não foi possível salvar o modelo");
+            });
+        } else {
+          this.$toast.error("Preencha todos os campos");
+        }
+      } catch (error) {
+        this.showModalRegister = false;
+        this.$toast.error("Não foi possível salvar o modelo");
+      }
+
+    },
+
+    async atualizarOnline(e) {
+      e.preventDefault();
+      try {
+        if (this.modelo.titulo && this.modelo.descricao) {
+
+          var fileXML = new Blob([this.getXML()], { type: "text/xml" });
+          var fileSVG = new Blob([this.getSVG()], { type: "image/svg+xml" });
+
+          var formData = new FormData();
+
+          formData.append("modelo", fileXML);
+          formData.append("descricao", this.modelo.descricao);
+          formData.append("titulo", this.modelo.titulo);
+          formData.append("preview", fileSVG);
+
+          services.models
+            .put(this.$route.params.id, formData)
+            .then(() => {
+              this.showModalRegister = false;
+
+              this.$toast.success("Modelo atualizado com sucesso");
+
+            })
+            .catch(() => {
+              this.showModalRegister = false;
+              this.$toast.error("Não foi possível atualizar o modelo");
             });
         } else {
           this.$toast.error("Preencha todos os campos");
@@ -609,6 +545,13 @@ export default {
 
     }
     ,
+
+    openUpdate() {
+
+      this.showModalRegister = true;
+      this.isUpdate = true
+    },
+
     // altera o selecionado em um painel separado
     // e transfere o objeto para o ambiente VUE
     selectionChanged() {
@@ -2077,6 +2020,7 @@ export default {
       saveAs(blob, filename);
     },
 
+    // Depreciated
     exportarJson() {
       var enc = new mxCodec(mxUtils.createXmlDocument());
       var node = enc.encode(editor.graph.getModel());
@@ -2426,14 +2370,105 @@ export default {
 
     },
 
-    autoSave() {
-      console.log("Iniciando salvamento automatico");
+    getXML() {
+
       var enc = new mxCodec(mxUtils.createXmlDocument());
       var node = enc.encode(editor.graph.getModel());
-      var xml = mxUtils.getXml(node);
+      return mxUtils.getXml(node);
 
-      localStorage.setItem("modeloAutoSave", xml);
     },
+
+    getSVG() {
+      var graph = editor.graph;
+      var background = "#ffffff";
+      var scale = 1;
+      var border = 0;
+
+      var imgExport = new mxImageExport();
+      var bounds = graph.getGraphBounds();
+      var vs = graph.view.scale;
+
+      // Prepares SVG document that holds the output
+      var svgDoc = mxUtils.createXmlDocument();
+      var root =
+        svgDoc.createElementNS != null
+          ? svgDoc.createElementNS(mxConstants.NS_SVG, "svg")
+          : svgDoc.createElement("svg");
+
+      if (background != null) {
+        if (root.style != null) {
+          root.style.backgroundColor = background;
+        } else {
+          root.setAttribute("style", "background-color:" + background);
+        }
+      }
+
+      if (svgDoc.createElementNS == null) {
+        root.setAttribute("xmlns", mxConstants.NS_SVG);
+        root.setAttribute("xmlns:xlink", mxConstants.NS_XLINK);
+      } else {
+        // KNOWN: Ignored in IE9-11, adds namespace for each image element instead. No workaround.
+        root.setAttributeNS(
+          "http://www.w3.org/2000/xmlns/",
+          "xmlns:xlink",
+          mxConstants.NS_XLINK
+        );
+      }
+
+      root.setAttribute(
+        "width",
+        Math.ceil((bounds.width * scale) / vs) + 2 * border + "px"
+      );
+      root.setAttribute(
+        "height",
+        Math.ceil((bounds.height * scale) / vs) + 2 * border + "px"
+      );
+      root.setAttribute("version", "1.1");
+
+      // Adds group for anti-aliasing via transform
+      var group =
+        svgDoc.createElementNS != null
+          ? svgDoc.createElementNS(mxConstants.NS_SVG, "g")
+          : svgDoc.createElement("g");
+      group.setAttribute("transform", "translate(0.5,0.5)");
+      root.appendChild(group);
+      svgDoc.appendChild(root);
+
+      // Renders graph. Offset will be multiplied with state's scale when painting state.
+      var svgCanvas = new mxSvgCanvas2D(group);
+      svgCanvas.translate(
+        Math.floor((border / scale - bounds.x) / vs),
+        Math.floor((border / scale - bounds.y) / vs)
+      );
+      svgCanvas.scale(scale / vs);
+
+      // Displayed if a viewer does not support foreignObjects (which is needed to HTML output)
+      svgCanvas.foAltText = "[Not supported by viewer]";
+
+      imgExport.drawState(
+        graph.getView().getState(graph.model.root),
+        svgCanvas
+      );
+
+      var grupos = root.getElementsByTagName("g")[0];
+      var g = grupos.getElementsByTagName("g");
+      var arr = [...g];
+
+      arr.forEach((g) => {
+        var s = g.getElementsByTagName("switch")[0];
+        var elemento = document.createElement("text");
+        elemento = s.getElementsByTagName("text")[0];
+        var texto =
+          s.getElementsByTagName("foreignObject")[0].lastElementChild.innerText;
+        elemento.innerText = texto;
+        elemento.innerHTML = texto;
+
+        s.remove();
+        g.appendChild(elemento);
+      });
+
+      return mxUtils.getXml(root);
+    }
 
 
   },
@@ -2472,6 +2507,10 @@ export default {
   },
 
   created() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      alert("Não recomendamos o uso nesse dispositivo")
+    }
+
     const {
       mxClient,
       mxUtils,
@@ -2607,24 +2646,21 @@ export default {
       }
     };
 
-    if (this.selected === "en") this.usingLang = language.en;
-    else if (this.selected === "es") this.usingLang = language.es;
+    if (window.location.pathname.includes("/en/")) {
+      this.usingLang = language.en;
+
+    }
+    else if (window.location.pathname.includes("/es/")) {
+      this.usingLang = language.es;
+
+    }
     else {
       this.usingLang = language.pt;
-      this.selected = "pt-BR";
+
     }
 
 
   },
 
-  watch: {
-    selected: function (newValue) {
-
-      if (newValue === "pt-BR") {
-        this.$router.push("/pt-br/editor");
-      } else if (newValue === "en") this.$router.push("/en/editor/");
-      else if (newValue === "es") this.$router.push("/es/editor");
-    },
-  },
 };
 </script>

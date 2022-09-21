@@ -30,6 +30,7 @@
               </a>
             </li>
 
+            <li v-if="!logado"><a :href="usingLang.routes.register">Cadastro</a></li>
             <li v-if="!logado"><a @click="showModal = true">Entrar</a></li>
             <li v-if="logado"><a>| {{ nome }} |</a></li>
             <li v-if="logado"><a id="exit" @click="logout()">| Sair |</a></li>
@@ -40,45 +41,12 @@
 
     <slot></slot>
 
-    <transition name="modal" v-if="showModal">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3 name="header">{{ usingLang.login }}</h3>
-            </div>
 
-            <div class="modal-body">
-              <form>
-
-                <label for="username">Username</label>
-                <input type="text" v-model="input.username" placeholder="Email" id="username" name="username">
-
-                <label for="password">Password</label>
-                <input type="password" v-model="input.password" placeholder="Password" id="password" name="password">
-              </form>
-            </div>
-
-            <div class="modal-footer">
-              <slot name="footer">
-                <button class="modal-default-button cancel" @click="showModal = false">
-                  {{ usingLang.cancel }}
-                </button>
-                <button class="modal-default-button" v-on:click="login()">
-                  {{ usingLang.login }}
-                </button>
-              </slot>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 
 <script>
-import { services } from "../../services";
-import language from "../helpers/language";
+import { services } from "../services";
 
 export default {
   name: "Main",
@@ -92,12 +60,11 @@ export default {
       nome: "",
       usuario: { nome: "teste" },
       showModal: false,
-      usingLang: {},
       selected: "pt-BR",
       input: {
         username: "",
         password: ""
-      }
+      },
     };
   },
 
@@ -117,27 +84,7 @@ export default {
   },
 
   methods: {
-    login() {
-      if (this.input.username != "" && this.input.password != "") {
-        services.user
-          .login("ronier.lim@gmail.com", "1")
-          .then((res) => {
-            this.token = res.data.access_token;
-            this.nome = res.data.nome_completo;
-            this.logado = true;
-            localStorage.setItem("token", res.data.access_token);
-            localStorage.setItem("nome", res.data.nome_completo);
-            this.showModal = false;
-            this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
-          })
-          .catch((error) => {
-            this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
-          });
 
-      } else {
-        this.$toast.error("Preencha todos os campos");
-      }
-    },
     logout() {
       this.token = null;
       this.logado = false;
@@ -145,16 +92,8 @@ export default {
        localStorage.removeItem("nome");
       this.$router.push(this.usingLang.routes.home)
     },
-    changeLang() {
-
-
-      if (this.selected === "en") this.usingLang = language.en;
-      else if (this.selected === "es") this.usingLang = language.es;
-      else {
-        this.usingLang = language.pt;
-        this.selected = "pt-BR";
-      }
-    }
+    
+  
   },
 
   watch: {
@@ -171,40 +110,3 @@ export default {
 
 };
 </script>
-
-<style>
-form {
-  width: 80%;
-  padding: 2rem;
-}
-
-form * {
-  color: #5e5e5e;
-  letter-spacing: 0.5px;
-  outline: none;
-  border: none;
-}
-
-label {
-  display: block;
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-input {
-  display: block;
-  height: 50px;
-  width: 100%;
-  background-color: #f2f0e6;
-  border-radius: 3px;
-  padding: 0 10px;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 300;
-}
-
-::placeholder {
-  color: #5e5e5e;
-}
-</style>

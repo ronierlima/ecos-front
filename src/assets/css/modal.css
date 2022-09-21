@@ -316,6 +316,7 @@
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+ 
 }
 
 .modal-container {
@@ -339,15 +340,32 @@
 .modal-header {
   background-color: #f2f0e6;
   padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
 }
 .modal-header h3 {
   color: #5e5e5e;
 }
 
 .modal-body {
-  margin: 0 10px;
   display: flex;
+  padding: 1rem;
   justify-content: center;
+  
+}
+
+.closeButton {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  border: none;
+  font-size: 1.5rem;
+  color: #5e5e5e;
+}
+
+.closeButton:hover {
+  color: #e74c3c;
 }
 
 input[type="file"] {

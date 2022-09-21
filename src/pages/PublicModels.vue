@@ -1,25 +1,24 @@
 <template>
-    <Main>
+    <MainPage>
 
         <section class="content" id="modelos">
 
-            <h1>Modelos públicos /</h1>
+            <h1>{{ language.publicModels }}</h1>
 
             <div class="container">
                 <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
                     <div class="user">
-                        <img :src="'https://joeschmoe.io/api/v1/' + modelo.criador.codigo" alt="user" />
+                        <img :src="getProfile(modelo)" alt="user" />
                         <div class="user-info">
                             <h5>{{ modelo.criador.nome }}</h5>
                             <small>{{ modelo.dataCadastro | moment("DD/MM/YYYY") }}</small>
                         </div>
                     </div>
                     <div class="card-header">
-                        <img class="image" :src="'http://localhost:8080/ecos-api/modelos/' + modelo.codigo + '/preview'"
-                            alt="rover" />
+                        <img class="image" :src="getPreview(modelo.codigo)" alt="rover" />
 
                         <div class="middle">
-                            <div class="text" @click="open(modelo.codigo)">Abrir no editor</div>
+                            <div class="text" @click="open(modelo.codigo)">{{ language.openEditor }}</div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -28,36 +27,70 @@
                             {{ modelo.titulo }}
                         </h4>
                         <p>
-                            {{ modelo.descricao || "aqui ficaria uma descição" }}
+                            {{ modelo.descricao }}
                         </p>
 
                     </div>
-                     
+                    <div class="card-actions">
+                        <span class="tag tag-purple" @click="handleOpenDetails(modelo)">{{ language.details }}</span>
+                    </div>
+
                 </div>
             </div>
 
         </section>
-    </Main>
+
+        <transition name="modal" v-if="showModalDetails">
+            <div class="modal-mask xl">
+                <div class="modal-wrapper">
+                    <div class="modal-body">
+                        <div class="register modeloDetails">
+                            <h1 class="title">{{ modelInShow.titulo }}</h1>
+                            <button class="closeButton" @click="showModalDetails = false">x</button>
+                            <div class="registerContent">
+
+                                <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
+                                <div class="details">
+                                    <dl>
+                                        <dt>{{ language.title }}</dt>
+                                        <dd>{{ modelInShow.titulo }}</dd>
+                                        <dt>{{ language.description }}</dt>
+                                        <dd>{{ modelInShow.descricao }}</dd>
+                                        <dt>Autor</dt>
+                                        <dd>{{ modelInShow.criador.nome }}</dd>
+                                        <dt>{{ language.createAt }}</dt>
+                                        <dd>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</dd>
+                                        <dt>{{ language.updateAt }}</dt>
+                                        <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+    </MainPage>
 </template>
 
 <script>
-import { services } from "../../services";
-import Main from "../components/Main.vue"
+import { services } from "../services";
+import MainPage from "../components/MainPage.vue"
 
 
 export default {
     name: "Index",
-
+    inject: ['getLanguage', 'getLogado', 'getUsuario'],
     components: {
-        Main,
+        MainPage,
     },
 
     data() {
         return {
-            loader: null,
-            loading: false,
-            usingLang: {},
-            modelos: []
+            modelos: [],
+            showModalDetails: false,
+            modelInShow: { titulo: "" }
         };
     },
 
@@ -67,7 +100,6 @@ export default {
     },
 
     methods: {
-
         getModelos() {
             services.models
                 .list()
@@ -75,22 +107,46 @@ export default {
                     this.modelos = res.data.content;
                 })
                 .catch(() => {
-                    this.$toast.error("Ocorreu um erro ao carregar os modelos")
+                    this.$toast.error(this.language.loadModelErro)
                 });
         },
 
         open(modelo) {
-            this.$router.push("/pt-br/editor/" + modelo);
+            this.$router.push(this.language.routes.modelEditor.replace(":codigo", modelo));
         },
+
+        handleOpenDetails(modelo) {
+
+            this.modelInShow = modelo;
+            this.showModalDetails = true;
+
+        },
+
+        getPreview(codigo) {
+            return services.models.preview(codigo)
+        },
+        getProfile(modelo) {
+
+            return modelo.criador.fotoPerfil ? services.user.foto(modelo.criador.codigo) : `https://avatars.dicebear.com/api/identicon/${modelo.criador.email}.svg`
+        }
     },
 
+    computed: {
+        language() {
+            return this.getLanguage();
+        },
+        usuario() {
+            return this.getUsuario();
+        },
+        logado() {
+            return this.getLogado();
+        },
 
-
+    }
 };
 </script>
 
 <style>
- 
 .container {
     display: flex;
     width: 100%;
@@ -128,7 +184,7 @@ export default {
 
 .text {
     background-color: #5e5e5e;
-    color: white;
+    color: #fff;
     font-size: 1rem;
     padding: 1rem 2rem;
     cursor: pointer;
@@ -187,7 +243,7 @@ export default {
     background-color: #3498db;
 }
 
-.tag-teal:hover  {
+.tag-teal:hover {
     background-color: #2980b9;
 }
 
@@ -233,5 +289,46 @@ export default {
 
 .user-info small {
     color: #545d7a;
+}
+
+.modeloDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modeloDetails .user,
+.modeloDetails small {
+    background: #5e5e5e;
+    color: #fff;
+}
+
+.registerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+
+.registerContent img {
+    max-width: 100%;
+    max-height: 60vh;
+}
+
+dt {
+    float: left;
+    clear: left;
+    width: 110px;
+    font-weight: bold;
+    color: green;
+}
+
+dt::after {
+    content: ":";
+}
+
+dd {
+    margin: 0 0 0 80px;
+    padding: 0 0 0.5em 0;
 }
 </style>
