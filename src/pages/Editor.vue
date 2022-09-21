@@ -90,7 +90,10 @@
         {{this.navIsOpen ? "❮":"❯"}}
       </button>
       <div id="container"></div>
-      <aside class="right-sidebar">
+      <button id="sidebar-togle" @click="togleTool()">
+        {{this.toolsIsOpen ? "❯":"❮"}}
+      </button>
+      <aside class="right-sidebar" id="tool">
         <div id="italico">
           <img width="30px" @click="italico()" src="../assets/italico.svg" :alt="usingLang.italico"
             :title="usingLang.italico" />
@@ -419,6 +422,7 @@ export default {
       codigo_usuario: null,
       isUpdate: false,
       navIsOpen: true,
+      toolsIsOpen: true,
       input: {
         username: "",
         password: ""
@@ -557,6 +561,13 @@ export default {
       document.getElementById("sidebar").classList.toggle("colapse")
 
       this.navIsOpen = !this.navIsOpen
+    },
+
+    togleTool() {
+
+      document.getElementById("tool").classList.toggle("colapse")
+
+      this.toolsIsOpen = !this.toolsIsOpen
     },
 
     openUpdate() {

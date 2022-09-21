@@ -109,8 +109,8 @@ html {
   
 }
 
-
 #modelo aside.right-sidebar {
+  max-width: 75px;
   width: 5vw;
   background: #f2f0e6;
   display: flex;
@@ -122,6 +122,12 @@ html {
   height: calc(100vh - 8rem);
 
   z-index: 100;
+  transition: all 1s;
+}
+
+#modelo aside.right-sidebar.colapse {
+  max-width: 0;
+  transform: translateX(100%);
 }
 
 #modelo aside.right-sidebar hr {
