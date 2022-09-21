@@ -1,6 +1,7 @@
 <template>
   <div id="modelo">
     <Superinfo></Superinfo>
+
     <header class="menu-bg">
 
       <div class="menu">
@@ -83,9 +84,16 @@
       </div>
     </header>
     <section>
-      <aside class="left-sidebar" id="sidebar"></aside>
+      <aside class="left-sidebar" id="sidebar">
+      </aside>
+      <button id="sidebar-togle" @click="togleNav()">
+        {{this.navIsOpen ? "❮":"❯"}}
+      </button>
       <div id="container"></div>
-      <aside class="right-sidebar">
+      <button id="sidebar-togle" @click="togleTool()">
+        {{this.toolsIsOpen ? "❯":"❮"}}
+      </button>
+      <aside class="right-sidebar" id="tool">
         <div id="italico">
           <img width="30px" @click="italico()" src="../assets/italico.svg" :alt="usingLang.italico"
             :title="usingLang.italico" />
@@ -413,6 +421,8 @@ export default {
       logado: false,
       codigo_usuario: null,
       isUpdate: false,
+      navIsOpen: true,
+      toolsIsOpen: true,
       input: {
         username: "",
         password: ""
@@ -545,6 +555,20 @@ export default {
 
     }
     ,
+
+    togleNav() {
+
+      document.getElementById("sidebar").classList.toggle("colapse")
+
+      this.navIsOpen = !this.navIsOpen
+    },
+
+    togleTool() {
+
+      document.getElementById("tool").classList.toggle("colapse")
+
+      this.toolsIsOpen = !this.toolsIsOpen
+    },
 
     openUpdate() {
 
@@ -2020,7 +2044,7 @@ export default {
       saveAs(blob, filename);
     },
 
-    // Depreciated
+    // depreciated
     exportarJson() {
       var enc = new mxCodec(mxUtils.createXmlDocument());
       var node = enc.encode(editor.graph.getModel());
