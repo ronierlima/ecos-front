@@ -7,14 +7,15 @@
       <div class="sobre-info">
         <h1>{{ language.about }}</h1>
         <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão das condições
-          inegavelmente apropriadas objetivos.
+          A ferramenta ECOS Modeling 3.0 surge com o intuito de agrupar modelos desenvolvidos por
+          pesquisadores, de forma que a comunidade de ECOS possa colaborar para disseminar e impulsionar o crescimento
+          da área.
         </p>
         <p>
-          O que temos que ter sempre em mente é que a determinação clara de
-          objetivos afeta positivamente a correta previsão das condições
-          inegavelmente apropriadas objetivos.
+          Além disso, tem o quesito principal que a modelagem de ECOS, ou seja, a criação dos modelos,
+          funcionalidade já existente na versão 1.0 da ferramenta. As novas funcionalidades da ferramentas incluem
+          consultar modelos e perceberem a importância de se construir uma modelagem adequada, além de expandir a
+          ferramenta.
         </p>
       </div>
       <div class="sobre-img">
@@ -60,6 +61,48 @@
         <a id="plusModels" :href="language.routes.publicModels">
           + {{ language.publicModels }}
         </a>
+      </div>
+
+    </section>
+
+    <section class="sobre" id="citar">
+      <div class="sobre-info">
+        <h1>Como citar essa Ferramenta?</h1>
+        <ul>
+          <li>
+            <p>PINHEIRO, F. V. da S.; COUTINHO, E. F.; SANTOS, I.; BEZERRA, C. I. M. A Tool for Supporting the Teaching
+              and Modeling of Software Ecosystems Using SSN Notation. Journal on Interactive Systems, Porto Alegre, RS,
+              v.
+              13, n. 1, p. 192–204, 2022. DOI: 10.5753/jis.2022.2602. Disponível em:
+              <a
+                href="https://sol.sbc.org.br/journals/index.php/jis/article/view/2602">https://sol.sbc.org.br/journals/index.php/jis/article/view/2602</a>.
+            </p>
+          </li>
+          <li>
+
+            <details>
+              <summary>BibTeX <button @click="copy()">📎</button></summary>
+              <textarea cols="50" rows="10" id="bibtex">
+                @ARTICLE {Pinheiro_Coutinho_Santos_Bezerra_2022,
+                  author       = "Pinheiro, Francisco Victor da S. and Coutinho, Emanuel Ferreira and Santos, Italo and Bezerra, Carla I. M.",
+                  title        = "A Tool for Supporting the Teaching and Modeling of Software Ecosystems Using SSN Notation",
+                  journal      = "Journal on Interactive Systems",
+                  year         = "2022",
+                  volume       = "13",
+                  number       = "1",
+                  pages        = "192–204",
+                  month        = "Sep.",
+                  place        = "Porto Alegre, RS",
+                  url          = "https://sol.sbc.org.br/journals/index.php/jis/article/view/2602",
+                  doi          = "10.5753/jis.2022.2602",
+                  abstractnote = "\&amp;lt;p\&amp;gt;Software Ecosystems (SECO) are a set of actors and components that work as a unit, which {establish relationships based on} common interest to provide solutions or services for the software industry. As a company or organization expands its relationships and begins to interact with external actors, a network is formed and SECO includes both the actors and the involved artifacts. However, SECO is not commonly taught in the Software Engineering disciplines. The activity of modeling a SECO can assist in a better visualization and understanding of relationships. However, there is no official modeling standard for SECO, and the notations are quite varied. In this scenario, SSN (Software Supply Network) notation emerged to try to fill this gap. An eminent problem in the literature is the lack of support for modeling using SSN notation, the lack of available models and maintenance of models in general. In this context, this work aims to present a tool to support the teaching and modeling of SECO using the SSN notation, and thus alleviate the problem of the lack of specific modeling tools for SECO. In this work, the tool was applied in Software Engineering classes, where students filled out a questionnaire and a qualitative analysis was performed on the results. In general, the tool pleased both in terms of usability and understanding of SECO. Qualitative analysis revealed that the tool collaborates for SECO modeling, but it can improve usability and design, and there is a need for documentation and support for SECO teaching and modeling.\&amp;lt;/p\&amp;gt;"
+              }
+              </textarea>
+
+            </details>
+
+          </li>
+        </ul>
       </div>
 
     </section>
@@ -114,6 +157,7 @@ export default {
       modelos: [],
       modelInShow: null,
       showModalDetails: false,
+      bibtex: ""
     };
   },
 
@@ -145,6 +189,11 @@ export default {
     },
     getProfile(modelo) {
       return modelo.criador.fotoPerfil ? services.user.foto(modelo.criador.codigo) : `https://avatars.dicebear.com/api/identicon/${modelo.criador.email}.svg`
+    },
+    copy() { 
+      var copyText = document.getElementById("bibtex");
+      navigator.clipboard.writeText(copyText.value);
+      this.$toast("BibTex copiado!");
     }
 
   },

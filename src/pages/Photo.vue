@@ -14,7 +14,7 @@
                                 <div class="profile-pic">
                                     <label class="-label" for="file">
                                         <span class="glyphicon glyphicon-camera"></span>
-                                        <span>⤒</span>
+                                        <span>📤</span>
                                     </label>
                                     <input id="file" type="file" accept="image/png, image/svg+xml, image/jpeg"
                                         @change="loadFile" />
