@@ -6,28 +6,36 @@
             </div>
             <nav class="menu-nav">
                 <ul>
-                    <li :class="language.routes.home"><a :href="language.routes.home">Home</a></li>
-                    <li><a :href="language.routes.editor">Editor</a></li>
+                    <li :class="language.routes.home">
+                        <router-link exact :to="language.routes.home">{{language.menu.home}}</router-link>
+                    </li>
                     <li>
-                        <a :href="language.routes.publicModels">
-                            {{ language.publicModels }}
-                        </a>
+                        <router-link exact :to="language.routes.editor">{{language.menu.editor}}</router-link>
+                    </li>
+                    <li>
+                        <router-link exact :to="language.routes.publicModels">
+                            {{ language.menu.models }}
+                        </router-link>
                     </li>
                     <li v-if="logado">
-                        <a :href="language.routes.privateModels">
-                            {{ language.privateModels }}
-                        </a>
+                        <router-link exact :to="language.routes.privateModels">
+                            {{ language.menu.myModels }}
+                        </router-link>
                     </li>
 
-                    <li v-if="!logado"><a :href="language.routes.register">{{language.register}}</a></li>
-                    <li v-if="!logado"><a :href="language.routes.login">{{language.login}}</a></li>
+                    <li v-if="!logado">
+                        <router-link exact :to="language.routes.register">{{language.menu.registration}}</router-link>
+                    </li>
+                    <li v-if="!logado">
+                        <router-link exact :to="language.routes.login">{{language.menu.login}}</router-link>
+                    </li>
 
                     <div class="dropdown menu">
-                        <li v-if="logado"><a>| {{ usuario.nome }} |</a></li>
+                        <li v-if="logado"><router-link :to="language.routes.user">| {{ usuario.nome }} |</router-link></li>
                         <div class="dropdown-content">
-                            <router-link :to="language.routes.user">Meus dados</router-link>
-                            <router-link :to="language.routes.photo">Alterar Foto</router-link>
-                            <router-link :to="language.routes.password">Alterar Senha</router-link>
+                            <router-link exact :to="language.routes.user">{{language.menu.myAccount}}</router-link>
+                            <router-link exact :to="language.routes.photo">{{language.menu.changePhoto}}</router-link>
+                            <router-link exact :to="language.routes.password">{{language.menu.changePassword}}</router-link>
                         </div>
                     </div>
 
@@ -36,10 +44,11 @@
             </nav>
         </div>
     </header>
+
+
 </template>
 
 <script>
-
 export default {
     name: "Menu",
     inject: ['getLanguage', 'getLogado', 'getUsuario', 'logout'],

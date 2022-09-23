@@ -1,11 +1,11 @@
 <template>
   <MainPage>
 
-    <h1 class="introducao">Ecos Modeling<br />{{ language.sub }}</h1>
+    <h1 class="introducao">Ecos Modeling<br />{{ language.home.description }}</h1>
 
     <section class="sobre" id="sobre">
       <div class="sobre-info">
-        <h1>{{ language.about }}</h1>
+        <h1>{{ language.home.about }}</h1>
         <p>
           A ferramenta ECOS Modeling 3.0 surge com o intuito de agrupar modelos desenvolvidos por
           pesquisadores, de forma que a comunidade de ECOS possa colaborar para disseminar e impulsionar o crescimento
@@ -19,44 +19,17 @@
         </p>
       </div>
       <div class="sobre-img">
-        <img src="../assets/Diagrama.png" alt="Sobre 1" />
+        <img src="../assets/Diagrama.png" :alt="language.home.about" />
       </div>
 
     </section>
 
     <section class="produtos" id="produtos">
-      <h1>{{ language.publicModels }}</h1>
-      <div class="container">
-        <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
-          <div class="user">
-            <img :src="getProfile(modelo)" alt="user" />
-            <div class="user-info">
-              <h5>{{ modelo.criador.nome }}</h5>
-              <small>{{ modelo.dataCadastro | moment("DD/MM/YYYY") }}</small>
-            </div>
-          </div>
-          <div class="card-header">
-            <img class="image" :src="getPreview(modelo.codigo)" alt="preview" />
 
-            <div class="middle">
-              <div class="text" @click="open(modelo.codigo)">{{ language.openEditor }}</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h4>
-              {{ modelo.titulo }}
-            </h4>
-            <p>
-              {{ modelo.descricao }}
-            </p>
-          </div>
+      <h1>{{ language.home.models }}</h1>
 
-          <div class="card-actions">
-            <span class="tag tag-purple" @click="handleOpenDetails(modelo)">{{ language.details }}</span>
-          </div>
+      <Models :modelos="modelos" />
 
-        </div>
-      </div>
       <div class="sectionPlus">
         <a id="plusModels" :href="language.routes.publicModels">
           + {{ language.publicModels }}
@@ -67,13 +40,13 @@
 
     <section class="sobre" id="citar">
       <div class="sobre-info">
-        <h1>Como citar essa Ferramenta?</h1>
+        <h1>{{ language.home.howToCite }}</h1>
         <ul>
           <li>
             <p>PINHEIRO, F. V. da S.; COUTINHO, E. F.; SANTOS, I.; BEZERRA, C. I. M. A Tool for Supporting the Teaching
               and Modeling of Software Ecosystems Using SSN Notation. Journal on Interactive Systems, Porto Alegre, RS,
               v.
-              13, n. 1, p. 192–204, 2022. DOI: 10.5753/jis.2022.2602. Disponível em:
+              13, n. 1, p. 192–204, 2022. DOI: 10.5753/jis.2022.2602. {{language.home.availableIn}}:
               <a
                 href="https://sol.sbc.org.br/journals/index.php/jis/article/view/2602">https://sol.sbc.org.br/journals/index.php/jis/article/view/2602</a>.
             </p>
@@ -106,52 +79,23 @@
       </div>
 
     </section>
-
-    <transition name="modal" v-if="showModalDetails">
-      <div class="modal-mask xl">
-        <div class="modal-wrapper">
-          <div class="modal-body">
-            <div class="register modeloDetails">
-              <h1 class="title">{{ modelInShow.titulo }}</h1>
-              <button class="closeButton" @click="showModalDetails = false">x</button>
-              <div class="registerContent">
-
-                <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
-                <div class="details">
-                  <dl>
-                    <dt>{{ language.title }}</dt>
-                    <dd>{{ modelInShow.titulo }}</dd>
-                    <dt>{{ language.description }}</dt>
-                    <dd>{{ modelInShow.descricao }}</dd>
-                    <dt>Autor</dt>
-                    <dd>{{ modelInShow.criador.nome }}</dd>
-                    <dt>{{ language.createAt }}</dt>
-                    <dd>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</dd>
-                    <dt>{{ language.updateAt }}</dt>
-                    <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-
+ 
   </MainPage>
 </template>
 
 <script>
 import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
+import Models from "../components/Models.vue"
 
 export default {
   name: "Home",
   components: {
-
+    Models,
     MainPage
   },
   inject: ['getLanguage'],
+  
   data() {
     return {
       modelos: [],
@@ -174,23 +118,7 @@ export default {
         });
     },
 
-    open(modelo) {
-      this.$router.push("/pt-br/editor/" + modelo);
-    },
-
-    getPreview(codigo) {
-      return services.models.preview(codigo)
-    },
-    handleOpenDetails(modelo) {
-
-      this.modelInShow = modelo;
-      this.showModalDetails = true;
-
-    },
-    getProfile(modelo) {
-      return modelo.criador.fotoPerfil ? services.user.foto(modelo.criador.codigo) : `https://avatars.dicebear.com/api/identicon/${modelo.criador.email}.svg`
-    },
-    copy() { 
+    copy() {
       var copyText = document.getElementById("bibtex");
       navigator.clipboard.writeText(copyText.value);
       this.$toast("BibTex copiado!");

@@ -14,8 +14,8 @@ function getBase() {
 
   if (language && language !== "null" && language !== "undefined")
     return "/" + language + "/";
-    
-  return "/pt-br/";
+
+  return "/pt-br/home";
 }
 
 export default [
@@ -25,6 +25,10 @@ export default [
   },
   {
     path: "/pt-br/",
+    redirect: "/pt-br/home",
+  },
+  {
+    path: "/pt-br/home",
     name: "Home",
     component: Home,
   },
@@ -59,14 +63,14 @@ export default [
     component: Login,
   },
   {
-    path: "/pt-br/conta/password",
-    name: "ptPassword",
-    component: Password,
-  },
-  {
     path: "/pt-br/conta",
     name: "ptUser",
     component: User,
+  },
+  {
+    path: "/pt-br/conta/password",
+    name: "ptPassword",
+    component: Password,
   },
   {
     path: "/pt-br/conta/foto",
@@ -75,6 +79,10 @@ export default [
   },
   {
     path: "/en/",
+    redirect: "/en/home",
+  },
+  {
+    path: "/en/home",
     name: "enHome",
     component: Home,
   },
@@ -108,9 +116,22 @@ export default [
     name: "enLogin",
     component: Login,
   },
-
+  {
+    path: "/en/conta",
+    name: "enUser",
+    component: User,
+  },
+  {
+    path: "/en/conta/password",
+    name: "enPassword",
+    component: Password,
+  },
   {
     path: "/es/",
+    redirect: "/es/home",
+  },
+  {
+    path: "/es/home",
     name: "esHome",
     component: Home,
   },
@@ -143,5 +164,15 @@ export default [
     path: "/es/login",
     name: "esLogin",
     component: Login,
+  },
+  {
+    path: "/es/conta",
+    name: "esUser",
+    component: User,
+  },
+  {
+    path: "/es/conta/password",
+    name: "esPassword",
+    component: Password,
   },
 ];

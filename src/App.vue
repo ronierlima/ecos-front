@@ -7,7 +7,7 @@
 <script>
 import './app.css';
 
-import language from "./helpers/language";
+import {pt_br, es, en} from "./language";
 import { services } from "./services";
 
 export default {
@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       usuario: { nome: "" },
-      language: language.pt,
+      language: pt_br,
       selectLanguage: "pt-br",
       logado: false
     }
@@ -43,15 +43,15 @@ export default {
   methods: {
     changeLanguage() {
       if (window.location.pathname.includes("/en/")) {
-        this.language = language.en;
+        this.language = en;
 
       }
       else if (window.location.pathname.includes("/es/")) {
-        this.language = language.es;
+        this.language = es;
 
       }
       else {
-        this.language = language.pt;
+        this.language = pt_br;
 
       }
     },

@@ -2,26 +2,26 @@
     <Main>
         <section class="content">
             <div class="register">
-                <h1 class="title">{{ language.login }}</h1>
+                <h1 class="title">{{ language.account.titleLogin }}</h1>
                 <div class="registerContent">
                     <form @submit="login">
                         <div class="user-details">
 
                             <div class="input-box">
-                                <span class="details">*Email</span>
-                                <input v-model="usuarioInput.email" type="email" :placeholder="language.enterEmail"
+                                <span class="details">*{{ language.account.email }}</span>
+                                <input v-model="usuarioInput.email" type="email" :placeholder="language.account.placeholderEmail"
                                     required name="email">
                             </div>
 
                             <div class="input-box">
-                                <span class="details">*{{ language.password }}</span>
+                                <span class="details">*{{ language.account.password }}</span>
                                 <input v-model="usuarioInput.senha" type="password"
-                                    :placeholder="language.enterPassword" required name="senha">
+                                    :placeholder="language.account.placeholderPassword" required name="senha">
                             </div>
 
                         </div>
                         <div class="button">
-                            <button type="submit">{{ language.login }}</button>
+                            <button type="submit">{{ language.account.buttonLogin }}</button>
                         </div>
                     </form>
                 </div>

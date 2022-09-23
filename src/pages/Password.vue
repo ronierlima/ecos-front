@@ -2,30 +2,30 @@
     <Main>
         <section class="content">
             <div class="register">
-                <h1 class="title">{{ language.register }}</h1>
+                <h1 class="title">{{ language.account.titlePassordChange }}</h1>
                 <div class="registerContent">
                     <form @submit="updatePass">
                         <div class="user-details">
 
                             <div class="input-box">
-                                <span class="details">*{{ language.password }}</span>
+                                <span class="details">*{{ language.account.oldPassword }}</span>
                                 <input v-model="SenhaInput.senhaAtual" type="password"
-                                    :placeholder="language.enterPassword" required>
+                                    :placeholder="language.account.oldPassword" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">*{{ language.password }}</span>
+                                <span class="details">*{{ language.account.newPassword }}</span>
                                 <input v-model="SenhaInput.novaSenha" type="password"
-                                    :placeholder="language.enterPassword" required>
+                                    :placeholder="language.account.newPassword" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">*{{ language.confirmPassword }}</span>
-                                <input v-model="senhaCheck" type="password" :placeholder="language.confirmPassword"
-                                    required>
+                                <span class="details">*{{ language.account.repeatNewPassword }}</span>
+                                <input v-model="senhaCheck" type="password"
+                                    :placeholder="language.account.repeatNewPassword" required>
                             </div>
 
                         </div>
                         <div class="button">
-                            <button type="submit">{{ language.save }}</button>
+                            <button type="submit">{{ language.account.saveUpdates }}</button>
                         </div>
                     </form>
                 </div>
@@ -106,11 +106,7 @@ export default {
         },
 
     },
-    
+
 
 };
 </script>
-
-<style >
-
-</style>

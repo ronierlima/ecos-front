@@ -255,6 +255,11 @@ html {
   font-size: 1.25em;
   display: block;
   padding: 10px;
+  text-transform: capitalize;
+}
+
+.menu-nav a.active{
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .content {
@@ -362,6 +367,12 @@ html {
 .sobre-info h1 {
   font-size: 3em;
   margin-bottom: 0.5em;
+  overflow-wrap: break-word;
+  
+  word-break: break-word;
+
+ 
+  hyphens: auto;
 }
 
 .sobre-info p {
@@ -390,6 +401,15 @@ html {
 
 .sobre summary button:hover {
   border-bottom: 1px solid #7c7c7c;
+}
+
+.sobre-info p a {
+  overflow-wrap: break-word;
+  
+  word-break: break-word;
+
+ 
+  hyphens: auto;
 }
 
 /*Produtos*/

@@ -43,10 +43,43 @@ export default {
   created: function () {
 
 
-
+//TO
     this.selected = localStorage.getItem("language");
 
   }
 
 };
 </script>
+
+<style>
+.superinfo-bg {
+  background: #5e5e5e;
+  color: white;
+  max-height: 2rem;
+}
+
+.superinfo {
+  max-width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  height: 100%;
+}
+
+.superinfo p,
+.superinfo a {
+  margin: 0 10px 10px 10px;
+}
+
+.superinfo a {
+  color: #5e5e5e;
+}
+
+.superinfo select {
+  background: #f2f0e6;
+  border-radius: 1px;
+  border: none;
+}
+</style>

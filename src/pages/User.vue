@@ -2,29 +2,29 @@
     <Main>
         <section class="content">
             <div class="register">
-                <h1 class="title">{{ language.register }}</h1>
+                <h1 class="title">{{ language.account.titleProfile}}</h1>
                 <div class="registerContent">
                     <form @submit="updateUser">
                         <div class="user-details">
                             <div class="input-box">
-                                <span class="details">*{{ language.name }}</span>
+                                <span class="details">*{{ language.account.name }}</span>
                                 <input v-model="usuarioInput.nome" type="text" id="username" required
-                                    placeholder="Enter your name">
+                                    :placeholder="language.account.placeholdernName">
                             </div>
 
                             <div class="input-box">
-                                <span class="details">*Email</span>
-                                <input v-model="usuarioInput.email" type="email" :placeholder="language.enterEmail"
+                                <span class="details">*{{ language.account.email }}</span>
+                                <input v-model="usuarioInput.email" type="email" :placeholder="language.account.placeholderEmail"
                                     required>
                             </div>
                             <div class="input-box">
-                                <span class="details">{{ language.institution }}</span>
-                                <input v-model="usuarioInput.instituicao" type="text" placeholder="Enter your company">
+                                <span class="details">{{ language.account.institution }}</span>
+                                <input v-model="usuarioInput.instituicao" type="text" :placeholder="language.account.placeholderEmail">
                             </div>
 
                         </div>
                         <div class="button">
-                            <button type="submit">{{ language.save }}</button>
+                            <button type="submit">{{ language.account.save }}</button>
                         </div>
                     </form>
                 </div>
@@ -128,7 +128,3 @@ export default {
 
 };
 </script>
-
-<style >
-
-</style>

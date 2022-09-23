@@ -3,80 +3,20 @@
 
         <section class="content" id="modelos">
 
-            <h1>{{ language.publicModels }}</h1>
+            <h1>{{ language.home.models }}</h1>
 
-            <div class="container">
-                <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
-                    <div class="user">
-                        <img :src="getProfile(modelo)" alt="user" />
-                        <div class="user-info">
-                            <h5>{{ modelo.criador.nome }}</h5>
-                            <small>{{ modelo.dataCadastro | moment("DD/MM/YYYY") }}</small>
-                        </div>
-                    </div>
-                    <div class="card-header">
-                        <img class="image" :src="getPreview(modelo.codigo)" alt="rover" />
-
-                        <div class="middle">
-                            <div class="text" @click="open(modelo.codigo)">{{ language.openEditor }}</div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-
-                        <h4>
-                            {{ modelo.titulo }}
-                        </h4>
-                        <p>
-                            {{ modelo.descricao }}
-                        </p>
-
-                    </div>
-                    <div class="card-actions">
-                        <span class="tag tag-purple" @click="handleOpenDetails(modelo)">{{ language.details }}</span>
-                    </div>
-
-                </div>
-            </div>
+            <Models :modelos="modelos" />
 
         </section>
-
-        <transition name="modal" v-if="showModalDetails">
-            <div class="modal-mask xl">
-                <div class="modal-wrapper">
-                    <div class="modal-body">
-                        <div class="register modeloDetails">
-                            <h1 class="title">{{ modelInShow.titulo }}</h1>
-                            <button class="closeButton" @click="showModalDetails = false">x</button>
-                            <div class="registerContent">
-
-                                <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
-                                <div class="details">
-                                    <dl>
-                                        <dt>{{ language.title }}</dt>
-                                        <dd>{{ modelInShow.titulo }}</dd>
-                                        <dt>{{ language.description }}</dt>
-                                        <dd>{{ modelInShow.descricao }}</dd>
-                                        <dt>Autor</dt>
-                                        <dd>{{ modelInShow.criador.nome }}</dd>
-                                        <dt>{{ language.createAt }}</dt>
-                                        <dd>{{ modelInShow.dataCadastro | moment("DD/MM/YYYY") }}</dd>
-                                        <dt>{{ language.updateAt }}</dt>
-                                        <dd>{{ modelInShow.dataAtualizacao | moment("DD/MM/YYYY") }}</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </transition>
 
     </MainPage>
 </template>
 
 <script>
+
 import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
+import Models from "../components/Models.vue"
 
 
 export default {
@@ -84,13 +24,12 @@ export default {
     inject: ['getLanguage', 'getLogado', 'getUsuario'],
     components: {
         MainPage,
+        Models
     },
 
     data() {
         return {
             modelos: [],
-            showModalDetails: false,
-            modelInShow: { titulo: "" }
         };
     },
 
@@ -110,225 +49,12 @@ export default {
                     this.$toast.error(this.language.loadModelErro)
                 });
         },
-
-        open(modelo) {
-            this.$router.push(this.language.routes.modelEditor.replace(":codigo", modelo));
-        },
-
-        handleOpenDetails(modelo) {
-
-            this.modelInShow = modelo;
-            this.showModalDetails = true;
-
-        },
-
-        getPreview(codigo) {
-            return services.models.preview(codigo)
-        },
-        getProfile(modelo) {
-
-            return modelo.criador.fotoPerfil ? services.user.foto(modelo.criador.codigo) : `https://avatars.dicebear.com/api/identicon/${modelo.criador.email}.svg`
-        }
     },
 
     computed: {
         language() {
             return this.getLanguage();
         },
-        usuario() {
-            return this.getUsuario();
-        },
-        logado() {
-            return this.getLogado();
-        },
-
     }
 };
 </script>
-
-<style>
-.container {
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-
-.image {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
-}
-
-.middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.card-header:hover .image {
-    opacity: 0.3;
-}
-
-.card-header:hover .middle {
-    opacity: 1;
-}
-
-.text {
-    background-color: #5e5e5e;
-    color: #fff;
-    font-size: 1rem;
-    padding: 1rem 2rem;
-    cursor: pointer;
-}
-
-.card {
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    width: 300px;
-}
-
-.card-header {
-    padding: 1rem;
-    position: relative;
-
-}
-
-.card-header img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0 20px;
-    border-top: #5e5e5e1e dotted 4px;
-
-}
-
-.card-actions {
-    display: flex;
-    justify-content: space-evenly;
-    background-color: #5e5e5e1e;
-    padding: 20px;
-    gap: .5rem;
-}
-
-.tag {
-    background: #3498db;
-    font-size: 1rem;
-    margin: 0;
-    color: #fff;
-    padding: .25rem .75rem;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-
-.tag-teal {
-    background-color: #3498db;
-}
-
-.tag-teal:hover {
-    background-color: #2980b9;
-}
-
-.tag-purple {
-    background-color: #1abc9c;
-}
-
-.tag-purple:hover {
-    background-color: #16a085;
-}
-
-
-.tag-red {
-    background-color: #e74c3c;
-}
-
-.tag-red:hover {
-    background-color: #c0392b;
-}
-
-
-.card-body p {
-    font-size: 13px;
-    margin: 0 0 40px;
-}
-
-.user {
-    display: flex;
-    padding: 1rem;
-    background-color: #5e5e5e1e;
-}
-
-.user img {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-.user-info h5 {
-    margin: 0;
-}
-
-.user-info small {
-    color: #545d7a;
-}
-
-.modeloDetails {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.modeloDetails .user,
-.modeloDetails small {
-    background: #5e5e5e;
-    color: #fff;
-}
-
-.registerContent {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-}
-
-.registerContent img {
-    max-width: 100%;
-    max-height: 60vh;
-}
-
-dt {
-    float: left;
-    clear: left;
-    width: 110px;
-    font-weight: bold;
-    color: green;
-}
-
-dt::after {
-    content: ":";
-}
-
-dd {
-    margin: 0 0 0 80px;
-    padding: 0 0 0.5em 0;
-}
-</style>
