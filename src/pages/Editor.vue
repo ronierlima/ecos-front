@@ -11,6 +11,7 @@
         <nav class="menu-nav">
 
           <ul>
+
             <li>
               <img width="30px" @click="showModalSalvar = true" src="../assets/exportar.svg" :alt="usingLang.export"
                 :title="usingLang.export" />
@@ -90,9 +91,7 @@
         {{this.navIsOpen ? "❮":"❯"}}
       </button>
       <div id="container"></div>
-      <button id="sidebar-togle" @click="togleTool()">
-        {{this.toolsIsOpen ? "❯":"❮"}}
-      </button>
+
       <aside class="right-sidebar" id="tool">
         <div id="italico">
           <img width="30px" @click="italico()" src="../assets/italico.svg" :alt="usingLang.italico"
@@ -375,6 +374,7 @@
 
 <script>
 import Superinfo from "../components/Superinfo"
+
 import mxgraph from "mxgraph";
 import graphConfig from "../configs/mxGraph/graphConfig";
 import { jsPDF } from "jspdf";
@@ -671,17 +671,9 @@ export default {
       //Cria a imagem que serve de ícone da barra lateral (fonte de arrastar) - texto
       let xou = document.createElement("div");
       xou.classList.add("ssnObjeto");
-      xou.style.cursor = "pointer";
+
       xou.innerHTML = ssn.xor();
-      xou.style.margin = "auto";
-      // xou.style.marginTop = "4%";
-      xou.style.width = "60px";
-      xou.style.height = "65px";
-      xou.style.textAlign = "center";
-      xou.style.display = "flex";
-      xou.style.flexWrap = "wrap";
-      xou.style.alignItems = "center";
-      xou.style.justifyContent = "center";
+
       xou.title = "XOU";
       sidebar.appendChild(xou);
       // Creates the image which is used as the drag icon (preview)
@@ -728,18 +720,9 @@ export default {
       let ou = document.createElement("div");
       ou.classList.add("ssnObjeto");
 
-      ou.style.cursor = "pointer";
       ou.innerHTML = ssn.or(this.usingLang.or);
-      ou.style.margin = "auto";
-      //ou.style.marginTop = "4%";
-      ou.style.width = "60px";
-      ou.style.height = "65px";
-      ou.style.textAlign = "center";
-      ou.style.display = "flex";
-      ou.style.flexWrap = "wrap";
-      ou.style.alignItems = "center";
-      ou.style.justifyContent = "center";
       ou.title = this.usingLang.or;
+
       sidebar.appendChild(ou);
       // Creates the image which is used as the drag icon (preview)
       let dragOu = ou.cloneNode(true);
@@ -789,17 +772,7 @@ export default {
 
       relacao.innerHTML = ssn.business_relationship();
 
-      relacao.style.cursor = "pointer";
-      relacao.style.margin = "auto";
-
-      relacao.style.width = "60px";
-      relacao.style.height = "40px";
-      relacao.style.textAlign = "center";
-      relacao.style.display = "flex";
-      relacao.style.flexWrap = "wrap";
-      relacao.style.alignItems = "center";
-      relacao.style.justifyContent = "center";
-      relacao.title = "Relação comercial";
+      relacao.title = ssn.business_relationship();
       sidebar.appendChild(relacao);
 
       // Creates the image which is used as the drag icon (preview)
@@ -846,16 +819,7 @@ export default {
       let agregador = document.createElement("div");
       agregador.classList.add("ssnObjeto");
       agregador.innerHTML = ssn.aggregator(this.usingLang.aggregator);
-      agregador.style.cursor = "pointer";
-      agregador.style.margin = "auto";
-      //agregador.style.marginTop = "4%";
-      agregador.style.width = "202px";
-      agregador.style.height = "55px";
-      agregador.style.textAlign = "center";
-      agregador.style.display = "flex";
-      agregador.style.flexWrap = "wrap";
-      agregador.style.alignItems = "center";
-      agregador.style.justifyContent = "center";
+
       agregador.title = this.usingLang.aggregator;
 
       sidebar.appendChild(agregador);
@@ -905,17 +869,7 @@ export default {
         this.usingLang.customer_customer
       );
 
-      clienteDoCliente.style.cursor = "pointer";
-      clienteDoCliente.style.margin = "auto";
-
-      clienteDoCliente.style.width = "200px";
-      clienteDoCliente.style.height = "55px";
-      clienteDoCliente.style.textAlign = "center";
-      clienteDoCliente.style.display = "flex";
-      clienteDoCliente.style.flexWrap = "wrap";
-      clienteDoCliente.style.alignItems = "center";
-      clienteDoCliente.style.justifyContent = "center";
-      clienteDoCliente.title = "Cliente do Cliente";
+      clienteDoCliente.title = this.usingLang.customer_customer;
       sidebar.appendChild(clienteDoCliente);
 
       // Creates the image which is used as the drag icon (preview)
@@ -965,18 +919,10 @@ export default {
       let intermediario = document.createElement("div");
       intermediario.classList.add("ssnObjeto");
 
-      intermediario.style.cursor = "pointer";
       intermediario.innerHTML = ssn.intermediary(this.usingLang.intermediary);
-      intermediario.style.margin = "auto";
-      //intermediario.style.marginTop = "4%";
-      intermediario.style.width = "200px";
-      intermediario.style.height = "53px";
-      intermediario.style.textAlign = "center";
-      intermediario.style.display = "flex";
-      intermediario.style.flexWrap = "wrap";
-      intermediario.style.alignItems = "center";
-      intermediario.style.justifyContent = "center";
+
       intermediario.title = this.usingLang.intermediary;
+
       sidebar.appendChild(intermediario);
 
       // Creates the image which is used as the drag icon (preview)
@@ -1024,17 +970,7 @@ export default {
       cliente.innerHTML = ssn.customer(this.usingLang.customer);
       cliente.classList.add("ssnObjeto");
 
-      cliente.style.cursor = "pointer";
-      cliente.style.margin = "auto";
-      //cliente.style.marginTop = "4%";
-      cliente.style.width = "200px";
-      cliente.style.height = "52px";
-      cliente.style.textAlign = "center";
-      cliente.style.display = "flex";
-      cliente.style.flexWrap = "wrap";
-      cliente.style.alignItems = "center";
-      cliente.style.justifyContent = "center";
-      cliente.title = "Cliente";
+      cliente.title = this.usingLang.customer;
       sidebar.appendChild(cliente);
 
       // Creates the image which is used as the drag icon (preview)
@@ -1080,17 +1016,7 @@ export default {
       let fornecedor = document.createElement("div");
       fornecedor.classList.add("ssnObjeto");
       fornecedor.innerHTML = ssn.supplier(this.usingLang.supplier);
-
-      fornecedor.style.cursor = "pointer";
-      fornecedor.style.margin = "auto";
-      fornecedor.style.width = "204px";
-      fornecedor.style.height = "55px";
-      fornecedor.style.textAlign = "center";
-      fornecedor.style.display = "flex";
-      fornecedor.style.flexWrap = "wrap";
-      fornecedor.style.alignItems = "center";
-      fornecedor.style.justifyContent = "center";
-      fornecedor.title = "Fornecedor";
+      fornecedor.title = this.usingLang.supplier;
       sidebar.appendChild(fornecedor);
 
       // Creates the image which is used as the drag icon (preview)
@@ -1135,18 +1061,11 @@ export default {
       //Cria a imagem que serve de ícone da barra lateral (fonte de arrastar) - empresa de interesse
       let empresa = document.createElement("div");
       empresa.classList.add("ssnObjeto");
-      empresa.style.cursor = "pointer";
+
       empresa.innerHTML = ssn.company_of_interest(
         this.usingLang.company_of_interest
       );
-      empresa.style.margin = "auto";
-      empresa.style.width = "205px";
-      empresa.style.height = "60px";
-      empresa.style.textAlign = "center";
-      empresa.style.display = "flex";
-      empresa.style.flexWrap = "wrap";
-      empresa.style.alignItems = "center";
-      empresa.style.justifyContent = "center";
+
       empresa.title = this.usingLang.company_of_interest;
       sidebar.appendChild(empresa);
 
@@ -1194,17 +1113,9 @@ export default {
       //Cria a imagem que serve de ícone da barra lateral (fonte de arrastar) - texto
       let texto = document.createElement("div");
       texto.classList.add("ssnObjeto");
-      texto.style.cursor = "pointer";
+
       texto.style.backgroundColor = "transparent";
-      texto.style.margin = "auto";
-      //texto.style.marginTop = "4%";
-      texto.style.width = "200x";
-      texto.style.height = "60px";
-      texto.style.textAlign = "center";
-      texto.style.display = "flex";
-      texto.style.flexWrap = "wrap";
-      texto.style.alignItems = "center";
-      texto.style.justifyContent = "center";
+
       texto.title = "Texto";
       texto.style.fontSize = "30pt";
       texto.innerHTML = '<div id="ssntexto" style="color: #00000;">T</div>';
@@ -1692,7 +1603,7 @@ export default {
         mxEvent.disableContextMenu(document.body);
 
         mxConnectionHandler.prototype.connectImage = new mxImage(
-          require("../assets/connector.gif"),
+          require("../assets/images/editor/connector.gif"),
           15,
           15
         );
@@ -2430,7 +2341,7 @@ export default {
 
       doc.addImage(logo, "PNG", 10, 10)
       doc.table(10, 30, this.relatorio, ["nome", "total"])
-      
+
       doc.save(pdfName + '.pdf');
     },
     // configurações

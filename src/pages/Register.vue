@@ -288,6 +288,7 @@ form .button button.excluir:hover {
     .register {
         max-width: 100%;
     }
+    
 
     form .user-details .input-box {
         margin-bottom: 15px;

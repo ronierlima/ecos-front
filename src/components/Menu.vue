@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <li v-if="logado"><a id="exit" @click="logout()">| {{language.sair}} |</a></li>
+                    <li v-if="logado"><a id="exit" @click="logout()">| {{language.menu.logout}} |</a></li>
                 </ul>
             </nav>
         </div>

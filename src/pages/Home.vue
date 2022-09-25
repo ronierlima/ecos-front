@@ -19,7 +19,7 @@
         </p>
       </div>
       <div class="sobre-img">
-        <img src="../assets/Diagrama.png" :alt="language.home.about" />
+        <img src="../assets/images/diagram-example.png" :alt="language.home.about" />
       </div>
 
     </section>

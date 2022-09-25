@@ -127,6 +127,11 @@ export default [
     component: Password,
   },
   {
+    path: "/en/conta/foto",
+    name: "enPhoto",
+    component: Photo,
+  },
+  {
     path: "/es/",
     redirect: "/es/home",
   },
@@ -174,5 +179,10 @@ export default [
     path: "/es/conta/password",
     name: "esPassword",
     component: Password,
+  },
+  {
+    path: "/es/conta/foto",
+    name: "esPhoto",
+    component: Photo,
   },
 ];

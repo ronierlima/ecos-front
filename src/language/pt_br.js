@@ -39,6 +39,25 @@ export const pt_br = {
     institution: "Instituição",
     placeholderInstitution: "Insira sua instituição",
     save: "Salvar",
+    titlePhoto: "Alterar foto do perfil",
+  },
+
+  model: {
+    models: "Modelos",
+    myModels: "Meus Modelos",
+    openInEditor: "Editar",
+    seeDetails: "Detalhes",
+    autor: "Autor",
+    title: "Titulo",
+    description: "Descrição",
+    createAt: "Criado em",
+    updateAt: "Ultima atualização",
+    update: "Atualizar",
+    delete: "Apagar",
+    deleteConfirm: "Deseja realmente excluir o modelo ${0} ?",
+    yes: "Sim",
+    no: "Não",
+    dateFormat: "DD/MM/YYYY"
   },
 
   company_of_interest: "Empresa de Interesse",

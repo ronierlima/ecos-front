@@ -2,7 +2,7 @@
     <Main>
         <section class="content">
             <div class="register">
-                <h1 class="title">{{ language.register }}</h1>
+                <h1 class="title">{{ language.account.titlePhoto }}</h1>
                 <div class="registerContent">
                     <form @submit="updateUser">
                         <div class="user-details">
@@ -24,7 +24,7 @@
 
                         </div>
                         <div class="button">
-                            <button type="submit">{{ language.save }}</button>
+                            <button type="submit">{{ language.account.saveUpdates }}</button>
                         </div>
                     </form>
                 </div>

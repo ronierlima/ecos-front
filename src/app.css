@@ -11,8 +11,12 @@ a {
 
 body {
   font-family: "Nunito", Helvetica, Arial, sans-serif;
-
   color: #222222;
+
+}
+
+body.hasModal {
+  overflow: hidden;
 }
 
 ul {
@@ -76,7 +80,7 @@ html {
 
 #container {
   width: 100%;
-  background: url("assets/editor/grid.jpeg");
+  background: url("assets/images/editor/grid.jpeg");
 
   overflow: scroll;
 }
@@ -85,6 +89,8 @@ html {
 
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 
   max-width: 300px;
   width: 20vw;
@@ -105,36 +111,38 @@ html {
   color: #f2f0e6;
   cursor: pointer;
   z-index: 999;
-  width: 2rem;
-  
+  width: 1.5rem;
 }
 
 #modelo aside.right-sidebar {
-  max-width: 75px;
-  width: calc(5vw - 2rem);
+  min-width: 75px;
   background: #f2f0e6;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
+  gap: .5rem;
   align-items: center;
-
+  justify-content: center;
   height: calc(100vh - 8rem);
 
   z-index: 100;
-  transition: all 1s;
+  overflow-y: scroll;
 }
 
-#modelo aside.right-sidebar.colapse {
-  max-width: 0;
-  transform: translateX(100%);
+#modelo aside.right-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+#modelo aside.right-sidebar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa;
+  /* or add it to the track */
 }
 
 #modelo aside.right-sidebar hr {
   width: 60%;
   border: 0;
-  height: 1px;
-  color: #5e5e5e;
+  height: 3px;
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0), #5e5e5e52, rgba(255, 255, 255, 0));
 
 }
@@ -157,15 +165,13 @@ html {
 
 .ssnObjeto {
   width: min-content;
+  cursor: pointer;
+  padding: 0 1rem;
 }
 
 .ssnObjeto svg,
 #ssntexto {
   transition: 0.2s ease-in;
-  -webkit-transition: 0.2s ease-in;
-  -moz-transition: 0.2s ease-in;
-  -o-transition: 0.2s ease-in;
-
 }
 
 .ssnObjeto:hover svg,
@@ -258,7 +264,7 @@ html {
   text-transform: capitalize;
 }
 
-.menu-nav a.active{
+.menu-nav a.active {
   background: rgba(0, 0, 0, 0.05);
 }
 
@@ -368,10 +374,10 @@ html {
   font-size: 3em;
   margin-bottom: 0.5em;
   overflow-wrap: break-word;
-  
+
   word-break: break-word;
 
- 
+
   hyphens: auto;
 }
 
@@ -405,10 +411,10 @@ html {
 
 .sobre-info p a {
   overflow-wrap: break-word;
-  
+
   word-break: break-word;
 
- 
+
   hyphens: auto;
 }
 
@@ -469,6 +475,34 @@ html {
   text-align: center;
   font-size: 2.25em;
   color: #7c7c7c;
+}
+
+@media(max-width: 920px) {
+
+  .ssnObjeto svg,
+  #ssntexto {
+    transform: scale(.5, .5);
+  }
+
+  .ssnObjeto:hover svg,
+  #ssntexto {
+    transform: scale(.55, .55);
+  }
+
+}
+
+@media(max-width: 1200px) {
+
+  .ssnObjeto svg,
+  #ssntexto {
+    transform: scale(.7, .7);
+  }
+
+  .ssnObjeto:hover svg,
+  #ssntexto {
+    transform: scale(.75, .75);
+  }
+
 }
 
 div.mxRubberband {

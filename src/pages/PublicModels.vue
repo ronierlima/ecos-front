@@ -3,7 +3,7 @@
 
         <section class="content" id="modelos">
 
-            <h1>{{ language.home.models }}</h1>
+            <h1>{{ language.model.models }}</h1>
 
             <Models :modelos="modelos" />
 
