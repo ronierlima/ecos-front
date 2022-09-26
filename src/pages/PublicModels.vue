@@ -18,7 +18,6 @@ import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
 import Models from "../components/Models.vue"
 
-
 export default {
     name: "Index",
     inject: ['getLanguage', 'getLogado', 'getUsuario'],

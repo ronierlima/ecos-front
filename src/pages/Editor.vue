@@ -373,46 +373,31 @@
 </template>
 
 <script>
-import Superinfo from "../components/Superinfo"
-
 import mxgraph from "mxgraph";
 import graphConfig from "../configs/mxGraph/graphConfig";
-import { jsPDF } from "jspdf";
 
+import { jsPDF } from "jspdf";
 import { saveAs } from "file-saver";
 import { saveSvgAsPng } from "save-svg-as-png";
 import convert from "xml-js";
+
+import { ssn, occurrences } from "../helpers"
+
 import { services } from "../services";
 
+import Superinfo from "../components/Superinfo"
 import language from "../helpers/language";
-import ssn from "../helpers/ssn";
 
 import logo from "../assets/logo.png"
 
-let editor;
 import "../assets/css/modal.css";
 
-function occurrences(string, subString, allowOverlapping) {
-  string += "";
-  subString += "";
-  if (subString.length <= 0) return string.length + 1;
+let editor;
 
-  var n = 0,
-    pos = 0,
-    step = allowOverlapping ? 1 : subString.length;
-
-  while (true) {
-    pos = string.indexOf(subString, pos);
-    if (pos >= 0) {
-      ++n;
-      pos += step;
-    } else break;
-  }
-  return n;
-}
 
 export default {
   name: "Editor",
+  inject: ['getLanguage', 'getLogado', 'getUsuario', 'logout'],
   components: { Superinfo },
   data() {
     return {
@@ -473,20 +458,6 @@ export default {
       } else {
         this.$toast.error("Preencha todos os campos");
       }
-    },
-
-    logout() {
-
-      this.token = null;
-      this.logado = false;
-      this.nome = null;
-
-      localStorage.removeItem("nome");
-      localStorage.removeItem("token");
-      localStorage.removeItem("codigo_usuario");
-
-      this.$router.push("/");
-      document.location.reload(true);
     },
 
     async salvarOnline(e) {
@@ -561,13 +532,11 @@ export default {
         this.$toast.error("Não foi possível salvar o modelo");
       }
 
-    }
-    ,
+    },
 
     togleNav() {
 
       document.getElementById("sidebar").classList.toggle("colapse")
-
       this.navIsOpen = !this.navIsOpen;
     },
 
@@ -1294,26 +1263,10 @@ export default {
         StepShape.prototype.isRoundable = function () {
           return true;
         };
+
+
         StepShape.prototype.redrawPath = function (c, x, y, w, h) {
-          var fixed = mxUtils.getValue(this.style, "fixedSize", "0") != "0";
-          var s = fixed
-            ? Math.max(
-              0,
-              Math.min(
-                w,
-                parseFloat(
-                  mxUtils.getValue(this.style, "size", this.fixedSize)
-                )
-              )
-            )
-            : w *
-            Math.max(
-              0,
-              Math.min(
-                1,
-                parseFloat(mxUtils.getValue(this.style, "size", this.size))
-              )
-            );
+         
           var arcSize =
             mxUtils.getValue(
               this.style,
@@ -1325,11 +1278,10 @@ export default {
             [
               //correto aproximado
               new mxPoint(0, 0),
-              new mxPoint(w - s, 0),
-              new mxPoint(w - s, 0),
-              new mxPoint(w - s, h),
+              new mxPoint(w, 0),
+              new mxPoint(w, h),
               new mxPoint(0, h),
-              new mxPoint(s, h / 2),
+              new mxPoint(h/1.5, h/2),
             ],
             this.isRounded,
             arcSize,
@@ -1339,10 +1291,9 @@ export default {
         };
 
         mxCellRenderer.registerShape("step", StepShape);
-
         let object = new mxCell(
           this.usingLang.customer_customer,
-          new mxGeometry(0, 0, 235, 50),
+          new mxGeometry(0, 0, 200, 50),
           "shape=step;fillColor=LightGrey;strokeColor=black;fontColor=black;flipH=1;tipo=cliente2"
         );
 
