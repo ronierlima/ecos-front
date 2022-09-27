@@ -15,7 +15,7 @@ function getBase() {
   if (language && language !== "null" && language !== "undefined")
     return "/" + language + "/";
 
-  return "/pt-br/home";
+  return "/pt-br/";
 }
 
 export default [

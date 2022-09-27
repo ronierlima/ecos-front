@@ -83,7 +83,7 @@ export default {
 
                 })
                 .catch((error) => {
-                    this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
+                    this.$toast.error(error.response.data.error_description || this.language.messages.error);
                 });
 
         },
@@ -96,7 +96,7 @@ export default {
         updateUser: function (e) {
             e.preventDefault();
             if (!this.image.file) {
-                this.$toast.error('É preciso fazer upload de uma imagem');
+                this.$toast.error(this.language.messages.allFields);
                 this.error = true
             }
 
@@ -108,11 +108,11 @@ export default {
                 services.user
                     .updatePhoto(this.usuario.codigo, formData)
                     .then(() => {
-                        this.$toast.success("Perfil atualizado com sucesso");
+                        this.$toast.success(this.language.messages.update);
                         this.getUser();
                     })
                     .catch((error) => {
-                        this.$toast.error(error.response.data.userMessage || "Ocorreu um erro desconhecido");
+                        this.$toast.error(error.response.data.userMessage || this.language.messages.error);
                     });
 
                 this.error = false;
@@ -180,7 +180,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, .5);
-    z-index: 10000;
+    z-index: 100;
     color: #fafafa;
     transition: background-color 0.2s ease-in-out;
     margin-bottom: 0;

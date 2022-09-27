@@ -217,10 +217,10 @@ export default {
                 .patch(this.modelInShow.codigo, this.input)
                 .then(() => {
                     this.refresh();
-                    this.$toast.success(this.language.update)
+                    this.$toast.success(this.language.messages.update)
                 })
                 .catch(() => {
-                    this.$toast.error(this.language.loadModelErro)
+                    this.$toast.error(this.language.messages.updateErro)
                 });
 
             this.showModalDetailsEdit = false;
@@ -234,10 +234,10 @@ export default {
                 .delete(this.modelInShow.codigo)
                 .then(() => {
                     this.refresh();
-                    this.$toast.success(this.language.deleteSuccess);
+                    this.$toast.success(this.language.messages.delete);
                 })
                 .catch((error) => {
-                    this.$toast.error(error)
+                    this.$toast.error(this.language.messages.deleteErro)
                 });
 
             this.showModalDelete = false;

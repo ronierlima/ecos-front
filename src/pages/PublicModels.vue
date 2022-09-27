@@ -45,7 +45,7 @@ export default {
                     this.modelos = res.data.content;
                 })
                 .catch(() => {
-                    this.$toast.error(this.language.loadModelErro)
+                    this.$toast.error(this.language.messages.loadErro)
                 });
         },
     },

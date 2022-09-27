@@ -106,7 +106,7 @@ export default {
 
         this.$router.push("/");
         // document.location.reload(true);
-        this.$toast.error('login inspirado');
+        this.$toast.error(this.language.messages.loginInvalid);
 
       }
 

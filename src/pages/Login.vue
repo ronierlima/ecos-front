@@ -75,15 +75,15 @@ export default {
                         localStorage.setItem("codigo_usuario", res.data.codigo_usuario);
 
                         this.$router.push("/")
-                        this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
+                        this.$toast.success(this.language.messages.welcome+", " + res.data.nome_completo);
 
                     })
                     .catch((error) => {
-                        this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
+                        this.$toast.error(error.response.data.error_description || this.language.messages.error);
                     });
 
             } else {
-                this.$toast.error("Preencha todos os campos");
+                this.$toast.error(this.language.messages.allFields);
             }
         },
     },

@@ -1,7 +1,7 @@
 /*  ==========================novo modal 2*/
 .modal2-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
@@ -150,7 +150,7 @@
 /*  ==========================novo modal3*/
 .modal3-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
@@ -245,7 +245,7 @@
 
 .modal-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;

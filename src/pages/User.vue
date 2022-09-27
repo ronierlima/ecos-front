@@ -72,24 +72,24 @@ export default {
 
                 })
                 .catch((error) => {
-                    this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
+                    this.$toast.error(error.response.data.error_description || this.language.messages.error);
                 });
         },
         updateUser: function (e) {
             e.preventDefault();
 
-            if (!this.usuarioInput.nome) {
-                this.$toast.error('O nome é obrigatório.');
-                this.error = true
-            }
+            // if (!this.usuarioInput.nome) {
+            //     this.$toast.error('O nome é obrigatório.');
+            //     this.error = true
+            // }
 
-            if (!this.usuarioInput.email) {
-                this.$toast.error('O e-mail é obrigatório.');
-                this.error = true
-            } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.usuarioInput.email))) {
-                this.$toast.error('Utilize um e-mail válido.');
-                this.error = true
-            }
+            // if (!this.usuarioInput.email) {
+            //     this.$toast.error('O e-mail é obrigatório.');
+            //     this.error = true
+            // } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.usuarioInput.email))) {
+            //     this.$toast.error('Utilize um e-mail válido.');
+            //     this.error = true
+            // }
 
             if (!this.error) {
 
@@ -98,10 +98,10 @@ export default {
                     .then((res) => {
                         localStorage.setItem("nome", res.data.nome);
                         this.$router.push("/");
-                        this.$toast.success("Perfil atualizado com sucesso");
+                        this.$toast.success(this.language.messages.update);
                     })
                     .catch((error) => {
-                        this.$toast.error(error.response.data.userMessage || "Ocorreu um erro desconhecido");
+                        this.$toast.error(error.response.data.userMessage || this.language.messages.error);
                     });
 
                 this.error = false;

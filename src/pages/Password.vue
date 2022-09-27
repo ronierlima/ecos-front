@@ -63,17 +63,10 @@ export default {
         updatePass: function (e) {
             e.preventDefault();
 
-            if (!this.SenhaInput.senhaAtual) {
-                this.$toast.error('A senha é obrigatório.');
-                this.error = true;
+            
 
-            }
-            else if (!this.SenhaInput.novaSenha) {
-                this.$toast.error('A senha é obrigatório.');
-                this.error = true;
-
-            } else if (this.SenhaInput.novaSenha !== this.senhaCheck) {
-                this.$toast.error('As senhas devem ser iguais');
+            if (this.SenhaInput.novaSenha !== this.senhaCheck) {
+                this.$toast.error(this.language.messages.password);
                 this.error = true
             }
 
@@ -83,10 +76,10 @@ export default {
                     .updatePass(this.usuario.codigo, this.SenhaInput)
                     .then(() => {
 
-                        this.$toast.success("Senha atualizada com sucesso");
+                        this.$toast.success(this.language.messages.updatePassword);
                     })
                     .catch((error) => {
-                        this.$toast.error(error.response.data.userMessage || "Ocorreu um erro desconhecido");
+                        this.$toast.error(error.response.data.userMessage || this.language.messages.error);
                     });
 
                 this.error = false;

@@ -14,23 +14,24 @@
 
                             <div class="input-box">
                                 <span class="details">*{{ language.account.email }}</span>
-                                <input v-model="usuarioInput.email" type="email" :placeholder="language.account.placeholderEmail"
-                                    required>
+                                <input v-model="usuarioInput.email" type="email"
+                                    :placeholder="language.account.placeholderEmail" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">{{ language.account.institution }}</span>
-                                <input v-model="usuarioInput.instituicao" type="text" :placeholder="language.account.placeholderInstitution" />
+                                <input v-model="usuarioInput.instituicao" type="text"
+                                    :placeholder="language.account.placeholderInstitution" />
                             </div>
                             <div class="input-box">
                                 <span class="details">*{{ language.account.password }}</span>
                                 <input v-model="usuarioInput.senha" type="password"
                                     :placeholder="language.account.placeholderPassword" required>
                             </div>
-                            
+
                             <div class="input-box">
                                 <span class="details">*{{ language.account.confirmPassword }}</span>
-                                <input v-model="senhaCheck" type="password" :placeholder="language.account.confirmPassword"
-                                    required>
+                                <input v-model="senhaCheck" type="password"
+                                    :placeholder="language.account.confirmPassword" required>
                             </div>
 
                         </div>
@@ -74,25 +75,8 @@ export default {
         registerUser: function (e) {
             e.preventDefault();
 
-            if (!this.usuarioInput.nome) {
-                this.$toast.error('O nome é obrigatório.');
-                this.error = true
-            }
-
-            if (!this.usuarioInput.email) {
-                this.$toast.error('O e-mail é obrigatório.');
-                this.error = true
-            } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.usuarioInput.email))) {
-                this.$toast.error('Utilize um e-mail válido.');
-                this.error = true
-            }
-
-            if (!this.usuarioInput.senha) {
-                this.$toast.error('A senha é obrigatório.');
-                this.error = true;
-
-            } else if (this.usuarioInput.senha !== this.senhaCheck) {
-                this.$toast.error('As senhas devem ser iguais');
+            if (this.usuarioInput.senha !== this.senhaCheck) {
+                this.$toast.error(this.language.messages.password);
                 this.error = true
             }
 
@@ -114,14 +98,14 @@ export default {
                                 localStorage.setItem("codigo_usuario", res.data.codigo_usuario);
 
                                 this.$router.push("/");
-                                this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
+                                this.$toast.success(this.language.messages.welcome+", " + res.data.nome_completo);
                             })
                             .catch((error) => {
-                                this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
+                                this.$toast.error(error.response.data.error_description || this.language.messages.error);
                             });
                     })
                     .catch((error) => {
-                        this.$toast.error(error.response.data.userMessage || "Ocorreu um erro desconhecido");
+                        this.$toast.error(error.response.data.userMessage || this.language.messages.error);
                     });
 
                 this.error = false;
@@ -288,7 +272,7 @@ form .button button.excluir:hover {
     .register {
         max-width: 100%;
     }
-    
+
 
     form .user-details .input-box {
         margin-bottom: 15px;

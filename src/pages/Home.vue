@@ -114,14 +114,14 @@ export default {
           this.modelos = res.data.content;
         })
         .catch(() => {
-          this.$toast.error(this.language.loadModelErro)
+          this.$toast.error(this.language.messages.loadErro)
         });
     },
 
     copy() {
       var copyText = document.getElementById("bibtex");
       navigator.clipboard.writeText(copyText.value);
-      this.$toast("BibTex copiado!");
+      this.$toast(this.language.messages.bibtex);
     }
 
   },

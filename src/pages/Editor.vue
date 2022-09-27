@@ -56,10 +56,10 @@
               <img width="30px" @click="refazer()" src="../assets/refazer.svg" :alt="usingLang.refazer"
                 :title="usingLang.refazer" />
             </li>
-            <li>
+            <!-- <li>
               <img width="32px" @click="selecionarRelacoes()" src="../assets/select_vertices.svg"
                 :alt="usingLang.italico" :title="usingLang.italico" />
-            </li>
+            </li> -->
 
           </ul>
         </nav>
@@ -68,17 +68,16 @@
           <button class="dropbtn" @click="!logado ? showModalLogin = true : null">{{ logado ? nome : "entrar"
           }}</button>
           <div class="dropdown-content" v-if="logado">
-            <a v-if="codigo_usuario !== modelo.criador.codigo" @click="logado ? showModalRegister = true : null">Salvar
-              modelo</a>
+            <a v-if="codigo_usuario !== modelo.criador.codigo" @click="logado ? showModalRegister = true : null"> {{
+            usingLang.account.save }}</a>
             <a :href="usingLang.routes.editor">
-              Novo modelo
+              {{ usingLang.model.newModel }}
             </a>
-            <a v-if="logado && (codigo_usuario === modelo.criador.codigo)" @click="openUpdate()">Atualizar
-              modelo</a>
+            <a v-if="logado && (codigo_usuario === modelo.criador.codigo)" @click="openUpdate()">{{ usingLang.model.update }}</a>
             <a :href="usingLang.routes.privateModels">
-              {{ usingLang.privateModels }}
+              {{ usingLang.model.myModels }}
             </a>
-            <a id="exit" @click="logout()">Sair</a>
+            <a id="exit" @click="logout()">{{ usingLang.menu.logout }}</a>
           </div>
         </div>
 
@@ -166,12 +165,10 @@
       <div class="modal-mask">
         <div class="modal-wrapper">
 
-
-
           <div class="modal-body">
 
             <div class="register">
-              <h1 class="title">Salvar modelo atual</h1>
+              <h1 class="title">{{ isUpdate ? `${usingLang.model.update} ${modelo.titulo}` : usingLang.model.newModel }}</h1>
               <button class="closeButton" @click="showModalRegister = false">
                 x
               </button>
@@ -180,20 +177,20 @@
                   <div class="user-details">
 
                     <div class="input-box">
-                      <span class="details">*Titulo</span>
+                      <span class="details">*{{usingLang.model.title}}</span>
                       <input v-model="modelo.titulo" type="text" placeholder="Enter titulo model" required
                         name="modelName">
                     </div>
 
                     <div class="input-box">
-                      <span class="details">*Descrição</span>
+                      <span class="details">*{{usingLang.model.description}}</span>
                       <textarea v-model="modelo.descricao" placeholder="Enter description model" required
                         name="description"></textarea>
                     </div>
 
                   </div>
                   <div class="button">
-                    <input type="submit" value="Update">
+                    <input type="submit" :value="isUpdate ? usingLang.account.saveUpdates : usingLang.account.save ">
                   </div>
                 </form>
               </div>
@@ -205,13 +202,12 @@
       </div>
     </transition>
 
-
     <transition name="modal" v-if="showModalLogin">
       <div class="modal-mask">
         <div class="modal-wrapper">
           <div class="modal-body">
             <div class="register">
-              <h1 class="title">{{ usingLang.login }}</h1>
+              <h1 class="title">{{ usingLang.account.titleLogin }}</h1>
               <button class="closeButton" @click="showModalLogin = false">
                 x
               </button>
@@ -220,20 +216,20 @@
                   <div class="user-details">
 
                     <div class="input-box">
-                      <span class="details">*Email</span>
-                      <input v-model="input.username" type="email" :placeholder="usingLang.enterEmail" required
+                      <span class="details">*{{ usingLang.account.email }}</span>
+                      <input v-model="input.username" type="email" :placeholder="usingLang.account.placeholderEmail" required
                         name="email">
                     </div>
 
                     <div class="input-box">
-                      <span class="details">*Password</span>
-                      <input v-model="input.password" type="password" :placeholder="usingLang.enterPassword" required
+                      <span class="details">*{{ usingLang.account.password }}</span>
+                      <input v-model="input.password" type="password" :placeholder="usingLang.account.placeholderPassword" required
                         name="senha">
                     </div>
 
                   </div>
                   <div class="button">
-                    <button type="submit">{{ usingLang.login }}</button>
+                    <button type="submit">{{ usingLang.account.buttonLogin }}</button>
                   </div>
                 </form>
               </div>
@@ -323,9 +319,9 @@
             <div class="modal3-footer">
               <slot name="footer">
                 <button class="modal3-default-button cancel" @click="showModalPropriedades = false">
-                  {{ usingLang.sair }}
+                  {{ usingLang.cancel }}
                 </button>
-                <button @click="copy()">📎</button>
+                <!-- <button @click="copy()">📎</button> -->
               </slot>
             </div>
           </div>
@@ -357,7 +353,7 @@
             <div class="modal3-footer">
               <slot name="footer">
                 <button class="modal3-default-button cancel" @click="showModalRelatorio = false">
-                  {{ usingLang.sair }}
+                  {{ usingLang.cancel }}
                 </button>
 
                 <button class="modal3-default-button pdf" @click="printRelatorio">
@@ -369,6 +365,7 @@
         </div>
       </div>
     </transition>
+ 
   </div>
 </template>
 
@@ -386,14 +383,13 @@ import { ssn, occurrences } from "../helpers"
 import { services } from "../services";
 
 import Superinfo from "../components/Superinfo"
-import language from "../helpers/language";
+import { en, pt_br, es } from "../language";
 
 import logo from "../assets/logo.png"
 
 import "../assets/css/modal.css";
 
 let editor;
-
 
 export default {
   name: "Editor",
@@ -449,14 +445,14 @@ export default {
 
             this.showModalLogin = false;
 
-            this.$toast.success("Seja bem vindo, " + res.data.nome_completo);
+            this.$toast.success(this.usingLang.messages.welcome+", " + res.data.nome_completo);
           })
           .catch((error) => {
-            this.$toast.error(error.response.data.error_description || "Ocorreu um erro desconhecido");
+            this.$toast.error(error.response.data.error_description || this.usingLang.messages.error);
           });
 
       } else {
-        this.$toast.error("Preencha todos os campos");
+        this.$toast.error(this.usingLang.messages.allFields);
       }
     },
 
@@ -480,19 +476,19 @@ export default {
             .then(({ data: modelo }) => {
               this.showModalRegister = false;
               window.location.replace(this.usingLang.routes.editor + "/" + modelo.codigo)
-              this.$toast.success("Modelo salvo com sucesso");
+              this.$toast.success(this.usingLang.messages.create);
 
             })
             .catch(() => {
               this.showModalRegister = false;
-              this.$toast.error("Não foi possível salvar o modelo");
+              this.$toast.error(this.usingLang.messages.createErro);
             });
         } else {
-          this.$toast.error("Preencha todos os campos");
+          this.$toast.error(this.usingLang.messages.allFields);
         }
       } catch (error) {
         this.showModalRegister = false;
-        this.$toast.error("Não foi possível salvar o modelo");
+        this.$toast.error(this.usingLang.messages.createErro);
       }
 
     },
@@ -517,19 +513,19 @@ export default {
             .then(() => {
               this.showModalRegister = false;
 
-              this.$toast.success("Modelo atualizado com sucesso");
+              this.$toast.success(this.usingLang.messages.update);
 
             })
             .catch(() => {
               this.showModalRegister = false;
-              this.$toast.error("Não foi possível atualizar o modelo");
+              this.$toast.error(this.usingLang.messages.updateErro);
             });
         } else {
-          this.$toast.error("Preencha todos os campos");
+          this.$toast.error(this.usingLang.messages.allFields);
         }
       } catch (error) {
         this.showModalRegister = false;
-        this.$toast.error("Não foi possível salvar o modelo");
+        this.$toast.error(this.usingLang.messages.updateErro);
       }
 
     },
@@ -1266,7 +1262,7 @@ export default {
 
 
         StepShape.prototype.redrawPath = function (c, x, y, w, h) {
-         
+
           var arcSize =
             mxUtils.getValue(
               this.style,
@@ -1281,7 +1277,7 @@ export default {
               new mxPoint(w, 0),
               new mxPoint(w, h),
               new mxPoint(0, h),
-              new mxPoint(h/1.5, h/2),
+              new mxPoint(h / 1.5, h / 2),
             ],
             this.isRounded,
             arcSize,
@@ -2429,11 +2425,11 @@ export default {
 
         this.importar(arquivo);
         this.modelo = modelo;
-        this.$toast.success("Modelo carregado");
+        this.oldModel = modelo;
 
       } catch (error) {
-        this.$toast.error("Modelo não encontrado");
-        this.$router.push("/pt-br/editor");
+        this.$toast.error(this.usingLang.messages.oneloadErro);
+        this.$router.push("/");
       }
 
     }
@@ -2591,15 +2587,14 @@ export default {
     };
 
     if (window.location.pathname.includes("/en/")) {
-      this.usingLang = language.en;
-
+      this.usingLang = en;
     }
     else if (window.location.pathname.includes("/es/")) {
-      this.usingLang = language.es;
+      this.usingLang = es;
 
     }
     else {
-      this.usingLang = language.pt;
+      this.usingLang = pt_br;
 
     }
 
