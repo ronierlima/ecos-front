@@ -42,9 +42,11 @@ export default {
   },
   created: function () {
 
+    let lang = localStorage.getItem("language");
 
-//TO
-    this.selected = localStorage.getItem("language");
+    if (lang && lang !== "null" && lang !== "undefined")
+      this.selected = lang;
+    else this.selected = "pt-br"
 
   }
 
