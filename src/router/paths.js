@@ -185,4 +185,8 @@ export default [
     name: "esPhoto",
     component: Photo,
   },
+   {
+    path: "/rate",
+    redirect: "https://forms.gle/2Ar2u2n8ZsbjSAnU9",
+  },
 ];
