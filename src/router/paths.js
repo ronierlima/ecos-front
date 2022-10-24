@@ -6,6 +6,7 @@ import Login from "../pages/Login.vue";
 import User from "../pages/User.vue";
 import Password from "../pages/Password.vue";
 import Photo from "../pages/Photo.vue";
+import Rate from "../pages/Rate.vue";
 
 import Editor from "../pages/Editor.vue";
 
@@ -187,6 +188,7 @@ export default [
   },
    {
     path: "/rate",
-    redirect: "https://forms.gle/2Ar2u2n8ZsbjSAnU9",
+    name: "rate",
+    component: Rate,
   },
 ];
