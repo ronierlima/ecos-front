@@ -10,6 +10,7 @@ export const pt_br = {
     myAccount: "minha conta",
     changePhoto: "alterar foto",
     changePassword: "alterar senha",
+    evolution: "evolução",
   },
 
   home: {
@@ -138,5 +139,6 @@ export const pt_br = {
     photo: "/pt-br/conta/foto",
     password: "/pt-br/conta/password",
     modelEditor: "/pt-br/editor/:codigo",
+    evolution: "/pt-br/modelos/evolucao",
   },
 };

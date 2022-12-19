@@ -372,6 +372,12 @@ input[type="file"]::file-selector-button:hover,
   padding: 20px;
 }
 
+input[type="checkbox"] {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
 @media print {
   .modal3-mask,
   .modal3-container,

@@ -17,6 +17,11 @@
                             {{ language.menu.models }}
                         </router-link>
                     </li>
+                    <li>
+                        <router-link exact :to="language.routes.evolution">
+                            {{ language.menu.evolution }}
+                        </router-link>
+                    </li>
                     <li v-if="logado">
                         <router-link exact :to="language.routes.privateModels">
                             {{ language.menu.myModels }}

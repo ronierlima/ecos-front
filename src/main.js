@@ -6,7 +6,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 Vue.config.productionTip = false;
-Vue.prototype.$baseUrl = process.env.VUE_APP_API_BASE_URL;
+Vue.prototype.$baseUrl = process.env.VUE_APP_BASE_URL;
 Vue.prototype.$rateUrl = process.env.VUE_APP_RATE_URL;
 
 const options = {

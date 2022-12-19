@@ -1,5 +1,6 @@
 import Home from "../pages/Home.vue";
 import PublicModels from "../pages/PublicModels.vue";
+import Evolucao from "../pages/Evolucao.vue";
 import PrivateModels from "../pages/PrivateModels.vue";
 import Register from "../pages/Register.vue";
 import Login from "../pages/Login.vue";
@@ -52,6 +53,11 @@ export default [
     path: "/pt-br/modelos/privado",
     name: "ptPrivateModels",
     component: PrivateModels,
+  },
+  {
+    path: "/pt-br/modelos/evolucao",
+    name: "ptEvolucao",
+    component: Evolucao,
   },
   {
     path: "/pt-br/cadastro",
@@ -108,6 +114,11 @@ export default [
     component: PrivateModels,
   },
   {
+    path: "/en/modelos/evolucao",
+    name: "enEvolucao",
+    component: Evolucao,
+  },
+  {
     path: "/en/cadastro",
     name: "enRegister",
     component: Register,
@@ -160,6 +171,11 @@ export default [
     path: "/es/modelos/privado",
     name: "esPrivateModels",
     component: PrivateModels,
+  },
+  {
+    path: "/es/modelos/evolucao",
+    name: "esEvolucao",
+    component: Evolucao,
   },
   {
     path: "/es/cadastro",

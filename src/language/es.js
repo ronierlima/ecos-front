@@ -10,6 +10,7 @@ export const es = {
     myAccount: "Mi cuenta",
     changePhoto: "Cambiar foto",
     changePassword: "Cambia la contraseña",
+    evolution: "evolución"
   },
 
   home: {
@@ -137,5 +138,6 @@ export const es = {
     photo: "/es/conta/foto",
     password: "/es/conta/password",
     modelEditor: "/es/editor/:codigo",
+    evolution: "/es/modelos/evolucao",
   },
 };

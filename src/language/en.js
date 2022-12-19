@@ -10,6 +10,7 @@ export const en = {
     myAccount: "my account",
     changePhoto: "Change photo",
     changePassword: "Change Password",
+    evolution: "evolution",
   },
 
   home: {
@@ -137,5 +138,6 @@ export const en = {
     photo: "/en/conta/foto",
     password: "/en/conta/password",
     modelEditor: "/en/editor/:codigo",
+    evolution: "/en/modelos/evolucao",
   },
 };

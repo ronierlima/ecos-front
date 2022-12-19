@@ -34,7 +34,7 @@ export const services = {
     async forgotPassword(user) {
       return await api({
         method: "put",
-        url: process.env.REACT_APP_GATEWAY + "/usuarios/recuperar-senha",
+        url: process.env.VUE_APP_BASE_URL + "/usuarios/recuperar-senha",
         data: user,
         headers: {
           ContentType: "application/x-www-form-urlencoded",
@@ -65,7 +65,6 @@ export const services = {
       });
     },
     async update(codigo, user) {
-
       return await api({
         method: "patch",
         url: `/usuarios/${codigo}`,
@@ -76,7 +75,6 @@ export const services = {
       });
     },
     async updatePass(codigo, senhas) {
-
       return await api({
         method: "put",
         url: `/usuarios/${codigo}/senha`,
@@ -98,8 +96,7 @@ export const services = {
       });
     },
 
-    foto: (codigo) =>
-    `${process.env.VUE_APP_BASE_URL}/usuarios/${codigo}/foto`,
+    foto: (codigo) => `${process.env.VUE_APP_BASE_URL}/usuarios/${codigo}/foto`,
   },
   models: {
     async post(data) {
@@ -156,6 +153,7 @@ export const services = {
         url: `/modelos/${codigo}/arquivo`,
       });
     },
+    getOnlyUrl: (codigo) => `${process.env.VUE_APP_BASE_URL}/modelos/${codigo}/arquivo`,
     async delete(codigo) {
       return api({
         method: "delete",
