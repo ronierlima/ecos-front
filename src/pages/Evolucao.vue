@@ -3,49 +3,89 @@
 
         <section class="content" id="modelos">
 
-            <button v-if="modelosChecked.length && !evolucaoGerada" @click="gerar" class="excluir">
+            <button v-if="modelosChecked.length > 1 && !evolucaoGerada" @click="gerar" class="excluir">
                 <h1>Gerar Evolução</h1>
             </button>
             <button v-else-if="evolucaoGerada" @click="limpar" class="excluir">
                 <h1>Voltar</h1>
             </button>
 
-            <h1 v-else>Evolução</h1>
+            <h1 v-else>Relatório de evolução de ECOS</h1>
 
 
-            <p v-if="!evolucaoGerada">Selecione os modelos para gerar evolução</p>
+            <p v-if="!evolucaoGerada">Selecione pelo menos 2 modelos para gerar evolução</p>
 
             <div class="container">
 
-
                 <div v-if="evolucaoGerada && modelosCheckedDetais.length">
-                    <div v-for="(modelo, index) in modelosCheckedDetais" v-bind:key="modelo.codigo">
-                        <h2>{{ index + 1 + " - " + modelo.titulo }}</h2>
-                        <img class="image" :src="getPreview(modelo.codigo)" alt="preview" width="600" />
 
-                        <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
-                            v-bind:data="modelo.data" />
+                    <div v-for="(modelo, index) in modelosCheckedDetais" v-bind:key="modelo.codigo">
+                        <section class="evolucao">
+                            <div class="evolucao-modelo-titulo">
+                                <h2>{{ index + 1 + " - " + modelo.titulo }}</h2>
+                            </div>
+                            <div class="evolucao-modelo-imagem">
+                                <img :src="getPreview(modelo.codigo)" alt="preview" />
+                            </div>
+                            <div class="evolucao-modelo-tabela">
+                                <table id="customers">
+                                    <tr>
+                                        <th>
+                                            {{ modelo.data[0][0] }}
+                                        </th>
+                                        <th>{{ modelo.data[0][1] }}</th>
+                                    </tr>
+                                    <tr v-for="(tmodelo, index) in modelo.data" v-bind:key="index">
+
+                                        <td v-if="index != 0">{{ tmodelo[0] }}</td>
+                                        <td v-if="index != 0">{{ tmodelo[1] }}</td>
+
+                                    </tr>
+
+                                </table>
+                            </div>
+
+                            <div class="evolucao-modelo-chart">
+                                <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
+                                    v-bind:data="modelo.data" />
+                            </div>
+
+                            <div class="evolucao-modelo-chart">
+                                <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
+                                    v-bind:data="modelo.percent" />
+                            </div>
+
+                        </section>
                         <hr>
                     </div>
                     <BarChart :options="{
                         ...{
                             chart: {
                                 title: 'Comparação entre modelos',
-                                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
                             },
-                            width: 800,
+                           
                             height: 600,
                         }, title: 'Comparação entre os modelos'
                     }" :type="type" :data="modelosComparar" :multiple="true" />
-                     <BarChart :options="{
+
+                    <BarChart :options="{
                         ...{
-                            width: 800,
+                            chart: {
+                                title: 'Comparação entre modelos %',
+                            },
+             
+                            height: 600,
+                        }, title: 'Comparação entre os modelos'
+                    }" :type="type" :data="modelosCompararPercent" />
+                    <BarChart :options="{
+                        ...{
+                 
                             height: 600,
                         }, title: 'Quantidade de Componentes'
                     }" :type="type" :data="compararComponentes" :multiple="true" />
                     <BarChart :options="{
                         ...{
-                            width: 800,
+                
                             height: 600,
                         }, title: 'Quantidade de Relacionamentos'
                     }" :type="type" :data="compararRelacionamentos" :multiple="true" />
@@ -221,6 +261,7 @@ export default {
             modelosChecked: [],
             modelosCheckedDetais: [],
             modelosComparar: [],
+            modelosCompararPercent: [],
             compararComponentes: [],
             compararRelacionamentos: [],
             allHasChecked: false,
@@ -249,6 +290,7 @@ export default {
                 width: 900,
                 height: 900,
                 legend: { position: "none" },
+
             }
         }
     },
@@ -310,6 +352,7 @@ export default {
             ]
 
             this.modelosComparar = [header];
+            this.modelosCompararPercent = [header];
             this.compararComponentes = [['Modelo', 'Componentes', { role: 'annotation', type: 'string' }]]
             this.compararRelacionamentos = [['Modelo', 'Relacionamentos', { role: 'annotation', type: 'string' }]]
 
@@ -344,27 +387,54 @@ export default {
                 },
                 ];
 
+                const total = tipos.reduce((total, obj) => total + obj.total, 0)
+
+
                 const estatisticas = {
                     [this.language.company_of_interest]: occurrences(resposta.data, "tipo=empresa"),
-                    [this.language.company_of_interest+"_lable"]: occurrences(resposta.data, "tipo=empresa"),
+                    [this.language.company_of_interest + "_lable"]: occurrences(resposta.data, "tipo=empresa"),
                     [this.language.supplier]: occurrences(resposta.data, "tipo=fornecedor"),
-                    [this.language.supplier+"_lable"]: occurrences(resposta.data, "tipo=fornecedor"),
+                    [this.language.supplier + "_lable"]: occurrences(resposta.data, "tipo=fornecedor"),
                     [this.language.customer]: occurrences(resposta.data, "tipo=cliente1"),
-                    [this.language.customer+"_lable"]: occurrences(resposta.data, "tipo=cliente1"),
+                    [this.language.customer + "_lable"]: occurrences(resposta.data, "tipo=cliente1"),
                     [this.language.customer_customer]: occurrences(resposta.data, "tipo=cliente2"),
-                    [this.language.customer_customer+"_lable"]: occurrences(resposta.data, "tipo=cliente2"),
+                    [this.language.customer_customer + "_lable"]: occurrences(resposta.data, "tipo=cliente2"),
                     [this.language.intermediary]: occurrences(resposta.data, "tipo=intermediario"),
-                    [this.language.intermediary+"_lable"]: occurrences(resposta.data, "tipo=intermediario"),
+                    [this.language.intermediary + "_lable"]: occurrences(resposta.data, "tipo=intermediario"),
                     [this.language.aggregator]: occurrences(resposta.data, "tipo=agregador"),
-                    [this.language.aggregator+"_lable"]: occurrences(resposta.data, "tipo=agregador")
+                    [this.language.aggregator + "_lable"]: occurrences(resposta.data, "tipo=agregador")
+                }
+
+                const estatisticasPercent = {
+                    [this.language.company_of_interest]: parseFloat((occurrences(resposta.data, "tipo=empresa") / total * 100).toFixed(2)),
+                    [this.language.company_of_interest + "_lable"]: (occurrences(resposta.data, "tipo=empresa") / total * 100).toFixed(2) + '%',
+                    [this.language.supplier]: parseFloat((occurrences(resposta.data, "tipo=fornecedor") / total * 100).toFixed(2)),
+                    [this.language.supplier + "_lable"]: (occurrences(resposta.data, "tipo=fornecedor") / total * 100).toFixed(2) + '%',
+                    [this.language.customer]: parseFloat((occurrences(resposta.data, "tipo=cliente1") / total * 100).toFixed(2)),
+                    [this.language.customer + "_lable"]: (occurrences(resposta.data, "tipo=cliente1") / total * 100).toFixed(2) + '%',
+                    [this.language.customer_customer]: parseFloat((occurrences(resposta.data, "tipo=cliente2") / total * 100).toFixed(2)),
+                    [this.language.customer_customer + "_lable"]: (occurrences(resposta.data, "tipo=cliente2") / total * 100).toFixed(2) + '%',
+                    [this.language.intermediary]: parseFloat((occurrences(resposta.data, "tipo=intermediario") / total * 100).toFixed(2)),
+                    [this.language.intermediary + "_lable"]: ((occurrences(resposta.data, "tipo=intermediario") / total * 100).toFixed(2)) + '%',
+                    [this.language.aggregator]: parseFloat((occurrences(resposta.data, "tipo=agregador") / total * 100).toFixed(2)),
+                    [this.language.aggregator + "_lable"]: (occurrences(resposta.data, "tipo=agregador") / total * 100).toFixed(2) + '%'
                 }
 
                 const atualModelo = this.modelos.find(({ codigo }) => codigo == id);
 
-                this.modelosCheckedDetais = [...this.modelosCheckedDetais, { ...atualModelo, data: [['Componentes', 'Quantidade', { role: 'annotation', type: 'string' }], ...tipos.map(item => [item.nome, item.total, item.total])], estatisticas }]
+                this.modelosCheckedDetais = [...this.modelosCheckedDetais, {
+                    ...atualModelo,
+                    data: [['Componentes', 'Quantidade', { role: 'annotation', type: 'string' }],
+                    ...tipos.map(item => [item.nome, item.total, item.total])],
+                    percent: [['Componentes', 'Porcentagem (%)', { role: 'annotation', type: 'string' }],
+                    ...tipos.map(item => [item.nome, parseFloat((item.total / total * 100).toFixed(2)), (item.total / total * 100).toFixed(2) + "%    "])], estatisticas
+                }]
+
                 this.modelosComparar = [...this.modelosComparar, [atualModelo.titulo, ...Object.values(estatisticas)]]
-                this.compararComponentes = [ ...this.compararComponentes, [atualModelo.titulo, tipos.reduce((total, obj) => total + obj.total, 0), tipos.reduce((total, obj) => total + obj.total, 0)]]
-                this.compararRelacionamentos = [ ...this.compararRelacionamentos, [atualModelo.titulo, occurrences(resposta.data, `edge="1"`), occurrences(resposta.data, `edge="1"`).toString()]]
+                this.modelosCompararPercent = [...this.modelosCompararPercent, [atualModelo.titulo, ...Object.values(estatisticasPercent)]]
+
+                this.compararComponentes = [...this.compararComponentes, [atualModelo.titulo, tipos.reduce((total, obj) => total + obj.total, 0), tipos.reduce((total, obj) => total + obj.total, 0)]]
+                this.compararRelacionamentos = [...this.compararRelacionamentos, [atualModelo.titulo, occurrences(resposta.data, `edge="1"`), occurrences(resposta.data, `edge="1"`).toString()]]
             }
             )
 
@@ -483,5 +553,55 @@ export default {
 
 #registerEvolucao .registerContent img {
     max-width: 800px;
+}
+
+.evolucao {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+
+
+}
+
+.evolucao-modelo-imagem,
+.evolucao-modelo-chart {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+}
+
+.evolucao-modelo-imagem img {
+    width: 100%;
+}
+
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td,
+#customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #5e5e5e;
+    color: white;
 }
 </style>
