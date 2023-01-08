@@ -3,14 +3,16 @@
 
         <section class="content" id="modelos">
 
-            <button v-if="modelosChecked.length > 1 && !evolucaoGerada" @click="gerar" class="excluir">
-                <h1>Gerar Evolução</h1>
-            </button>
-            <button v-else-if="evolucaoGerada" @click="limpar" class="excluir">
-                <h1>Voltar</h1>
-            </button>
+            <v-btn v-if="modelosChecked.length > 1 && !evolucaoGerada" @click="gerar" color="primary">
+                Gerar relatório de evolução
+            </v-btn>
+            <v-btn v-else-if="evolucaoGerada" @click="limpar" fluid color="error">
+                Voltar
+            </v-btn>
 
             <h1 v-else>Relatório de evolução de ECOS</h1>
+            <v-pagination v-if="!evolucaoGerada" class="my-4" v-model="page" :length="pageSize"
+                @input="pageChange"></v-pagination>
 
 
             <p v-if="!evolucaoGerada">Selecione pelo menos 2 modelos para gerar evolução</p>
@@ -63,7 +65,7 @@
                             chart: {
                                 title: 'Comparação entre modelos',
                             },
-                           
+                    
                             height: 600,
                         }, title: 'Comparação entre os modelos'
                     }" :type="type" :data="modelosComparar" :multiple="true" />
@@ -73,37 +75,40 @@
                             chart: {
                                 title: 'Comparação entre modelos %',
                             },
-             
+                    
                             height: 600,
                         }, title: 'Comparação entre os modelos'
                     }" :type="type" :data="modelosCompararPercent" />
                     <BarChart :options="{
                         ...{
-                 
+                    
                             height: 600,
                         }, title: 'Quantidade de Componentes'
                     }" :type="type" :data="compararComponentes" :multiple="true" />
                     <BarChart :options="{
                         ...{
-                
+                    
                             height: 600,
                         }, title: 'Quantidade de Relacionamentos'
                     }" :type="type" :data="compararRelacionamentos" :multiple="true" />
                 </div>
 
+                
+
 
                 <div v-else class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
+
                     <div class="user">
+                        <div style="display: flex; align-content: center;">
+                            <v-checkbox v-model="modelosChecked" :value="modelo.codigo"></v-checkbox>
+                        </div>
                         <img :src="getProfile(modelo)" alt="user" />
                         <div class="user-info">
                             <h5>{{ modelo.criador.nome }}</h5>
                             <small>{{ getMoment(modelo.dataCadastro) }}</small>
                         </div>
 
-                        <div style="display: flex; justify-content: end; width: 100%;">
-                            <input type="checkbox" class="checked-model" name="true" v-bind:id="modelo.codigo"
-                                @click="check">
-                        </div>
+
                     </div>
                     <div class="card-header">
                         <img class="image" :src="getPreview(modelo.codigo)" alt="preview" />
@@ -203,7 +208,8 @@
                         <div class="modal-wrapper">
                             <div class="modal-body">
                                 <div class="register modeloDetails">
-                                    <h1 class="title">{{ language.model.deleteConfirm.replace("${0}", modelInShow.titulo
+                                    <h1 class="title">{{
+                                        language.model.deleteConfirm.replace("${0}", modelInShow.titulo
                                         )
                                     }}
                                     </h1>
@@ -258,6 +264,8 @@ export default {
         return {
             evolucaoGerada: false,
             modelos: [],
+            pageSize: 1,
+            page: 1,
             modelosChecked: [],
             modelosCheckedDetais: [],
             modelosComparar: [],
@@ -301,15 +309,19 @@ export default {
     },
 
     methods: {
-        getModelos() {
+        getModelos(props = { size: 6 }) {
             services.models
-                .list()
+                .list(props)
                 .then((res) => {
                     this.modelos = res.data.content;
+                    this.pageSize = res.data.totalPages;
                 })
                 .catch(() => {
                     this.$toast.error(this.language.messages.loadErro)
                 });
+        },
+        pageChange(page) {
+            this.getModelos({ size: 6, page: page - 1 })
         },
 
         check({ target }) {

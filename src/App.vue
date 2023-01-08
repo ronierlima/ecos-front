@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <v-app>
+      <router-view></router-view>
+    </v-app>
   </div>
 </template>
 
 <script>
 import './app.css';
 
-import {pt_br, es, en} from "./language";
+import { pt_br, es, en } from "./language";
 import { services } from "./services";
 
 export default {

@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
+            <CardModelo :modelo="modelo"/>
             <div class="user">
                 <img :src="getProfile(modelo)" alt="user" />
                 <div class="user-info">
@@ -143,11 +144,15 @@
 
 import { services } from "../services";
 import moment from 'moment'
+import CardModelo from "./CardModelo.vue"
 
 export default {
     name: "Models",
     inject: ['getLanguage'],
     props: { modelos: Array, canEdit: Boolean, refresh: Function },
+    components: {
+        CardModelo
+    },
     data() {
         return {
             modelInShow: {},
@@ -377,6 +382,7 @@ export default {
     display: flex;
     padding: 1rem;
     background-color: #5e5e5e1e;
+    align-items: center;
 }
 
 .user img {
