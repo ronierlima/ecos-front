@@ -47,7 +47,7 @@ export const en = {
     models: "Models",
     myModels: "My models",
     newModel: "New model",
-    openInEditor: "To edit",
+    openInEditor: "Open in editor",
     seeDetails: "Details",
     autor: "Author",
     title: "Title",

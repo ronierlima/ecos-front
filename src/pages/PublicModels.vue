@@ -4,8 +4,20 @@
         <section class="content" id="modelos">
 
             <h1>{{ language.model.models }}</h1>
+
             <v-pagination class="my-4" v-model="page" :length="pageSize" @input="pageChange"></v-pagination>
-            <Models :modelos="modelos" />
+             
+            <v-item-group>
+                <v-container>
+                    <v-row alignIte="center">
+                        <v-col v-for="modelo in modelos" :key="modelo.codigo">
+                            <v-item>
+                                <CardModelo :modelo="modelo" :canEdit="false" :refresh="getModelos" />
+                            </v-item>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-item-group>
 
         </section>
 
@@ -16,14 +28,14 @@
 
 import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
-import Models from "../components/Models.vue"
+import CardModelo from "../components/CardModelo.vue";
 
 export default {
     name: "Index",
     inject: ['getLanguage', 'getLogado', 'getUsuario'],
     components: {
         MainPage,
-        Models
+        CardModelo
     },
 
     data() {

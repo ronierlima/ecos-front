@@ -28,7 +28,18 @@
 
       <h1>{{ language.home.models }}</h1>
       <v-pagination class="my-4" v-model="page" :length="pageSize" @input="pageChange"></v-pagination>
-      <Models :modelos="modelos" />
+      <v-item-group>
+        <v-container>
+          <v-row alignIte="center">
+            <v-col v-for="modelo in modelos" :key="modelo.codigo">
+              <v-item>
+                <CardModelo :modelo="modelo" :canEdit="false" :refresh="() => {}" />
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-item-group>
+
 
       <div class="sectionPlus">
         <a id="plusModels" :href="language.routes.publicModels">
@@ -87,13 +98,15 @@
 import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
 import Models from "../components/Models.vue"
+import CardModelo from "../components/CardModelo.vue";
 
 export default {
   name: "Home",
   components: {
     Models,
     MainPage,
-  },
+    CardModelo
+},
   inject: ['getLanguage'],
 
   data() {

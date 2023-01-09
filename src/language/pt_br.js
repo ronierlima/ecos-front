@@ -47,7 +47,7 @@ export const pt_br = {
     models: "Modelos",
     myModels: "Meus Modelos",
     newModel: "Novo modelo",
-    openInEditor: "Editar",
+    openInEditor: "Abrir no editor",
     seeDetails: "Detalhes",
     autor: "Autor",
     title: "Titulo",
