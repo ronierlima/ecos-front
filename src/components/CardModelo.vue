@@ -1,7 +1,7 @@
 <template>
     <v-hover>
         <template v-slot:default="{ hover }">
-            <v-card class="mx-auto" max-width="344">
+            <v-card class="mx-auto" max-width="350" min-width="350">
 
                 <v-card-text>
                     <v-list-item class="grow">

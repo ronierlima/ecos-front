@@ -97,13 +97,11 @@
 <script>
 import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
-import Models from "../components/Models.vue"
 import CardModelo from "../components/CardModelo.vue";
 
 export default {
   name: "Home",
   components: {
-    Models,
     MainPage,
     CardModelo
 },

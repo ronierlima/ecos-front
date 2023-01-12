@@ -147,6 +147,12 @@ export const services = {
         },
       });
     },
+    async getModel(codigo) {
+      return api({
+        method: "get",
+        url: `/modelos/${codigo}`,
+      });
+    },
     async get(codigo) {
       return api({
         method: "get",

@@ -6,6 +6,7 @@
             <v-btn v-if="modelosChecked.length > 1 && !evolucaoGerada" @click="gerar" color="primary">
                 Gerar relatório de evolução
             </v-btn>
+
             <v-btn v-else-if="evolucaoGerada" @click="limpar" fluid color="error">
                 Voltar
             </v-btn>
@@ -21,221 +22,183 @@
 
                 <div v-if="evolucaoGerada && modelosCheckedDetais.length">
 
-                    <div v-for="(modelo, index) in modelosCheckedDetais" v-bind:key="modelo.codigo">
-                        <section class="evolucao">
-                            <div class="evolucao-modelo-titulo">
+                    <v-expansion-panels multiple>
+
+                        <v-expansion-panel v-for="(modelo, index) in modelosCheckedDetais" :key="modelo.codigo">
+
+                            <v-expansion-panel-header>
                                 <h2>{{ index + 1 + " - " + modelo.titulo }}</h2>
-                            </div>
-                            <div class="evolucao-modelo-imagem">
-                                <img :src="getPreview(modelo.codigo)" alt="preview" />
-                            </div>
-                            <div class="evolucao-modelo-tabela">
-                                <table id="customers">
-                                    <tr>
-                                        <th>
-                                            {{ modelo.data[0][0] }}
-                                        </th>
-                                        <th>{{ modelo.data[0][1] }}</th>
-                                    </tr>
-                                    <tr v-for="(tmodelo, index) in modelo.data" v-bind:key="index">
+                            </v-expansion-panel-header>
 
-                                        <td v-if="index != 0">{{ tmodelo[0] }}</td>
-                                        <td v-if="index != 0">{{ tmodelo[1] }}</td>
+                            <v-expansion-panel-content>
 
-                                    </tr>
+                                <div class="evolucao-modelo-imagem">
+                                    <img :src="getPreview(modelo.codigo)" alt="preview" />
+                                </div>
+                                <div class="evolucao-modelo-tabela">
+                                    <v-data-table hide-default-footer :key="modelo.codigo"
+                                        :headers="[{ text: modelo.data[0][0], value: 'name' }, { text: modelo.data[0][1], value: 'total' }]"
+                                        :items="modelo.data.map((m, i) => i != 0 ? ({ name: m[0], total: m[1] }) : null).filter(v => v)"
+                                        class="elevation-1">
+                                        <template v-slot:item.total="{ item }">
+                                            <v-chip dark>
+                                                {{ item.total }}
+                                            </v-chip>
+                                        </template>
 
-                                </table>
-                            </div>
+                                        <template v-slot:footer>
+                                            <v-alert outlined type="info" prominent border="left">
+                                                Total de {{
+                                                    modelo.total
+                                                }}
+                                                componentes
+                                            </v-alert>
+                                        </template>
+                                    </v-data-table>
+                                </div>
 
-                            <div class="evolucao-modelo-chart">
-                                <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
-                                    v-bind:data="modelo.data" />
-                            </div>
+                                <div class="evolucao-modelo-chart">
+                                    <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
+                                        v-bind:data="modelo.data" />
+                                </div>
 
-                            <div class="evolucao-modelo-chart">
-                                <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
-                                    v-bind:data="modelo.percent" />
-                            </div>
+                                <div class="evolucao-modelo-chart">
+                                    <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
+                                        v-bind:data="modelo.percent" />
+                                </div>
 
-                        </section>
-                        <hr>
-                    </div>
-                    <BarChart :options="{
-                        ...{
-                            chart: {
-                                title: 'Comparação entre modelos',
-                            },
-                    
-                            height: 600,
-                        }, title: 'Comparação entre os modelos'
-                    }" :type="type" :data="modelosComparar" :multiple="true" />
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
 
-                    <BarChart :options="{
-                        ...{
-                            chart: {
-                                title: 'Comparação entre modelos %',
-                            },
-                    
-                            height: 600,
-                        }, title: 'Comparação entre os modelos'
-                    }" :type="type" :data="modelosCompararPercent" />
-                    <BarChart :options="{
-                        ...{
-                    
-                            height: 600,
-                        }, title: 'Quantidade de Componentes'
-                    }" :type="type" :data="compararComponentes" :multiple="true" />
-                    <BarChart :options="{
-                        ...{
-                    
-                            height: 600,
-                        }, title: 'Quantidade de Relacionamentos'
-                    }" :type="type" :data="compararRelacionamentos" :multiple="true" />
+                        <v-expansion-panel :key="1">
+                            <v-expansion-panel-header>
+                                <h2>{{
+                                `${this.modelosCheckedDetais.length + 1} - Comparação entre as versões dos modelos
+                                do ECOS` }}</h2>
+                            </v-expansion-panel-header>
+
+                            <v-expansion-panel-content>
+                                <BarChart :options="{
+                                    ...{
+                                        chart: {
+                                            title: 'Comparação entre modelos',
+                                        },
+                                
+                                        height: 600,
+                                    }, title: 'Comparação entre os modelos'
+                                }" :type="type" :data="modelosComparar" :multiple="true" />
+
+                                <BarChart :options="{
+                                    ...{
+                                        chart: {
+                                            title: 'Comparação entre modelos %',
+                                        },
+                                
+                                        height: 600,
+                                    }, title: 'Comparação entre os modelos'
+                                }" :type="type" :data="modelosCompararPercent" />
+
+                                <BarChart :options="{
+                                    ...{
+                                
+                                        height: 600,
+                                    }, title: 'Quantidade de Componentes e Relacionamentos'
+                                }" :type="type" :data="compararComponentes" :multiple="true" />
+
+                                <BarChart :options="{
+                                    ...{
+                                
+                                        height: 600,
+                                    }, title: 'Quantidade apenas de Relacionamentos'
+                                }" :type="type" :data="compararRelacionamentos" :multiple="true" />
+
+                                <BarChart :options="{
+                                    ...{
+                                
+                                        height: 600,
+                                    }, title: 'Diferença númerica'
+                                }" :type="type"
+                                    :data="diferenca(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
+
+                                <BarChart :options="{
+                                    ...{
+                                
+                                        height: 600,
+                                    }, title: 'Variação Percentual'
+                                }" :type="type"
+                                    :data="diferencaPercentual(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
+                            </v-expansion-panel-content>
+
+                            <v-expansion-panel-content>
+
+                                <BarChart :options="{
+                                    ...{
+                                
+                                        height: 600,
+                                    }, title: 'Diferença númerica'
+                                }" :type="type"
+                                    :data="diferenca(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
+
+                                <BarChart :options="{
+                                    ...{
+                                
+                                        height: 600,
+                                    }, title: 'Variação Percentual'
+                                }" :type="type"
+                                    :data="diferencaPercentual(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
+
+                                <div v-for="({ numerico: modelo, percentual: modeloP, media, name }) in gerarComparacaoEndToEnd(modelosCheckedDetais)"
+                                    :key="modelo.codigo">
+                                    <v-chip class="ma-2" color="red" label text-color="white">
+                                        <v-icon left>
+                                            mdi-label
+                                        </v-icon>
+                                        {{name}}
+                                    </v-chip>
+                                    <v-data-table hide-default-footer
+                                        :headers="[{ text: modelo[0][0], value: 'name' }, { text: 'Diferença Numerica', value: 'total' }, { text: 'Diferença Numerica', value: 'percentual' }, { text: 'Média', value: 'media' }]"
+                                        :items="modelo.map((m, i) => i != 0 ? ({ name: m[0], total: m[1], percentual: modeloP[i][2], media: media[i][1] }) : null).filter(v => v)"
+                                        class="elevation-1 mb-7">
+                                        <template v-slot:item.total="{ item }">
+                                            <v-chip dark>
+                                                {{ item.total }}
+                                            </v-chip>
+                                        </template>
+                                        <template v-slot:item.percentual="{ item }">
+                                            <v-chip dark>
+                                                {{ item.percentual.replace('Infinity', '0.00') }}
+                                            </v-chip>
+                                        </template>
+                                        <template v-slot:item.media="{ item }">
+                                            <v-chip dark>
+                                                {{ item.media }}
+                                            </v-chip>
+                                        </template>
+                                    </v-data-table>
+
+                                </div>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
                 </div>
 
-                
+                <v-item-group v-else>
+                    <v-container>
+                        <v-row alignIte="center">
+                            <v-col v-for="modelo in modelos" :key="modelo.codigo">
+                                <v-card class="mx-auto d-flex flex-column align-center" max-width="350" min-width="350">
 
+                                    <v-checkbox v-model="modelosChecked" :value="modelo.codigo"></v-checkbox>
 
-                <div v-else class="card" v-for="modelo in modelos" v-bind:key="modelo.codigo">
-
-                    <div class="user">
-                        <div style="display: flex; align-content: center;">
-                            <v-checkbox v-model="modelosChecked" :value="modelo.codigo"></v-checkbox>
-                        </div>
-                        <img :src="getProfile(modelo)" alt="user" />
-                        <div class="user-info">
-                            <h5>{{ modelo.criador.nome }}</h5>
-                            <small>{{ getMoment(modelo.dataCadastro) }}</small>
-                        </div>
-
-
-                    </div>
-                    <div class="card-header">
-                        <img class="image" :src="getPreview(modelo.codigo)" alt="preview" />
-
-                        <div class="middle">
-                            <div class="text" @click="open(modelo.codigo)">{{ language.model.openInEditor }}</div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h4>
-                            {{ modelo.titulo }}
-                        </h4>
-                        <p>
-                            {{ modelo.descricao }}
-                        </p>
-                    </div>
-
-                    <div class="card-actions">
-
-                        <span class="tag tag-purple" @click="handleOpenDetails(modelo, 'view')">
-                            {{ language.model.seeDetails }}
-                        </span>
-                    </div>
-
-                </div>
-
-                <transition name="modal" v-if="showModalDetails">
-                    <div class="modal-mask xl">
-                        <div class="modal-wrapper">
-                            <div class="modal-body">
-                                <div class="register modeloDetails">
-                                    <h1 class="title">{{ modelInShow.titulo }}</h1>
-                                    <button class="closeButton" @click="showModalDetails = false">x</button>
-                                    <div class="registerContent">
-
-                                        <img class="imageDetails" :src="getPreview(modelInShow.codigo)" alt="rover" />
-                                        <div class="details">
-                                            <dl>
-                                                <dt>{{ language.model.title }}</dt>
-                                                <dd>{{ modelInShow.titulo }}</dd>
-                                                <dt>{{ language.model.description }}</dt>
-                                                <dd>{{ modelInShow.descricao }}</dd>
-                                                <dt>{{ language.model.autor }}</dt>
-                                                <dd>{{ modelInShow.criador.nome }}</dd>
-                                                <dt>{{ language.model.createAt }}</dt>
-                                                <dd>{{ getMoment(modelInShow.dataCadastro) }}</dd>
-                                                <dt>{{ language.model.updateAt }}</dt>
-                                                <dd>{{ getMoment(modelInShow.dataAtualizacao) }}</dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </transition>
-
-                <transition name="modal" v-if="showModalDetailsEdit">
-                    <div class="modal-mask">
-                        <div class="modal-wrapper xl">
-                            <div class="modal-body">
-                                <div class="register modeloDetails">
-                                    <h1 class="title">{{ modelInShow.titulo }}</h1>
-                                    <button class="closeButton" @click="showModalDetailsEdit = false">x</button>
-                                    <div class="registerContent">
-
-                                        <form @submit="atualizar">
-                                            <div class="user-details">
-
-                                                <div class="input-box">
-                                                    <span class="details">*{{ language.model.title }}</span>
-                                                    <input v-model="input.titulo" type="text"
-                                                        placeholder="Enter titulo modelo" required name="modelName">
-                                                </div>
-
-                                                <div class="input-box">
-                                                    <span class="details">*{{ language.model.description }}</span>
-                                                    <textarea v-model="input.descricao"
-                                                        placeholder="Enter description model" required
-                                                        name="description"></textarea>
-                                                </div>
-
-                                            </div>
-                                            <div class="button">
-                                                <input type="submit" :value="language.account.saveUpdates">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </transition>
-
-                <transition name="modal" v-if="showModalDelete">
-                    <div class="modal-mask">
-                        <div class="modal-wrapper">
-                            <div class="modal-body">
-                                <div class="register modeloDetails">
-                                    <h1 class="title">{{
-                                        language.model.deleteConfirm.replace("${0}", modelInShow.titulo
-                                        )
-                                    }}
-                                    </h1>
-                                    <button class="closeButton" @click="showModalDelete = false">x</button>
-                                    <div class="registerContent">
-
-                                        <form @submit="deleteModel" @reset="showModalDelete = false">
-
-                                            <div class="button">
-                                                <button type="reset">{{ language.model.no }}</button>
-                                            </div>
-
-                                            <div class="button">
-                                                <button class="excluir" type="submit">
-                                                    {{ language.model.yes }}
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </transition>
-
-
+                                    <v-item>
+                                        <CardModelo :modelo="modelo" :canEdit="false" :refresh="getModelos" />
+                                    </v-item>
+                                    <v-checkbox v-model="modelosChecked" :value="modelo.codigo"></v-checkbox>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-item-group>
 
             </div>
 
@@ -248,16 +211,17 @@
 
 import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
-import moment from "moment";
 import { occurrences } from "../helpers";
 import BarChart from '../components/Bar.vue'
+import CardModelo from "../components/CardModelo.vue";
 
 export default {
     name: "Evolucao",
     inject: ['getLanguage', 'getLogado', 'getUsuario'],
     components: {
         MainPage,
-        BarChart
+        BarChart,
+        CardModelo
     },
 
     data() {
@@ -272,6 +236,7 @@ export default {
             modelosCompararPercent: [],
             compararComponentes: [],
             compararRelacionamentos: [],
+            diferencaNumericaComponentes: [],
             allHasChecked: false,
             requestModelos: [],
             modelInShow: {},
@@ -309,6 +274,7 @@ export default {
     },
 
     methods: {
+
         getModelos(props = { size: 6 }) {
             services.models
                 .list(props)
@@ -320,31 +286,11 @@ export default {
                     this.$toast.error(this.language.messages.loadErro)
                 });
         },
+
         pageChange(page) {
             this.getModelos({ size: 6, page: page - 1 })
         },
 
-        check({ target }) {
-            if (target.checked)
-                this.modelosChecked = [...this.modelosChecked, target.id]
-            else {
-                this.modelosChecked = [...this.modelosChecked].filter(id => id !== target.id);
-                this.allHasChecked = false;
-            }
-
-        },
-        checkAll({ target }) {
-
-            this.allHasChecked = target.checked
-
-            const forChecked = [...document.getElementsByClassName("checked-model")];
-
-            forChecked.forEach(checkbox => checkbox.checked = target.checked)
-
-
-            target.checked ? this.modelosChecked = this.modelos.map(({ codigo }) => codigo) : this.modelosChecked = []
-
-        },
         async gerar() {
 
             let header = [
@@ -361,6 +307,8 @@ export default {
                 { role: 'annotation', type: 'string' },
                 this.language.aggregator,
                 { role: 'annotation', type: 'string' },
+                this.language.relacionamentos,
+                { role: 'annotation', type: 'string' },
             ]
 
             this.modelosComparar = [header];
@@ -372,6 +320,7 @@ export default {
             await this.modelosChecked.forEach(async (id) => {
 
                 const resposta = await services.models.get(id)
+                const { data: atualModelo } = await services.models.getModel(id);
 
                 const tipos = [{
                     nome: this.language.company_of_interest,
@@ -397,6 +346,10 @@ export default {
                     nome: this.language.aggregator,
                     total: occurrences(resposta.data, "tipo=agregador"),
                 },
+                {
+                    nome: this.language.relacionamentos,
+                    total: occurrences(resposta.data, `edge="1"`),
+                },
                 ];
 
                 const total = tipos.reduce((total, obj) => total + obj.total, 0)
@@ -414,7 +367,9 @@ export default {
                     [this.language.intermediary]: occurrences(resposta.data, "tipo=intermediario"),
                     [this.language.intermediary + "_lable"]: occurrences(resposta.data, "tipo=intermediario"),
                     [this.language.aggregator]: occurrences(resposta.data, "tipo=agregador"),
-                    [this.language.aggregator + "_lable"]: occurrences(resposta.data, "tipo=agregador")
+                    [this.language.aggregator + "_lable"]: occurrences(resposta.data, "tipo=agregador"),
+                    [this.language.relacionamentos]: occurrences(resposta.data, `edge="1"`),
+                    [this.language.relacionamentos + "_lable"]: occurrences(resposta.data, `edge="1"`)
                 }
 
                 const estatisticasPercent = {
@@ -429,17 +384,18 @@ export default {
                     [this.language.intermediary]: parseFloat((occurrences(resposta.data, "tipo=intermediario") / total * 100).toFixed(2)),
                     [this.language.intermediary + "_lable"]: ((occurrences(resposta.data, "tipo=intermediario") / total * 100).toFixed(2)) + '%',
                     [this.language.aggregator]: parseFloat((occurrences(resposta.data, "tipo=agregador") / total * 100).toFixed(2)),
-                    [this.language.aggregator + "_lable"]: (occurrences(resposta.data, "tipo=agregador") / total * 100).toFixed(2) + '%'
+                    [this.language.aggregator + "_lable"]: (occurrences(resposta.data, "tipo=agregador") / total * 100).toFixed(2) + '%',
+                    [this.language.relacionamentos]: parseFloat((occurrences(resposta.data, `edge="1"`) / total * 100).toFixed(2)),
+                    [this.language.relacionamentos + "_lable"]: (occurrences(resposta.data, `edge="1"`) / total * 100).toFixed(2) + '%'
                 }
-
-                const atualModelo = this.modelos.find(({ codigo }) => codigo == id);
 
                 this.modelosCheckedDetais = [...this.modelosCheckedDetais, {
                     ...atualModelo,
+                    total,
                     data: [['Componentes', 'Quantidade', { role: 'annotation', type: 'string' }],
                     ...tipos.map(item => [item.nome, item.total, item.total])],
                     percent: [['Componentes', 'Porcentagem (%)', { role: 'annotation', type: 'string' }],
-                    ...tipos.map(item => [item.nome, parseFloat((item.total / total * 100).toFixed(2)), (item.total / total * 100).toFixed(2) + "%    "])], estatisticas
+                    ...tipos.map(item => [item.nome, parseFloat((item.total / total * 100).toFixed(2)), (item.total / total * 100).toFixed(2) + "%"])], estatisticas
                 }]
 
                 this.modelosComparar = [...this.modelosComparar, [atualModelo.titulo, ...Object.values(estatisticas)]]
@@ -450,9 +406,83 @@ export default {
             }
             )
 
-            this.evolucaoGerada = true
+            this.evolucaoGerada = true;
 
         },
+
+        diferenca(modelo1, modelo2) {
+
+            const array = []
+            if (modelo1.data.length && modelo2.data.length)
+
+                modelo2?.data?.forEach((value, index) => {
+
+                    if (index === 0) array.push([value[0], value[1], value[2]])
+                    else {
+
+                        array.push([value[0], value[1] - modelo1.data[index][1], value[2] - modelo1.data[index][2]])
+                    }
+                });
+
+            return array;
+
+        },
+
+        diferencaPercentual(modelo1, modelo2) {
+
+            const array = []
+            if (modelo1.data.length && modelo2.data.length)
+
+                modelo2?.data?.forEach((value, index) => {
+
+                    if (index === 0) array.push([value[0], "Percentual", value[2]])
+                    else {
+                        array.push([value[0],
+                        parseFloat(((((Math.max(value[1], modelo1.data[index][1])) - (Math.min(value[1], modelo1.data[index][1]))) / (Math.min(value[1], modelo1.data[index][1]))) * 100).toFixed(2)),
+                        ((((Math.max(value[1], modelo1.data[index][1])) - (Math.min(value[1], modelo1.data[index][1]))) / (Math.min(value[1], modelo1.data[index][1]))) * 100).toFixed(2) + "%",
+                        ])
+                    }
+                });
+
+            return array;
+
+        },
+
+        media(modelo1, modelo2) {
+
+            const array = []
+            if (modelo1.data.length && modelo2.data.length)
+
+                modelo2?.data?.forEach((value, index) => {
+
+                    if (index === 0) array.push([value[0], "Média", value[2]])
+                    else {
+                        array.push([value[0], (value[1] + modelo1.data[index][1]) / 2])
+                    }
+                });
+
+            return array;
+
+        },
+
+        gerarComparacaoEndToEnd(modelos) {
+            const array = []
+
+            if (modelos.length % 2 === 0) {
+
+                for (let index = 0; index < modelos.length; index += 2) {
+                    array.push({name: `${modelos[index].titulo} X ${modelos[index+1].titulo}`, numerico: this.diferenca(modelos[index], modelos[index + 1]), percentual: this.diferencaPercentual(modelos[index], modelos[index + 1]), media: this.media(modelos[index], modelos[index + 1]) })
+                }
+
+            } else {
+                for (let index = 0; index < modelos.length - 1; index++) {
+                    array.push({name: `${modelos[index].titulo} X ${modelos[index+1].titulo}`, numerico: this.diferenca(modelos[index], modelos[index + 1]), percentual: this.diferencaPercentual(modelos[index], modelos[index + 1]), media: this.media(modelos[index], modelos[index + 1]) })
+                }
+            }
+
+            return array
+        },
+
         limpar() {
 
             this.evolucaoGerada = false;
@@ -460,76 +490,9 @@ export default {
             this.modelosCheckedDetais = [];
         },
 
-        getMoment(date) {
-            date = new Date(date);
-            return this.language.model.dateFormat ? moment(date).format(this.language.model.dateFormat) : moment(date).format("MM/DD/YYYY")
-        },
-
-        getProfile(modelo) {
-            return modelo.criador.fotoPerfil ? services.user.foto(modelo.criador.codigo) : `https://avatars.dicebear.com/api/identicon/${modelo.criador.email}.svg`
-        },
         getPreview(codigo) {
             return services.models.preview(codigo)
         },
-        open(modelo) {
-            this.$router.push("/pt-br/editor/" + modelo);
-        },
-        handleOpenDetails(modelo, mode) {
-
-            this.modelInShow = modelo;
-
-            this.input = {
-                titulo: modelo.titulo,
-                descricao: modelo.descricao
-            }
-
-            mode == "edit" ? this.showModalDetailsEdit = true : this.showModalDetails = true;
-
-        },
-        handleOpenDelete(modelo) {
-
-            this.modelInShow = modelo;
-            this.showModalDelete = true;
-
-            this.input = {
-                titulo: modelo.titulo,
-                descricao: modelo.descricao
-            }
-
-        },
-        atualizar(e) {
-            e.preventDefault();
-
-            services.models
-                .patch(this.modelInShow.codigo, this.input)
-                .then(() => {
-                    this.refresh();
-                    this.$toast.success(this.language.messages.update)
-                })
-                .catch(() => {
-                    this.$toast.error(this.language.messages.updateErro)
-                });
-
-            this.showModalDetailsEdit = false;
-        },
-
-        deleteModel(e) {
-
-            e.preventDefault();
-
-            services.models
-                .delete(this.modelInShow.codigo)
-                .then(() => {
-                    this.refresh();
-                    this.$toast.success(this.language.messages.delete);
-                })
-                .catch(() => {
-                    this.$toast.error(this.language.messages.deleteErro)
-                });
-
-            this.showModalDelete = false;
-        },
-
     },
 
     computed: {
