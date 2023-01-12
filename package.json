@@ -19,8 +19,10 @@
         "vue-chartjs": "4.0.0",
         "vue-google-charts": "0.1.0",
         "vue-moment": "^4.1.0",
+        "vue-plain-pagination": "^0.3.0",
         "vue-router": "^3.5.1",
         "vue-toastification": "^1.7.14",
+        "vuetify": "^2.6.13",
         "xml-js": "^1.6.11",
         "xmlhttprequest": "^1.8.0"
     },

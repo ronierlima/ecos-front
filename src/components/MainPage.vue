@@ -6,6 +6,7 @@
     </div>
 </template>
 
+
 <script>
 
 import Superinfo from "../components/Superinfo.vue";

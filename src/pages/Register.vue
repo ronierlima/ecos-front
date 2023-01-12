@@ -185,8 +185,7 @@ form textarea {
     font-weight: 500;
 }
 
-.user-details .input-box input,
-form textarea {
+.user-details .input-box input {
     height: 45px;
     width: 100%;
     outline: none;

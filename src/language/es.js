@@ -47,7 +47,7 @@ export const es = {
     models: "Modelos",
     myModels: "Mis modelos",
     newModel: "Nuevo modelo",
-    openInEditor: "Para editar",
+    openInEditor: "Abrir con el editor",
     seeDetails: "Detalles",
     autor: "Autor",
     title: "Título",

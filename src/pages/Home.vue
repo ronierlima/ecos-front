@@ -27,8 +27,19 @@
     <section class="produtos" id="produtos">
 
       <h1>{{ language.home.models }}</h1>
+      <v-pagination class="my-4" v-model="page" :length="pageSize" @input="pageChange"></v-pagination>
+      <v-item-group>
+        <v-container>
+          <v-row alignIte="center">
+            <v-col v-for="modelo in modelos" :key="modelo.codigo">
+              <v-item>
+                <CardModelo :modelo="modelo" :canEdit="false" :refresh="() => {}" />
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-item-group>
 
-      <Models :modelos="modelos" />
 
       <div class="sectionPlus">
         <a id="plusModels" :href="language.routes.publicModels">
@@ -46,7 +57,7 @@
             <p>PINHEIRO, F. V. da S.; COUTINHO, E. F.; SANTOS, I.; BEZERRA, C. I. M. A Tool for Supporting the Teaching
               and Modeling of Software Ecosystems Using SSN Notation. Journal on Interactive Systems, Porto Alegre, RS,
               v.
-              13, n. 1, p. 192–204, 2022. DOI: 10.5753/jis.2022.2602. {{language.home.availableIn}}:
+              13, n. 1, p. 192–204, 2022. DOI: 10.5753/jis.2022.2602. {{ language.home.availableIn }}:
               <a
                 href="https://sol.sbc.org.br/journals/index.php/jis/article/view/2602">https://sol.sbc.org.br/journals/index.php/jis/article/view/2602</a>.
             </p>
@@ -79,43 +90,50 @@
       </div>
 
     </section>
- 
+
   </MainPage>
 </template>
 
 <script>
 import { services } from "../services";
 import MainPage from "../components/MainPage.vue"
-import Models from "../components/Models.vue"
+import CardModelo from "../components/CardModelo.vue";
 
 export default {
   name: "Home",
   components: {
-    Models,
-    MainPage
-  },
+    MainPage,
+    CardModelo
+},
   inject: ['getLanguage'],
-  
+
   data() {
     return {
       modelos: [],
       modelInShow: null,
       showModalDetails: false,
-      bibtex: ""
+      bibtex: "",
+      pageSize: 1,
+      page: 1,
     };
   },
 
   methods: {
 
-    getModelos() {
+    getModelos(props = { size: 6 }) {
       services.models
-        .list({ size: 6 })
+        .list(props)
         .then((res) => {
           this.modelos = res.data.content;
+          this.pageSize = res.data.totalPages;
         })
         .catch(() => {
           this.$toast.error(this.language.messages.loadErro)
         });
+    },
+
+    pageChange(page) {
+      this.getModelos({ size: 6, page: page - 1 })
     },
 
     copy() {
