@@ -20,11 +20,11 @@
 
             <div class="container">
 
-                <div v-if="evolucaoGerada && modelosCheckedDetais.length">
+                <div v-if="evolucaoGerada && modelosFinal.length">
 
                     <v-expansion-panels multiple>
 
-                        <v-expansion-panel v-for="(modelo, index) in modelosCheckedDetais" :key="modelo.codigo">
+                        <v-expansion-panel v-for="(modelo, index) in modelosFinal" :key="index">
 
                             <v-expansion-panel-header>
                                 <h2>{{ index + 1 + " - " + modelo.titulo }}</h2>
@@ -58,22 +58,22 @@
                                 </div>
 
                                 <div class="evolucao-modelo-chart">
-                                    <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
-                                        v-bind:data="modelo.data" />
+                                    <BarChart :options="{ ...options, title: modelo.titulo + ' - Gráfico Numérico' }"
+                                        :type="type" v-bind:data="modelo.data" />
                                 </div>
 
                                 <div class="evolucao-modelo-chart">
-                                    <BarChart :options="{ ...options, title: modelo.titulo }" :type="type"
-                                        v-bind:data="modelo.percent" />
+                                    <BarChart :options="{ ...options, title: modelo.titulo + ' - Gráfico Percentual' }"
+                                        :type="type" v-bind:data="modelo.percent" />
                                 </div>
 
                             </v-expansion-panel-content>
                         </v-expansion-panel>
 
-                        <v-expansion-panel :key="1">
+                        <v-expansion-panel key="serial1">
                             <v-expansion-panel-header>
                                 <h2>{{
-                                `${this.modelosCheckedDetais.length + 1} - Comparação entre as versões dos modelos
+                                `${this.modelosFinal.length + 1} - Comparação entre as versões dos modelos
                                 do ECOS` }}</h2>
                             </v-expansion-panel-header>
 
@@ -85,18 +85,18 @@
                                         },
                                 
                                         height: 600,
-                                    }, title: 'Comparação entre os modelos'
-                                }" :type="type" :data="modelosComparar" :multiple="true" />
+                                    }, title: 'Comparação numérica entre os modelos'
+                                }" :type="type" :data="modelosFinalComparacao" :multiple="true" />
 
                                 <BarChart :options="{
                                     ...{
                                         chart: {
-                                            title: 'Comparação entre modelos %',
+                                            title: 'Comparação percentual entre modelos %',
                                         },
                                 
                                         height: 600,
-                                    }, title: 'Comparação entre os modelos'
-                                }" :type="type" :data="modelosCompararPercent" />
+                                    }, title: 'Comparação percentual entre os modelos'
+                                }" :type="type" :data="modelosFinalCompararPercent" />
 
                                 <BarChart :options="{
                                     ...{
@@ -116,9 +116,9 @@
                                     ...{
                                 
                                         height: 600,
-                                    }, title: 'Diferença númerica'
+                                    }, title: 'Diferença numérica'
                                 }" :type="type"
-                                    :data="diferenca(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
+                                    :data="diferenca(modelosFinal[0], modelosFinal[modelosFinal.length - 1])" />
 
                                 <BarChart :options="{
                                     ...{
@@ -126,37 +126,21 @@
                                         height: 600,
                                     }, title: 'Variação Percentual'
                                 }" :type="type"
-                                    :data="diferencaPercentual(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
+                                    :data="diferencaPercentual(modelosFinal[0], modelosFinal[modelosFinal.length - 1])" />
                             </v-expansion-panel-content>
 
                             <v-expansion-panel-content>
 
-                                <BarChart :options="{
-                                    ...{
-                                
-                                        height: 600,
-                                    }, title: 'Diferença númerica'
-                                }" :type="type"
-                                    :data="diferenca(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
-
-                                <BarChart :options="{
-                                    ...{
-                                
-                                        height: 600,
-                                    }, title: 'Variação Percentual'
-                                }" :type="type"
-                                    :data="diferencaPercentual(modelosCheckedDetais[0], modelosCheckedDetais[modelosCheckedDetais.length - 1])" />
-
-                                <div v-for="({ numerico: modelo, percentual: modeloP, media, name }) in gerarComparacaoEndToEnd(modelosCheckedDetais)"
+                                <div v-for="({ numerico: modelo, percentual: modeloP, media, name }) in gerarComparacaoEndToEnd(modelosFinal)"
                                     :key="modelo.codigo">
-                                    <v-chip class="ma-2" color="red" label text-color="white">
+                                    <v-chip class="ma-2 ml-0" color="red" label text-color="white">
                                         <v-icon left>
                                             mdi-label
                                         </v-icon>
-                                        {{name}}
+                                        {{ name }}
                                     </v-chip>
                                     <v-data-table hide-default-footer
-                                        :headers="[{ text: modelo[0][0], value: 'name' }, { text: 'Diferença Numerica', value: 'total' }, { text: 'Diferença Numerica', value: 'percentual' }, { text: 'Média', value: 'media' }]"
+                                        :headers="[{ text: modelo[0][0], value: 'name' }, { text: 'Diferença Numérica', value: 'total' }, { text: 'Diferença Percentual', value: 'percentual' }, { text: 'Média', value: 'media' }]"
                                         :items="modelo.map((m, i) => i != 0 ? ({ name: m[0], total: m[1], percentual: modeloP[i][2], media: media[i][1] }) : null).filter(v => v)"
                                         class="elevation-1 mb-7">
                                         <template v-slot:item.total="{ item }">
@@ -177,6 +161,22 @@
                                     </v-data-table>
 
                                 </div>
+
+                                <v-chip class="ma-2 ml-0" color="red" label text-color="white">
+                                    <v-icon left>
+                                        mdi-label
+                                    </v-icon>
+                                   Métricas Quantitativas
+                                </v-chip>
+                                <v-data-table hide-default-footer
+                                    :headers="[{ text: `Métrica`, value: 'title' }, { text: `Total`, value: 'valor' }]"
+                                    :items="metricasQuantitativas" class="elevation-1 mb-7">
+                                    <template v-slot:item.valor="{ item }">
+                                        <v-chip dark>
+                                            {{ item.valor }}
+                                        </v-chip>
+                                    </template>
+                                </v-data-table>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
                     </v-expansion-panels>
@@ -232,10 +232,6 @@ export default {
             page: 1,
             modelosChecked: [],
             modelosCheckedDetais: [],
-            modelosComparar: [],
-            modelosCompararPercent: [],
-            compararComponentes: [],
-            compararRelacionamentos: [],
             diferencaNumericaComponentes: [],
             allHasChecked: false,
             requestModelos: [],
@@ -254,11 +250,11 @@ export default {
                 title: '',
                 chartArea: { width: '100%' },
                 hAxis: {
-                    title: 'Número de componentes',
+                    title: 'Componentes SSN',
                     minValue: 0,
                 },
                 vAxis: {
-                    title: 'Componentes',
+                    title: 'Componentes SSN',
                 },
                 width: 900,
                 height: 900,
@@ -275,7 +271,7 @@ export default {
 
     methods: {
 
-        getModelos(props = { size: 6 }) {
+        getModelos(props = { size: 20 }) {
             services.models
                 .list(props)
                 .then((res) => {
@@ -292,30 +288,6 @@ export default {
         },
 
         async gerar() {
-
-            let header = [
-                this.language.model.models,
-                this.language.company_of_interest,
-                { role: 'annotation', type: 'string' },
-                this.language.supplier,
-                { role: 'annotation', type: 'string' },
-                this.language.customer,
-                { role: 'annotation', type: 'string' },
-                this.language.customer_customer,
-                { role: 'annotation', type: 'string' },
-                this.language.intermediary,
-                { role: 'annotation', type: 'string' },
-                this.language.aggregator,
-                { role: 'annotation', type: 'string' },
-                this.language.relacionamentos,
-                { role: 'annotation', type: 'string' },
-            ]
-
-            this.modelosComparar = [header];
-            this.modelosCompararPercent = [header];
-            this.compararComponentes = [['Modelo', 'Componentes', { role: 'annotation', type: 'string' }]]
-            this.compararRelacionamentos = [['Modelo', 'Relacionamentos', { role: 'annotation', type: 'string' }]]
-
 
             await this.modelosChecked.forEach(async (id) => {
 
@@ -395,14 +367,10 @@ export default {
                     data: [['Componentes', 'Quantidade', { role: 'annotation', type: 'string' }],
                     ...tipos.map(item => [item.nome, item.total, item.total])],
                     percent: [['Componentes', 'Porcentagem (%)', { role: 'annotation', type: 'string' }],
-                    ...tipos.map(item => [item.nome, parseFloat((item.total / total * 100).toFixed(2)), (item.total / total * 100).toFixed(2) + "%"])], estatisticas
+                    ...tipos.map(item => [item.nome, parseFloat((item.total / total * 100).toFixed(2)), (item.total / total * 100).toFixed(2) + "%"])], estatisticas, estatisticasPercent,
+                    relacionamentos: [atualModelo.titulo, tipos.reduce((total, obj) => total + obj.total, 0), tipos.reduce((total, obj) => total + obj.total, 0)],
+                    componentes: [atualModelo.titulo, occurrences(resposta.data, `edge="1"`), occurrences(resposta.data, `edge="1"`).toString()]
                 }]
-
-                this.modelosComparar = [...this.modelosComparar, [atualModelo.titulo, ...Object.values(estatisticas)]]
-                this.modelosCompararPercent = [...this.modelosCompararPercent, [atualModelo.titulo, ...Object.values(estatisticasPercent)]]
-
-                this.compararComponentes = [...this.compararComponentes, [atualModelo.titulo, tipos.reduce((total, obj) => total + obj.total, 0), tipos.reduce((total, obj) => total + obj.total, 0)]]
-                this.compararRelacionamentos = [...this.compararRelacionamentos, [atualModelo.titulo, occurrences(resposta.data, `edge="1"`), occurrences(resposta.data, `edge="1"`).toString()]]
             }
             )
 
@@ -431,15 +399,26 @@ export default {
         diferencaPercentual(modelo1, modelo2) {
 
             const array = []
-            if (modelo1.data.length && modelo2.data.length)
+            if (modelo1.percent.length && modelo2.percent.length)
 
-                modelo2?.data?.forEach((value, index) => {
+                modelo2?.percent?.forEach((value, index) => {
 
                     if (index === 0) array.push([value[0], "Percentual", value[2]])
                     else {
+
+                        const maior = Math.max(value[1], modelo1.percent[index][1]);
+
+                        const menor = Math.min(value[1], modelo1.percent[index][1]);
+
+                        const diff = maior - menor;
+
+                        const div = diff / menor;
+
+                        const multiplicacao = div * 100;
+
                         array.push([value[0],
-                        parseFloat(((((Math.max(value[1], modelo1.data[index][1])) - (Math.min(value[1], modelo1.data[index][1]))) / (Math.min(value[1], modelo1.data[index][1]))) * 100).toFixed(2)),
-                        ((((Math.max(value[1], modelo1.data[index][1])) - (Math.min(value[1], modelo1.data[index][1]))) / (Math.min(value[1], modelo1.data[index][1]))) * 100).toFixed(2) + "%",
+                        parseFloat(multiplicacao.toFixed(2)),
+                        (multiplicacao).toFixed(2) + '%'
                         ])
                     }
                 });
@@ -471,12 +450,12 @@ export default {
             if (modelos.length % 2 === 0) {
 
                 for (let index = 0; index < modelos.length; index += 2) {
-                    array.push({name: `${modelos[index].titulo} X ${modelos[index+1].titulo}`, numerico: this.diferenca(modelos[index], modelos[index + 1]), percentual: this.diferencaPercentual(modelos[index], modelos[index + 1]), media: this.media(modelos[index], modelos[index + 1]) })
+                    array.push({ name: `${modelos[index].titulo} X ${modelos[index + 1].titulo}`, numerico: this.diferenca(modelos[index], modelos[index + 1]), percentual: this.diferencaPercentual(modelos[index], modelos[index + 1]), media: this.media(modelos[index], modelos[index + 1]) })
                 }
 
             } else {
                 for (let index = 0; index < modelos.length - 1; index++) {
-                    array.push({name: `${modelos[index].titulo} X ${modelos[index+1].titulo}`, numerico: this.diferenca(modelos[index], modelos[index + 1]), percentual: this.diferencaPercentual(modelos[index], modelos[index + 1]), media: this.media(modelos[index], modelos[index + 1]) })
+                    array.push({ name: `${modelos[index].titulo} X ${modelos[index + 1].titulo}`, numerico: this.diferenca(modelos[index], modelos[index + 1]), percentual: this.diferencaPercentual(modelos[index], modelos[index + 1]), media: this.media(modelos[index], modelos[index + 1]) })
                 }
             }
 
@@ -499,10 +478,85 @@ export default {
         language() {
             return this.getLanguage();
         },
+        modelosFinal() {
+            return this.modelosChecked.map(id => this.modelosCheckedDetais.find(({ codigo }) => codigo === id))
+        },
+        modelosFinalComparacao() {
+
+            let header = [
+                this.language.model.models,
+                this.language.company_of_interest,
+                { role: 'annotation', type: 'string' },
+                this.language.supplier,
+                { role: 'annotation', type: 'string' },
+                this.language.customer,
+                { role: 'annotation', type: 'string' },
+                this.language.customer_customer,
+                { role: 'annotation', type: 'string' },
+                this.language.intermediary,
+                { role: 'annotation', type: 'string' },
+                this.language.aggregator,
+                { role: 'annotation', type: 'string' },
+                this.language.relacionamentos,
+                { role: 'annotation', type: 'string' },
+            ]
+
+            return [header, ...this.modelosChecked
+                .map(id => this.modelosCheckedDetais
+                    .find(({ codigo }) => codigo === id))
+                .map((atualModelo) => [atualModelo.titulo, ...Object.values(atualModelo.estatisticas)])]
+
+        },
+        modelosFinalCompararPercent() {
+            let header = [
+                this.language.model.models,
+                this.language.company_of_interest,
+                { role: 'annotation', type: 'string' },
+                this.language.supplier,
+                { role: 'annotation', type: 'string' },
+                this.language.customer,
+                { role: 'annotation', type: 'string' },
+                this.language.customer_customer,
+                { role: 'annotation', type: 'string' },
+                this.language.intermediary,
+                { role: 'annotation', type: 'string' },
+                this.language.aggregator,
+                { role: 'annotation', type: 'string' },
+                this.language.relacionamentos,
+                { role: 'annotation', type: 'string' },
+            ]
+            return [header, ...this.modelosChecked
+                .map(id => this.modelosCheckedDetais
+                    .find(({ codigo }) => codigo === id))
+                .map((atualModelo) => [atualModelo.titulo, ...Object.values(atualModelo.estatisticasPercent)])]
+
+        },
+        compararComponentes() {
+
+            return [['Modelo', 'Componentes', { role: 'annotation', type: 'string' }], ...this.modelosChecked.map(id => this.modelosCheckedDetais.find(({ codigo }) => codigo === id).componentes)]
+        },
+        compararRelacionamentos() {
+            return [['Modelo', 'Relacionamentos', { role: 'annotation', type: 'string' }], ...this.modelosChecked.map(id => this.modelosCheckedDetais.find(({ codigo }) => codigo === id).relacionamentos)]
+        },
+        metricasQuantitativas() {
+            const obj = [
+                { title: 'Alteração no número de componentes no geral', valor: this.modelosFinal[this.modelosFinal.length - 1].total - this.modelosFinal[0].total },
+                { title: 'Alteração no número de empresa de interesse', valor: this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.company_of_interest] - this.modelosFinal[0].estatisticas[this.language.company_of_interest] },
+                { title: 'Alteração no número de fornecedor', valor: this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.supplier] - this.modelosFinal[0].estatisticas[this.language.supplier] },
+                { title: 'Alteração no número de cliente', valor: this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.customer] - this.modelosFinal[0].estatisticas[this.language.customer] },
+                { title: 'Alteração no número de cliente do cliente', valor: this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.customer_customer] - this.modelosFinal[0].estatisticas[this.language.customer_customer] },
+                { title: 'Alteração no número de intermediário', valor: this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.intermediary] - this.modelosFinal[0].estatisticas[this.language.intermediary] },
+                { title: 'Alteração no número de agregador', valor: this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.aggregator] - this.modelosFinal[0].estatisticas[this.language.aggregator] },
+                { title: 'Alteração no número de relacionamentos', valor: this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.relacionamentos] - this.modelosFinal[0].estatisticas[this.language.relacionamentos] },
+                { title: 'Média de evolução dos componentes', valor: (this.modelosFinal[this.modelosFinal.length - 1].total + this.modelosFinal[0].total) / 2 },
+                { title: 'Média de evolução por relacionamentos', valor: (this.modelosFinal[this.modelosFinal.length - 1].estatisticas[this.language.relacionamentos] + this.modelosFinal[0].estatisticas[this.language.relacionamentos]) / 2 },
+            ]
+            return obj
+        }
     }
+
 };
 </script>
-
 
 <style >
 #registerEvolucao {
